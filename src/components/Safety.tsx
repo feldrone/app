@@ -5,8 +5,9 @@ import { safetyImage } from "../lib/images";
 /**
  * Operational standards — the single intentional dark band on the page,
  * used as a register change, not as an aesthetic. Claims here are kept
- * strictly at the level the company's own positioning supports:
- * certified pilots, plan-before-fly, aviation-grade supervision.
+ * strictly at the level the company's own positioning supports: certified
+ * remote pilots, plan-before-fly, structured supervision. Imagery is UAV
+ * ground operations; no manned-aircraft visuals anywhere.
  */
 const standards = [
   {
@@ -25,7 +26,7 @@ const standards = [
     n: "S.3",
     label: "Supervision aéronautique",
     detail:
-      "La flotte est exploitée sous une supervision héritée des standards de l'aviation militaire, cadre de référence de notre direction des opérations.",
+      "La flotte est exploitée sous supervision aéronautique : protocoles, check-lists et traçabilité à chaque sortie.",
   },
 ];
 
@@ -44,7 +45,7 @@ export default function Safety() {
               eyebrow="Sécurité & normes d'exploitation"
               tone="navy"
               title="La sécurité aérienne n'est pas une option. C'est le socle."
-              lede="Notre direction des opérations applique à chaque mission la même rigueur de planification, de vérification et de supervision qu'en aviation. Aucun vol n'est improvisé."
+              lede="Notre direction des opérations applique à chaque mission une rigueur égale à celle des opérations aériennes : planification, vérification, supervision. Aucun vol n'est improvisé."
             />
 
             <dl className="mt-12">
@@ -85,8 +86,8 @@ export default function Safety() {
                   />
                 </div>
                 <figcaption className="absolute bottom-5 left-5 right-5 text-[12.5px] leading-snug text-white/80">
-                  Inspection avant vol : le geste le plus important est celui qui précède le
-                  décollage.
+                  Contrôle pré-vol au sol : le geste le plus important est celui qui précède
+                  le décollage.
                 </figcaption>
               </figure>
             </Reveal>

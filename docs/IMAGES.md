@@ -15,14 +15,21 @@ to WebP/AVIF and swap the URL builders in `src/lib/images.ts` for local paths.
 | Placement | Subject | Pexels page |
 | --- | --- | --- |
 | Hero | Drone operator controlling a drone at a wind farm | https://www.pexels.com/photo/drone-operator-in-wind-farm-landscapes-28467369/ |
-| L'expertise | Airplane cockpit instrument panel (shown grayscale) | https://www.pexels.com/photo/dashboard-in-airplane-15673268/ |
-| Sécurité & normes | Technician performing a pre-flight inspection of a light aircraft | https://www.pexels.com/photo/young-man-standing-next-to-an-airplane-11075016/ |
-| Pôle 01 — Commerce | Drone and radio controller prepared for flight, overhead view | https://www.pexels.com/photo/drone-and-controller-on-outdoor-table-setup-34585109/ |
+| L'expertise | Remote pilot's hands on a drone controller with video-return smartphone (shown grayscale) | https://www.pexels.com/photo/close-up-shot-of-a-person-operating-a-drone-controller-8981852/ |
+| Sécurité & normes | Professional drone and controller laid out on the ground, checked and ready before take-off | https://www.pexels.com/photo/drone-and-controller-on-outdoor-table-setup-34585109/ |
+| Pôle 01 — Commerce | Professional drone and controller in raking light, product-ready presentation | https://www.pexels.com/photo/close-up-photo-of-a-dji-mavic-drone-9182739/ |
 | Pôle 02 — Location | Aerial view of a river winding through forest and mountains | https://www.pexels.com/photo/an-aerial-photography-of-green-trees-on-mountains-9152367/ |
 | Pôle 03 — Maintenance | Technician repairing a drone with precision tools at a workbench | https://www.pexels.com/photo/man-repairs-drone-using-pliers-in-workshop-32208773/ |
 | Pôle 04 — Prestations | Farmer operating an agricultural drone over a field | https://www.pexels.com/photo/drone-and-farmer-in-a-lush-field-setting-34182316/ |
 | Social preview (og:image) | Same photograph as the hero, 1200×630 crop | (photo 28467369) |
 
+**Content policy (binding):** every aviation image on the site must show a
+real professional drone / UAV, its operators, payload or workshop — never
+manned aircraft, cockpits, airliners, airports or military hardware. The
+former cockpit (15673268) and light-aircraft inspection (11075016) photos
+were removed on audit because they made the site read as a manned-aviation
+company. When swapping imagery, keep to the Pexels License.
+
 Photographic direction for any future additions: documentary, natural
-light, real operations; no renders, no sci-fi drones, no exaggerated blue
-color grading.
+light, real operations; no renders, no toy drones, no sci-fi, no
+exaggerated blue color grading.

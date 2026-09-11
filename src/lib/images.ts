@@ -1,11 +1,14 @@
 /**
  * Photography system — FEL DRONE.
  *
- * One coherent direction: authentic operational photography (real pilots,
- * real workshops, real field work). No renders, no sci-fi drones, no staged
- * "cheese". Every asset is licensed stock photography hosted on the Pexels
- * CDN under the Pexels License (free for commercial use, no attribution
- * required — see docs/IMAGES.md for the full inventory).
+ * One coherent direction, and one hard rule: only real, professional
+ * DRONE / UAV photography — operators, aircraft, controllers, workshops,
+ * field missions. Manned aviation (cockpits, airliners, light aircraft,
+ * airfields) is excluded by policy: the site must never read as an
+ * airline or a military unit. No renders, no toy drones, no sci-fi, no
+ * staged stock "cheese". Every asset is licensed stock photography hosted
+ * on the Pexels CDN under the Pexels License (free for commercial use, no
+ * attribution required — see docs/IMAGES.md for the full inventory).
  *
  * Crops and compression are pinned through CDN parameters, so each image
  * renders at exactly the aspect ratio of its layout container — zero
@@ -71,16 +74,16 @@ export const heroImage: Img = photo({
   sizes: "(max-width: 1023px) 100vw, 44vw",
 });
 
-export const heritageImage: Img = photo({
-  id: 15673268,
-  alt: "Tableau de bord d'un poste de pilotage d'avion, instruments de vol et commandes",
+export const controlImage: Img = photo({
+  id: 8981852,
+  alt: "Mains d'un télépilote tenant la radiocommande d'un drone professionnel, smartphone de retour vidéo fixé sur le support",
   ratio: [4, 5],
   sizes: "(max-width: 1023px) 92vw, 38vw",
 });
 
 export const safetyImage: Img = photo({
-  id: 11075016,
-  alt: "Technicien effectuant l'inspection pré-vol d'un petit avion sur un aérodrome",
+  id: 34585109,
+  alt: "Drone professionnel et radiocommande posés au sol, préparés et contrôlés avant le décollage",
   ratio: [4, 5],
   sizes: "(max-width: 1023px) 92vw, 32vw",
 });
@@ -92,8 +95,8 @@ export const safetyImage: Img = photo({
 
 export const pillarImages: Record<string, Img> = {
   commerce: photo({
-    id: 34585109,
-    alt: "Vue de dessus d'un drone et de sa radiocommande préparés pour le vol, matériel opérationnel",
+    id: 9182739,
+    alt: "Drone professionnel et sa radiocommande présentés en lumière rasante, matériel prêt à la livraison",
     ratio: [16, 10],
     sizes: "(max-width: 1023px) 92vw, 46vw",
   }),

@@ -2,9 +2,15 @@
  * Central content source for the FEL DRONE corporate website.
  *
  * Every factual value below comes from the company-supplied dossier
- * (legal identity, RC registry data, contacts, registered activities,
- * leadership). Nothing here is decorative: if it is not supported by the
- * supplied data, it is not on the site.
+ * (legal identity, contacts, registered activities, leadership). Nothing
+ * here is decorative: if it is not supported by the supplied data, it is
+ * not on the site.
+ *
+ * EDITORIAL RULE — registry and financial fields (`rc`, `rcDate`,
+ * `capital`) are internal records only. They are never rendered inside the
+ * marketing experience (hero, sections, leadership, footer body); at most
+ * the registry number appears in the discreet "Mentions légales" block,
+ * reachable from the footer. Share capital is not displayed anywhere.
  *
  * Keeping structured data here — rather than hard-coded inside JSX — makes
  * it straightforward to extend later (new poles, new leadership entries,
@@ -16,8 +22,11 @@ import { pillarImages, type Img } from "../lib/images";
 export const company = {
   legalName: "SARL FEL DRONE",
   shortName: "FEL DRONE",
+  /** Internal record — Mentions légales only, never in marketing UI. */
   rc: "776099",
+  /** Internal record — not rendered. */
   rcDate: "28.07.2026",
+  /** Internal record only — do not display in the public interface. */
   capital: "1 000 000 DA",
   addressLine1: "Cité 150 Logements",
   addressLine2: "Commune de Aïn El Assel, Wilaya d'El Tarf",
@@ -52,7 +61,7 @@ export const team: TeamMember[] = [
   {
     name: "Menouar Fellah",
     role: "Partenaire — Aviation & Opérations",
-    note: "Colonel (à la retraite) de l'Armée de l'Air, ancien commandant de bord C-130 et IL-76. Référence de la supervision des vols et de la culture sécurité.",
+    note: "Cadre de l'aviation (à la retraite) — référent de la supervision des vols et de la culture sécurité.",
     initials: "MF",
   },
   {
@@ -133,16 +142,20 @@ export const activities = [
 
 export const navLinks = [
   { href: "#expertise", label: "Expertise" },
-  { href: "#poles", label: "Pôles d'activité" },
+  { href: "#poles", label: "Services" },
   { href: "#securite", label: "Sécurité" },
-  { href: "#direction", label: "Direction" },
+  { href: "#direction", label: "Entreprise" },
   { href: "#contact", label: "Contact" },
 ];
 
-/** Corporate facts shown under the hero — strictly legal identity data. */
-export const facts = [
-  { label: "Siège social", value: "El Tarf, Algérie" },
-  { label: "Capital social", value: "1 000 000 DA" },
-  { label: "Registre de commerce", value: "N° 776099" },
-  { label: "Télépilotes", value: "Certifiés Classe 3" },
+/**
+ * Application fields — rendered as the hero capability rail. Sourced
+ * strictly from the four service poles; replaces the former registry /
+ * share-capital strip, which has no place in a marketing layout.
+ */
+export const sectors = [
+  { label: "Agriculture", value: "Imagerie NDVI & traitement de précision" },
+  { label: "BTP & Topographie", value: "Relevés, plans et modélisation 3D" },
+  { label: "Industrie", value: "Inspection thermographique des actifs" },
+  { label: "Sécurité civile", value: "Appui opérationnel par drone" },
 ];

@@ -52,8 +52,7 @@ export default function Leadership() {
               ))}
             </ul>
             <p className="mt-5 text-[13px] leading-relaxed text-mute">
-              Les fonctions ci-dessus correspondent aux mandats enregistrés. Les équipes
-              opérationnelles sont constituées par mission, autour de ce noyau permanent.
+              Les rôles ci-dessus reflètent les fonctions exercées au sein de la société.
             </p>
           </div>
         </div>

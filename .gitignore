@@ -8,3 +8,4 @@ generated
 !.env.example
 *.local
 .DS_Store
+image-search/

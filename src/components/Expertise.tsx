@@ -1,11 +1,12 @@
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
-import { heritageImage } from "../lib/images";
+import { controlImage } from "../lib/images";
 
 /**
  * Capability statement — two disciplines, one standard of execution.
- * Numbered editorial rows instead of icon cards; the grayscale cockpit
- * image anchors the "crewed-aviation heritage" claim visually.
+ * Numbered editorial rows instead of icon cards; the grayscale shot of a
+ * ground station in the field anchors the discipline claim visually — the
+ * operator's hands, not an aircraft type, carry the credibility.
  */
 const principles = [
   {
@@ -36,19 +37,19 @@ export default function Expertise() {
               <figure className="lg:mr-10">
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-navy-900">
                   <img
-                    src={heritageImage.src}
-                    srcSet={heritageImage.srcSet}
-                    sizes={heritageImage.sizes}
-                    width={heritageImage.width}
-                    height={heritageImage.height}
-                    alt={heritageImage.alt}
+                    src={controlImage.src}
+                    srcSet={controlImage.srcSet}
+                    sizes={controlImage.sizes}
+                    width={controlImage.width}
+                    height={controlImage.height}
+                    alt={controlImage.alt}
                     className="h-full w-full object-cover grayscale"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
                 <figcaption className="mt-4 max-w-xs text-[13px] leading-relaxed text-mute">
-                  Une culture de la précision héritée de l'aviation habitée — check-lists,
+                  La station de contrôle avant chaque mission : check-list, briefing,
                   collégialité, refus de l'improvisation.
                 </figcaption>
               </figure>
@@ -65,7 +66,7 @@ export default function Expertise() {
                   Deux disciplines réunies : la sécurité aérienne et l'ingénierie moderne.
                 </>
               }
-              lede="FEL DRONE est née de la rencontre entre une discipline opérationnelle forgée dans l'aviation et une maîtrise fine des systèmes embarqués. Cette double culture structure notre manière de vendre, d'exploiter et d'entretenir chaque appareil : rien n'est laissé à l'approximation."
+              lede="FEL DRONE réunit une discipline opérationnelle héritée des standards de l'aviation et une maîtrise fine des systèmes embarqués. Cette double culture structure notre manière de vendre, d'exploiter et d'entretenir chaque drone : rien n'est laissé à l'approximation."
             />
 
             <dl className="mt-12">

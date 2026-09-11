@@ -112,15 +112,11 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Print — the administrative dossier prints as a clean document        */
+/* Print — clean document rendering of the full page                     */
 /* ------------------------------------------------------------------ */
-.print-only {
-  display: none;
-}
-
 @media print {
   @page {
-    margin: 18mm 16mm;
+    margin: 16mm 14mm;
   }
   html {
     background: #fff;
@@ -130,23 +126,24 @@ body {
     color: #000 !important;
     font-size: 11pt;
   }
-  /* Hide all non-document UI and non-dossier sections */
+  /* Interface chrome has no place on paper */
   header,
-  footer,
-  nav,
   .no-print,
-  main > section:not(#dossier) {
+  iframe,
+  img {
     display: none !important;
   }
-  main {
-    padding: 0 !important;
-  }
-  #dossier {
-    padding: 0 !important;
+  footer {
     background: #fff !important;
+    color: #000 !important;
   }
-  .print-only {
-    display: block !important;
+  footer * {
+    color: #000 !important;
+  }
+  section {
+    padding-top: 6mm !important;
+    padding-bottom: 6mm !important;
+    background: #fff !important;
   }
   a {
     color: #000 !important;
@@ -155,18 +152,7 @@ body {
   a[href]::after {
     content: none !important;
   }
-  /* Document chrome removal */
-  .dossier-print {
-    box-shadow: none !important;
-    border: 1px solid #999 !important;
-    padding: 10mm 0 !important;
-  }
-  .dossier-print * {
-    color: #000 !important;
-    border-color: #bbb !important;
-    background: transparent !important;
-  }
-  /* Typographic integrity: keep headings with content, avoid ugly breaks */
+  /* Typographic integrity */
   h1,
   h2,
   h3,
@@ -175,20 +161,16 @@ body {
     break-after: avoid-page;
     page-break-after: avoid;
   }
-  .dossier-print p,
-  .dossier-print li,
-  .dossier-print dd {
+  p,
+  li,
+  dd {
     orphans: 3;
     widows: 3;
   }
-  .dossier-print section,
-  .dossier-print dl > div,
-  .dossier-print dd p {
+  section,
+  dl > div {
     break-inside: avoid;
     page-break-inside: avoid;
-  }
-  .dossier-print section + section {
-    margin-top: 6mm;
   }
   /* Reveal elements must not stay hidden if never scrolled into view */
   .reveal {

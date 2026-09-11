@@ -31,8 +31,8 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <a href="#dossier" className="text-[13.5px] text-white/70 transition-colors hover:text-white">
-                  Dossier administratif
+                <a href="#mentions-legales" className="text-[13.5px] text-white/70 transition-colors hover:text-white">
+                  Mentions légales
                 </a>
               </li>
             </ul>
@@ -65,9 +65,6 @@ export default function Footer() {
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[12.5px] text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {company.legalName}. Tous droits réservés.
-          </p>
-          <p>
-            RC N° {company.rc} du {company.rcDate} · Capital social {company.capital}
           </p>
           <a
             href="#main"

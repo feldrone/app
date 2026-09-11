@@ -24,7 +24,7 @@ npm run preview   # serve dist/ (host allowlist: *.e2b.app, see vite.config.ts)
 
 | What to change                  | Where                          |
 | ------------------------------- | ------------------------------ |
-| Legal identity, contacts, RC    | `src/data/content.ts`          |
+| Legal identity, contacts         | `src/data/content.ts`          |
 | Leadership entries (1..N)       | `src/data/content.ts → team`   |
 | Business poles                  | `src/data/content.ts → pillars`|
 | Photography (source & crops)    | `src/lib/images.ts`            |
@@ -38,9 +38,18 @@ supply the master SVG, replace the three path constants in `Logo.tsx` and
 the body of `favicon.svg` — nothing else needs to change.
 
 
-Factual rule for this site: **only company-supplied, registry-backed data is
-published.** No testimonials, no client logos, no statistics, no awards
-unless the company provides them.
+Factual rules for this site:
+
+- **Only company-supplied data is published.** No testimonials, no client
+  logos, no statistics, no awards unless the company provides them.
+- **No administrative or financial data in the marketing UI.** Share
+  capital, registry dates and similar fields live in `content.ts` as
+  internal records and are never rendered; the RC number appears solely in
+  the discreet "Mentions légales" block (footer link), outside the
+  marketing flow.
+- **Drone imagery only.** Every aviation visual must show real professional
+  UAVs, operators or workshops — never manned aircraft, cockpits, airports
+  or military hardware (see `docs/IMAGES.md`).
 
 ## Notes
 
@@ -50,8 +59,9 @@ unless the company provides them.
 - The contact form has **no backend** by design: it validates, then opens
   the visitor's mail client with a prefilled `mailto:` draft. The UI states
   this explicitly.
-- Print: the dossier section is the only section printed; letterhead and
-  page-break rules live in `src/index.css` under `@media print`.
+- Print: the whole page prints as a clean document — chrome, photos and
+  interactive UI are hidden and page-break rules keep headings with their
+  content (see `src/index.css` under `@media print`).
 - SEO head (title, OG, canonical, JSON-LD Organization) lives in
   `index.html`; adjust the domain there and in `public/robots.txt` +
   `public/sitemap.xml` when the final hostname is decided.

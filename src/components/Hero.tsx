@@ -1,12 +1,13 @@
 import { ArrowRight, PhoneCall } from "lucide-react";
 import Reveal from "./Reveal";
-import { company, facts } from "../data/content";
+import { company, sectors } from "../data/content";
 import { heroImage } from "../lib/images";
 
 /**
  * First viewport: who we are, what we do, why trust us, what to do next.
- * Asymmetric editorial split (7/5), no marketing superlatives, legal
- * facts used as the trust signal instead of decorative badges.
+ * Asymmetric editorial split (7/5). Trust comes from operational scope —
+ * never from registry numbers, capital figures or administrative plates,
+ * which do not belong in a marketing layout.
  */
 export default function Hero() {
   return (
@@ -85,31 +86,22 @@ export default function Hero() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" aria-hidden="true" />
               </div>
-              {/* Registration plate — legal identity used as visual anchor */}
-              <figcaption className="absolute bottom-5 left-5 max-w-[230px] border border-white/25 bg-navy-950/70 px-5 py-4 backdrop-blur-[2px] sm:bottom-6 sm:left-6">
-                <p className="text-[10.5px] font-medium uppercase tracking-[0.18em] text-white/70">
-                  Registre de commerce
-                </p>
-                <p className="mt-1.5 font-display text-[15px] font-semibold text-white">
-                  N° {company.rc} · Aïn El Assel
-                </p>
-              </figcaption>
             </figure>
           </Reveal>
         </div>
       </div>
 
-      {/* Corporate facts strip — editorial data rail, not a card grid */}
+      {/* Application fields rail — capability data, not a card grid */}
       <Reveal delay={200}>
         <div className="mx-auto mt-20 max-w-[1400px] border-t border-line px-6 lg:px-12">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-4">
-            {facts.map((fact) => (
-              <div key={fact.label} className="border-l border-line pl-5">
+            {sectors.map((sector) => (
+              <div key={sector.label} className="border-l border-line pl-5">
                 <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-mute">
-                  {fact.label}
+                  {sector.label}
                 </dt>
-                <dd className="mt-2 text-[17px] font-semibold tracking-tight text-navy-900">
-                  {fact.value}
+                <dd className="mt-2 text-[15px] font-semibold leading-snug tracking-tight text-navy-900">
+                  {sector.value}
                 </dd>
               </div>
             ))}
