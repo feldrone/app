@@ -5,9 +5,10 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './', // السطر الأساسي لحل مشكلة الصور والمسارات
+  base: './',
   plugins: [react(), tailwindcss(), viteSingleFile()],
   server: {
+    // Allow the sandbox/preview host (and any *.e2b.app dev host) in dev and preview.
     allowedHosts: [".e2b.app"],
   },
   preview: {
