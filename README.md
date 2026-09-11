@@ -29,13 +29,16 @@ npm run preview   # serve dist/ (host allowlist: *.e2b.app, see vite.config.ts)
 | Business poles                  | `src/data/content.ts → pillars`|
 | Photography (source & crops)    | `src/lib/images.ts`            |
 | Logo mark & wordmark            | `src/components/Logo.tsx` + `public/favicon.svg` |
+| Identity rules, lockups, palette  | `docs/BRAND.md` + `public/brand/`    |
 | Image licensing inventory       | `docs/IMAGES.md`               |
 
-The logo mark is a vector reconstruction of the official FEL DRONE logo
-(rotor assembly + FD shield) with geometry preserved 1:1 and the palette
-adapted to the site tokens (navy ink, signal-gold hubs). If the designers
-supply the master SVG, replace the three path constants in `Logo.tsx` and
-the body of `favicon.svg` — nothing else needs to change.
+The identity is the engineered "Rotor F" system (mark, wordmark, lockups)
+introduced in the 2026 brand redesign — geometry, usage rules and the full
+asset manifest live in **[`docs/BRAND.md`](docs/BRAND.md)**; ready-to-use SVGs
+in `public/brand/`. `src/components/Logo.tsx` embeds the primary horizontal
+lockup as pure vector paths, and `public/favicon.svg` is the symbol on a navy
+chip. If the brand supplies a newer master, replace the path data in those
+two files (plus `public/brand/`) — no layout changes are needed.
 
 
 Factual rules for this site:

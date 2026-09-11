@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 679 162">
+  <g fill="#0e1f30">
+    <g transform="translate(8 8)">
+      <path d="M16 8 H29 V104 H16 Z"/>
+      <path d="M16 8 H114.5 V21 H16 Z"/>
+      <path d="M16 51.5 H63.5 V64.5 H16 Z"/>
+      <path d="M53.5 58 a30.5 30.5 0 1 0 61 0 a30.5 30.5 0 1 0 -61 0 Z M66.5 58 a17.5 17.5 0 1 1 35 0 a17.5 17.5 0 1 1 -35 0 Z"/>
+      <path d="M77.5 58 a6.5 6.5 0 1 0 13 0 a6.5 6.5 0 1 0 -13 0 Z" fill="#b4823c"/>
+    </g>
+  </g>
+  <g fill="none" stroke="#0e1f30" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter">
+    <path transform="translate(170 31) scale(1.03125)" d="M4.5 64 V0 H34 M4.5 29.5 H27"/>
+    <path transform="translate(224.65625 31) scale(1.03125)" d="M34 0 H4.5 V64 H34 M4.5 29.5 H28"/>
+    <path transform="translate(279.3125 31) scale(1.03125)" d="M4.5 0 V64 H34"/>
+    <path transform="translate(356.65625 31) scale(1.03125)" d="M4.5 0 V64 M4.5 0 H21 A32 32 0 0 1 21 64 H4.5"/>
+    <path transform="translate(430.90625 31) scale(1.03125)" d="M4.5 64 V0 H20 A17.75 17.75 0 0 1 20 35.5 H4.5 M20 35.5 L43 64"/>
+    <path transform="translate(494.84375 31) scale(1.03125)" d="M3.5 32 a28.5 28.5 0 1 0 57 0 a28.5 28.5 0 1 0 -57 0"/>
+    <path transform="translate(572.1875 31) scale(1.03125)" d="M4.5 64 V0 L37.5 64 V0"/>
+    <path transform="translate(630.453125 31) scale(1.03125)" d="M34 0 H4.5 V64 H34 M4.5 29.5 H28"/>
+  </g>
+  <text x="679" y="146" text-anchor="end" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="500" letter-spacing="5.2" fill="#6b7280">EL TARF • ALGÉRIE</text>
+</svg>

@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0e1f30"/>
-  <g transform="translate(4 14.6) scale(0.0858)">
-    <path fill="#fbfaf8" fill-rule="evenodd" d="M171 128 H415 A238 139 0 0 1 415 406 H232 L171 372 V314 H263 V271 L171 223 Z M263 169 H330 A120 105 0 0 1 330 379 H263 Z"/>
-    <path fill="#fbfaf8" d="M0 15 H597 V21 H0 Z M103 0 H131 V15 H103 Z M448 0 H476 V15 H448 Z M117 41 H269 V81 H117 Z M345 41 H462 V81 H345 Z M269 31 H345 V81 H269 Z M291 15 H323 V31 H291 Z M287 81 H325 V128 H287 Z M117 27 a30 30 0 1 0 0 60 a30 30 0 1 0 0 -60 Z M462 27 a30 30 0 1 0 0 60 a30 30 0 1 0 0 -60 Z"/>
-    <path fill="#b4823c" d="M117 27 a30 30 0 1 0 0 60 a30 30 0 1 0 0 -60 Z M462 27 a30 30 0 1 0 0 60 a30 30 0 1 0 0 -60 Z"/>
+  <rect width="64" height="64" rx="14" fill="#0e1f30"/>
+  <g fill="#fbfaf8" transform="translate(8.32 11.91) scale(0.3588)">
+    <path d="M16 8 H29 V104 H16 Z"/>
+    <path d="M16 8 H114.5 V21 H16 Z"/>
+    <path d="M16 51.5 H63.5 V64.5 H16 Z"/>
+    <path d="M53.5 58 a30.5 30.5 0 1 0 61 0 a30.5 30.5 0 1 0 -61 0 Z M66.5 58 a17.5 17.5 0 1 1 35 0 a17.5 17.5 0 1 1 -35 0 Z"/>
+    <path d="M77.5 58 a6.5 6.5 0 1 0 13 0 a6.5 6.5 0 1 0 -13 0 Z" fill="#c6934a"/>
   </g>
 </svg>
