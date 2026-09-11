@@ -28,7 +28,15 @@ npm run preview   # serve dist/ (host allowlist: *.e2b.app, see vite.config.ts)
 | Leadership entries (1..N)       | `src/data/content.ts → team`   |
 | Business poles                  | `src/data/content.ts → pillars`|
 | Photography (source & crops)    | `src/lib/images.ts`            |
+| Logo mark & wordmark            | `src/components/Logo.tsx` + `public/favicon.svg` |
 | Image licensing inventory       | `docs/IMAGES.md`               |
+
+The logo mark is a vector reconstruction of the official FEL DRONE logo
+(rotor assembly + FD shield) with geometry preserved 1:1 and the palette
+adapted to the site tokens (navy ink, signal-gold hubs). If the designers
+supply the master SVG, replace the three path constants in `Logo.tsx` and
+the body of `favicon.svg` — nothing else needs to change.
+
 
 Factual rule for this site: **only company-supplied, registry-backed data is
 published.** No testimonials, no client logos, no statistics, no awards
