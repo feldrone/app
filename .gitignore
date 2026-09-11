@@ -1,0 +1,10 @@
+# fel-drone
+node_modules
+
+dist
+generated
+.env
+.env.*
+!.env.example
+*.local
+.DS_Store

@@ -3,30 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FEL DRONE — Expertise Aéronautique &amp; Solutions Drones | El Tarf, Algérie</title>
+    <title>FEL DRONE — Vente, location, maintenance &amp; prestations par drone | El Tarf, Algérie</title>
     <meta
       name="description"
-      content="SARL FEL DRONE — Société algérienne spécialisée en vente, location, maintenance et prestations de services par drone (agriculture de précision, topographie, thermographie, sécurité civile). Direction opérationnelle issue de l'aviation militaire. Basée à El Tarf."
+      content="SARL FEL DRONE — société algérienne d'El Tarf : vente, location, maintenance et prestations de services par drone (agriculture de précision, topographie, thermographie, appui à la sécurité civile). Direction des opérations issue de l'aviation. RC 776099."
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.feldrone.dz/" />
+    <meta name="author" content="SARL FEL DRONE" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="FEL DRONE" />
-    <meta property="og:title" content="FEL DRONE — Expertise Aéronautique & Solutions Drones" />
+    <meta property="og:url" content="https://www.feldrone.dz/" />
+    <meta property="og:title" content="FEL DRONE — Drones professionnels, exploités comme des aéronefs" />
     <meta
       property="og:description"
-      content="Vente, location, maintenance et prestations de services par drone. Rigueur aéronautique, précision technologique. El Tarf, Algérie."
+      content="Vente, location, maintenance et prestations de services par drone. Une discipline d'exécution héritée de l'aviation. El Tarf, Algérie."
     />
-    <meta property="og:image" content="/images/hero-drone.jpg" />
-    <meta property="og:locale" content="fr_FR" />
+    <meta
+      property="og:image"
+      content="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Télépilote en tenue opérationnelle contrôlant un drone professionnel face à un parc éolien" />
+    <meta property="og:locale" content="fr_DZ" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="FEL DRONE — Expertise Aéronautique & Solutions Drones" />
-    <meta name="twitter:description" content="Vente, location, maintenance et prestations de services par drone. El Tarf, Algérie." />
+    <meta name="twitter:title" content="FEL DRONE — Drones professionnels, exploités comme des aéronefs" />
+    <meta
+      name="twitter:description"
+      content="Vente, location, maintenance et prestations de services par drone. El Tarf, Algérie."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop"
+    />
 
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbfaf8" />
 
     <!-- Favicon (inline SVG mark) -->
     <link
@@ -37,10 +52,43 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.pexels.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
       rel="stylesheet"
     />
+
+    <!-- LCP boost: the hero photograph is known ahead of first render -->
+    <link
+      rel="preload"
+      as="image"
+      fetchpriority="high"
+      href="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop"
+      imagesrcset="https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop 800w, https://images.pexels.com/photos/28467369/pexels-photo-28467369.jpeg?auto=compress&cs=tinysrgb&w=1600&h=2000&fit=crop 1600w"
+      imagesizes="(max-width: 1023px) 100vw, 44vw"
+    />
+
+    <!-- Structured data — only facts recorded in the commercial register -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SARL FEL DRONE",
+        "alternateName": "FEL DRONE",
+        "url": "https://www.feldrone.dz/",
+        "description": "Société algérienne spécialisée dans la vente, la location, la maintenance et les prestations de services par drone professionnel.",
+        "foundingDate": "2026-07-28",
+        "email": "contact.feldrone@gmail.com",
+        "telephone": "+213661613399",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Cité 150 Logements",
+          "addressLocality": "Aïn El Assel",
+          "addressRegion": "El Tarf",
+          "addressCountry": "DZ"
+        }
+      }
+    </script>
   </head>
   <body class="antialiased">
     <div id="root"></div>

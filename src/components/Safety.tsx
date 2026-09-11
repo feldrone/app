@@ -1,51 +1,63 @@
 import Reveal from "./Reveal";
+import SectionHeading from "./SectionHeading";
+import { safetyImage } from "../lib/images";
 
-const commitments = [
+/**
+ * Operational standards — the single intentional dark band on the page,
+ * used as a register change, not as an aesthetic. Claims here are kept
+ * strictly at the level the company's own positioning supports:
+ * certified pilots, plan-before-fly, aviation-grade supervision.
+ */
+const standards = [
   {
-    figure: "Classe 3",
-    label: "Télépilotes certifiés",
-    detail: "Chaque mission est opérée par un télépilote titulaire d'une certification professionnelle Classe 3.",
+    n: "S.1",
+    label: "Compétence certifiée",
+    detail:
+      "Chaque mission est opérée par un télépilote titulaire d'une certification professionnelle.",
   },
   {
-    figure: "100%",
-    label: "Missions planifiées",
-    detail: "Aucun vol n'est engagé sans plan de vol formalisé et validation préalable des conditions d'opération.",
+    n: "S.2",
+    label: "Plan de vol systématique",
+    detail:
+      "Aucun vol n'est engagé sans plan formalisé et validation préalable des conditions d'opération.",
   },
   {
-    figure: "Militaire",
-    label: "Référentiel de supervision",
-    detail: "La flotte est exploitée sous une supervision aéronautique héritée des standards de l'aviation militaire.",
+    n: "S.3",
+    label: "Supervision aéronautique",
+    detail:
+      "La flotte est exploitée sous une supervision héritée des standards de l'aviation militaire, cadre de référence de notre direction des opérations.",
   },
 ];
 
 export default function Safety() {
   return (
-    <section aria-labelledby="safety-heading" className="relative overflow-hidden bg-[#0e1f30] py-28 text-white lg:py-36">
+    <section
+      id="securite"
+      aria-labelledby="safety-heading"
+      className="relative overflow-hidden bg-navy-900 py-28 text-white lg:py-36"
+    >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-6">
-            <Reveal>
-              <p className="mb-5 flex items-center gap-3 text-[12px] font-medium tracking-[0.24em] text-[#c6934a] uppercase">
-                <span className="h-px w-8 bg-[#c6934a]" aria-hidden="true" />
-                Sécurité &amp; conformité
-              </p>
-              <h2 id="safety-heading" className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                La sécurité aérienne n'est pas une option, c'est un socle.
-              </h2>
-              <p className="mt-6 max-w-lg text-[15.5px] leading-relaxed text-white/70">
-                Notre direction des opérations aériennes applique à chaque mission civile la même
-                rigueur de planification, de vérification et de supervision qu'en aviation
-                militaire. Aucun vol n'est improvisé.
-              </p>
-            </Reveal>
+            <SectionHeading
+              id="safety-heading"
+              eyebrow="Sécurité & normes d'exploitation"
+              tone="navy"
+              title="La sécurité aérienne n'est pas une option. C'est le socle."
+              lede="Notre direction des opérations applique à chaque mission la même rigueur de planification, de vérification et de supervision qu'en aviation. Aucun vol n'est improvisé."
+            />
 
-            <dl className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3 lg:gap-6">
-              {commitments.map((item, i) => (
-                <Reveal key={item.label} delay={i * 90}>
-                  <div className="border-t border-white/15 pt-5">
-                    <dt className="font-display text-2xl font-semibold text-white">{item.figure}</dt>
-                    <dd className="mt-2 text-[13px] font-medium tracking-wide text-[#c6934a]">{item.label}</dd>
-                    <dd className="mt-2 text-[13.5px] leading-relaxed text-white/60">{item.detail}</dd>
+            <dl className="mt-12">
+              {standards.map((item, i) => (
+                <Reveal key={item.n} delay={i * 90}>
+                  <div className="grid grid-cols-[4.25rem_1fr] gap-x-6 border-t border-white/15 py-6">
+                    <dt className="font-display text-[15px] font-medium tracking-wide text-signal-500">
+                      {item.n}
+                    </dt>
+                    <dd>
+                      <p className="text-[15.5px] font-semibold tracking-tight text-white">{item.label}</p>
+                      <p className="mt-2 max-w-md text-[14px] leading-relaxed text-white/70">{item.detail}</p>
+                    </dd>
                   </div>
                 </Reveal>
               ))}
@@ -53,16 +65,30 @@ export default function Safety() {
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">
-            <Reveal delay={100} className="relative h-full">
-              <div className="relative aspect-[4/5] w-full overflow-hidden lg:h-full lg:min-h-[420px]">
-                <img
-                  src="/images/safety-cockpit.jpg"
-                  alt="Tableau de bord d'avion, symbole de la rigueur des procédures de vol"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1622]/70 via-[#0a1622]/10 to-transparent" />
-              </div>
+            <Reveal delay={100} className="h-full">
+              <figure className="relative h-full">
+                <div className="relative aspect-[4/5] w-full overflow-hidden lg:h-full lg:min-h-[420px]">
+                  <img
+                    src={safetyImage.src}
+                    srcSet={safetyImage.srcSet}
+                    sizes={safetyImage.sizes}
+                    width={safetyImage.width}
+                    height={safetyImage.height}
+                    alt={safetyImage.alt}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-navy-950/10 to-transparent"
+                    aria-hidden="true"
+                  />
+                </div>
+                <figcaption className="absolute bottom-5 left-5 right-5 text-[12.5px] leading-snug text-white/80">
+                  Inspection avant vol : le geste le plus important est celui qui précède le
+                  décollage.
+                </figcaption>
+              </figure>
             </Reveal>
           </div>
         </div>
