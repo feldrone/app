@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* Design tokens — White Premium Corporate art direction               */
+/* Design tokens — White-first premium corporate art direction          */
+/*                                                                      */
+/* Type: Newsreader (editorial serif display, restrained optical use)   */
+/*     + Inter (text/UI). Two families, no more.                        */
+/* Color: paper/off-white dominant, deep aviation navy as the dark      */
+/*     register, one warm signal accent used sparingly.                 */
 /* ------------------------------------------------------------------ */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
 
   /* Neutrals */
   --color-paper: #fbfaf8;
   --color-ink: #12151a;
   --color-ink-soft: #3a3f47;
+  --color-mute: #6b7280;
   --color-line: #e4e2dd;
+  --color-line-strong: #d5d2ca;
 
   /* Brand — deep aviation navy + restrained warm signal accent */
   --color-navy-950: #0a1622;
@@ -21,21 +28,72 @@
   --color-signal-600: #b4823c;
   --color-signal-500: #c6934a;
   --color-signal-100: #f4ead9;
+
+  /* States */
+  --color-error: #a13b2c;
+  --color-success: #1d6b3f;
+}
+
+/* Fixed-header height is a single source of truth: header rail, hero
+   padding, scroll offsets and the mobile sheet all read this token. */
+:root {
+  --header-h: 76px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 84px;
+  }
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Offset scroll targets so fixed header never overlaps section headings */
-section[id],
-main[id] {
-  scroll-margin-top: 5.5rem;
+/* Offset scroll targets so the fixed header never covers section headings */
+section[id] {
+  scroll-margin-top: calc(var(--header-h) + 1.25rem);
 }
 
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display type: optical sizing keeps large serif cuts tight and editorial */
+.font-display {
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-signal-100);
+  color: var(--color-navy-950);
+}
+
+/* Reveal-on-scroll utility (progressive enhancement, respects reduced motion) */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
   *,
   *::before,
@@ -47,69 +105,77 @@ main[id] {
   }
 }
 
-body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Reveal-on-scroll utility (progressive enhancement, respects reduced motion) */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  will-change: opacity, transform;
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
 /* Focus visibility — accessible, brand-consistent */
 :focus-visible {
   outline: 2px solid var(--color-navy-800);
   outline-offset: 3px;
 }
 
-/* Thin, editorial scrollbar accent on webkit (progressive enhancement only) */
-::selection {
-  background: var(--color-signal-100);
-  color: var(--color-navy-950);
-}
-
 /* ------------------------------------------------------------------ */
-/* Print — Dossier administratif                                       */
+/* Print — clean document rendering of the full page                     */
 /* ------------------------------------------------------------------ */
 @media print {
-  header,
-  footer,
-  nav,
-  .no-print {
-    display: none !important;
+  @page {
+    margin: 16mm 14mm;
+  }
+  html {
+    background: #fff;
   }
   body {
     background: #fff !important;
     color: #000 !important;
+    font-size: 11pt;
   }
-  main {
-    padding: 0 !important;
+  /* Interface chrome has no place on paper */
+  header,
+  .no-print,
+  iframe,
+  img {
+    display: none !important;
+  }
+  footer {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  footer * {
+    color: #000 !important;
+  }
+  section {
+    padding-top: 6mm !important;
+    padding-bottom: 6mm !important;
+    background: #fff !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none;
   }
   a[href]::after {
     content: none !important;
   }
-  .dossier-print {
-    box-shadow: none !important;
-    border: none !important;
+  /* Typographic integrity */
+  h1,
+  h2,
+  h3,
+  dt,
+  th {
+    break-after: avoid-page;
+    page-break-after: avoid;
   }
-  .dossier-print * {
+  p,
+  li,
+  dd {
+    orphans: 3;
+    widows: 3;
+  }
+  section,
+  dl > div {
     break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* Reveal elements must not stay hidden if never scrolled into view */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
