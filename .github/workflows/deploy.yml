@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write # re-sync the built root index.html for branch-source Pages
   pages: write
   id-token: write
 
@@ -25,6 +25,17 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Sync built entry to repo root (legacy Pages branch mode)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          node scripts/sync-pages.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- index.html favicon.svg; then
+            git add index.html favicon.svg
+            git commit -m "Deploy: sync built entry for GitHub Pages [skip ci]"
+            git push origin HEAD:main
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
