@@ -18,6 +18,21 @@ npm install
 npm run dev       # local dev server
 npm run build     # production build → dist/
 npm run preview   # serve dist/ (host allowlist: *.e2b.app, see vite.config.ts)
+npm run pages:sync # after build: write the single-file bundle to ./index.html
+                   # (the entry GitHub Pages' branch source serves under /app/)
+```
+
+## GitHub Pages deployment
+
+- `base: "/app/"` in `vite.config.ts` matches the Pages project path.
+- Pages currently deploys **branch `main` / root**. The repo-root `index.html`
+  is therefore the *built* single-file bundle (generated — never edited by
+  hand); the Vite source template lives in `template.html` (`npm run dev`
+  opens `/template.html`).
+- `.github/workflows/deploy.yml` builds on every push to `main`, refreshes
+  the generated root `index.html` + `favicon.svg` (commit `[skip ci]`), and
+  additionally uploads `dist/` as a Pages artifact — so the site also works
+  out of the box if the Pages source is ever switched to "GitHub Actions".
 ```
 
 ## Content & imagery — how to change them
