@@ -1,6 +1,11 @@
 # FEL DRONE — Identity system
 
-> Status: v5.1 — refinement pass (2026-09). The mark gains a **3° forward
+> Status: v5.2 — one-word lockup + optical-weight pass (2026-09). The
+> wordmark is now the single word **FELDRONE** (no word space): one
+> construction family, two weights — **FEL** bold (12u) / **DRONE** light
+> (6.5u) — optically kerned on one ink-locked grid, and the mark's spars
+> grow 24u → 26u so the symbol balances the light half of the wordmark.
+> Prior v5.1 note stands: the mark gains a **3° forward
 > lean** — a restrained flight cue applied to the mark group only, so the
 > whole construct (discs, hubs, cut-outs) leans as one airframe at takeoff
 > roll, never the wordmark. The horizontal lockup's mark→“FEL” gap is
@@ -10,8 +15,9 @@
 > aperture, micro-detail dropped) so the mark wins at 16 px — see
 > “Sizes & clear space”.
 > Provenance (v4) holds: everything is emitted from `scripts/brand-gen.mjs`
-> and `npm run brand:check` keeps the files honest. Geometry, colours, the
-> 4u grid and the wordmark itself are otherwise unchanged from v3.
+> and `npm run brand:check` keeps the files honest. Colours, the 4u grid,
+> the lean, the rotor construct and the mark's ink outline are otherwise
+> unchanged from v3/v5.
 >
 > History: v2 “Rotor F” retired (disc read as a badge); v3 rebuilt the mark —
 > the letter F **is** the airframe; v4 moved the brand lab in-repo; v5 makes
@@ -45,34 +51,39 @@ vanishes optically; the silhouette stays the F. The wordmark never leans.
 
 | Element            | Geometry                                              |
 | ------------------ | ----------------------------------------------------- |
-| Spar/letter weight | **T = 24** (mast, both bars, skid height)              |
-| Mast               | x 36→60, y 24→158 (top flush with the forward spar)   |
-| Forward spar       | y 24→48, x 36→134 (ends at rotor 1 axis)              |
-| Sensor spar        | y 84→108, x 60→114 (ends at rotor 2 axis)             |
+| Spar weight (v5.2) | **T = 26** (mast, both bars, skid height) — 24u +8%, growth is inward    |
+| Mast               | x 36→62, y 24→158 (top flush with the forward spar)   |
+| Forward spar       | y 24→50, x 36→134 (ends at rotor 1 axis)              |
+| Sensor spar        | y 83→109, x 60→114 (centred on the rotor-2 axis, 96)  |
 | Rotor 1            | centre (134, 36), r 26; aperture r 6; hub r 5.5       |
 | Rotor 2            | centre (114, 96), r 21; aperture r 4.75; hub r 4.5    |
-| Skid               | x 24→96, y 146→170, rx 4                              |
-| Ink box            | 136 × 160 (rotor 1 breaks the top line by design)    |
+| Skid               | x 24→96, y 144→170, rx 4 (bottom line held)           |
+| Ink box            | 136 × 160 (rotor 1 breaks the top line by design)     |
 
 Rotor 1 sits at the optical apex; rotor 2 rides the mid-axis so the F cross
-is the classic 40/60 split. Every dimension is a multiple of 4; T alone sets
-the whole module.
+is the classic 40/60 split. All coordinates sit on the 2u sub-grid (spar
+half-weight 13 keeps the sensor bar exactly centred on the rotor axis);
+horizontal extents and the whole ink outline are unchanged from v3/v5.
 
-## Wordmark — “FEL DRONE”
+## Wordmark — “FELDRONE”
 
-Unchanged from v2 (it survived critique): custom monoline geometry, 9-unit
-stroke on a 64-unit cap height, butt caps, miter joins; constructed from the
-same family of parts as the mark (bars and true circles). Tracking 14.5, word
-gap 22. From v5 the wordmark starts at x 139 in the lockup canvas — pulled
-left so the mark→“F” ink gap (≈15u) sits on the same optical rhythm as the
-16u internal letter gaps.
+One unified word since v5.2 — no space between FEL and DRONE; the separation
+lives in weight, not in air. Custom monoline geometry on a 64-unit cap grid,
+butt caps, miter joins, same family of parts as the mark (bars and true
+circles). **FEL 12u** (bold/semibold optical mass), **DRONE 6.5u** (light).
+Weight changes by stroke only: every ink edge, the cap line, the mid bar
+(29.5) and the arm lengths are shared by both halves, so the L→D junction
+reads as one transition, not a font swap. Kerning: 14.5u gaps inside FEL, 14u
+at the weight junction and inside DRONE (thinner ink needs slightly less air),
+10u around the round O. From v5 the word starts at x 139 in the lockup canvas
+— the mark→“F” ink gap (≈15u) sits on the same rhythm as the internal gaps.
 
 ## Lockups
 
-1. **Primary horizontal** — symbol, gap, wordmark on a 659 × 128 canvas;
-   the mark occupies x ≈14.7→123.6 after its 3° lean (v4 column retired),
-   the wordmark begins at 139. The canvas size is frozen so every embed on
-   the site reflows zero.
+1. **Primary horizontal** — symbol, gap, wordmark on a 632 × 128 canvas
+   (v5.2: closed in from 659 as the one word is 24u shorter); the mark
+   occupies x ≈23.6→123.7 after its 3° lean, the wordmark begins at 139 and
+   its ink ends at ≈608.7 — left and right margins now mirror (≈23.5u).
 2. **Stacked** — centred symbol above wordmark, 517 × 218 (avatars,
    signage); v5 recentres the leaning mark's ink mass over the wordmark
    axis (x 197.4).
@@ -95,9 +106,11 @@ the single brand accent and is always the hub dot — never the letters.
 
 ## Sizes & clear space
 
-- Clear space on all sides: **one spar width (24u ≈ mark height ÷ 6.7)**,
+- Clear space on all sides: **one spar width (26u ≈ mark height ÷ 6.2)**,
   proportional — skid-to-whitespace rules apply as with any side bearing.
-- Horizontal lockup: minimum rendered height **24 px** (print: 8 mm).
+- Horizontal lockup: minimum rendered height **24 px** (print: 8 mm). The
+  DRONE half is a true light weight — below 24 px, or wherever the lockup
+  only fits at banner width, use the mark (favicon/symbol), not the word.
 - Symbol alone: minimum **14 px**; apertures stay open at 16 px because they
   are cut-outs, not painted rings.
 - On photo or coloured grounds use mono-white / mono-black; contrast ≥ 4.5:1.
@@ -132,7 +145,7 @@ public/brand/fel-drone-symbol-mono-black.svg
 public/brand/fel-drone-symbol-mono-white.svg
 public/brand/fel-drone-horizontal*.svg        4 variants (ink/inverted/mono black/white)
 public/brand/fel-drone-stacked*.svg           4 variants
-public/brand/fel-drone-wordmark(-white).svg   letters only (unchanged since v2)
+public/brand/fel-drone-wordmark(-white).svg   letters only — FELDRONE, two weights
 public/brand/fel-drone-horizontal-geo.svg     construction/grid sheet
 ```
 
@@ -162,6 +175,16 @@ Components never hard-code path data by hand.
 
 ## Changelog
 
+- **v5.2 (2026-09) — one-word lockup + mark optical weight.** “FEL DRONE”
+  becomes **FELDRONE**: one continuous word, weight contrast instead of a
+  word space (FEL 12u / DRONE 6.5u, kerned L→D at 14u), and the mark's
+  spars go 24u → 26u (+8%) to balance the light half. Concept, lean,
+  proportions, rotor construct, apertures and hubs are untouched; the
+  favicon needs no re-tune (its optical build already sizes to the mark's
+  ink box, which did not move). Wordmark SVG viewBox now frames the full
+  ink box (the v5.0 file cropped bar overshoot). QC: 16–512 px contact
+  sheet, light/dark + pure mono, stroke-width probes at 512 px (bold 49 /
+  light 27), favicon re-checked at 16/24/32.
 - **v5.1 (2026-09) — favicon optical size.** Dedicated small-size
   construction for the chip favicon (bigger mark mass, widened rotor-1
   aperture, micro-detail removed); A/B render QA at 16/24/32/48/64 px on

@@ -11,7 +11,12 @@
  * v4 → geometry provenance pass (files byte-stable, look unchanged).
  * v5 → refinement pass: 3° forward lean on the mark only (subtle flight
  * cue, wordmark untouched) + corrected horizontal optical spacing
- * (mark→“F” gap matched to the internal letter rhythm). To amend: change
+ * (mark→“F” gap matched to the internal letter rhythm).
+ * v5.2 → wordmark unification + mark optical weight: “FEL DRONE” becomes
+ * the single word FELDRONE (FEL bold 12u / DRONE light 6.5u on one ink-locked
+ * grid, kerning-tight L→D junction, no word space), and the mark's spars go
+ * 24u → 26u so the icon balances the light-weight half of the wordmark.
+ * Concept, proportions, grid and the 3° lean are untouched. To amend: change
  * the table once, run npm run brand:gen.
  *
  * Usage:
@@ -38,11 +43,18 @@ const GEO = {
   ink: { light: "#0e1f30", dark: "#fbfaf8", monoBlack: "#000000", monoWhite: "#ffffff" },
   accent: { light: "#b4823c", dark: "#c6934a" },
   // mast, forward spar, sensor spar, skid, rotor 1, rotor 2
+  // v5.2 optical-weight pass: spars 24u -> 26u (+8%) so the mark balances the
+  // two-weight wordmark (bold FEL / light DRONE) without going bulky. Ink
+  // outline is preserved exactly — growth is inward on shared edges: mast
+  // grows right (36..62), top bar down (24..50), sensor spar centred on its
+  // 96u axis (83..109), skid grows up (144..170). Discs, apertures and hubs
+  // untouched; canvas 168x180 unchanged, so the favicon optical size needs
+  // no re-tune.
   mark: [
-    { t: "rect", x: 36, y: 24, w: 24, h: 134 },
-    { t: "rect", x: 36, y: 24, w: 98, h: 24 },
-    { t: "rect", x: 60, y: 84, w: 54, h: 24 },
-    { t: "rect", x: 24, y: 146, w: 72, h: 24, rx: 4 },
+    { t: "rect", x: 36, y: 24, w: 26, h: 134 },
+    { t: "rect", x: 36, y: 24, w: 98, h: 26 },
+    { t: "rect", x: 60, y: 83, w: 54, h: 26 },
+    { t: "rect", x: 24, y: 144, w: 72, h: 26, rx: 4 },
     { t: "circle", cx: 134, cy: 36, r: 26 },
     { t: "circle", cx: 114, cy: 96, r: 21 },
   ],
@@ -58,29 +70,56 @@ const GEO = {
   ],
 };
 
-/* ── Wordmark glyph table (monoline, 9-unit stroke, 64 cap height) ─────── */
+/* ── Wordmark glyph table (monoline, two-weight, 64 cap grid) ─────────────
+   v5.2: one unified word FELDRONE — no word space. Contrast comes from
+   weight alone, one construction family: every glyph sits on the same
+   ink-locked grid (bar centre-lines at 0 / 29.5 / 64, left ink edge at 0,
+   right ink edges preserved), so FEL (W_BOLD) and DRONE (W_LIGHT) share
+   cap line, baseline and module. Kerning: uniform 14u centre-line gaps
+   (the 15u lockup rhythm), tightened to 10u around the round O, and the
+   L→D weight junction at 14u — present but seamless.
+   Path builder: stem x = S/2, bar right = inkEdge − S/2. */
+
+const W_BOLD = 12; // FEL — semi-bold/bold optical weight
+const W_LIGHT = 6.5; // DRONE — light/thin, still holds at 32px+
+const B = (stem, barR, mid) => `M${stem} 64 V0 H${barR} M${stem} 29.5 H${mid}`; // F
+const E = (stem, barR, mid) => `M${barR} 0 H${stem} V64 H${barR} M${stem} 29.5 H${mid}`;
+const L = (stem, barR) => `M${stem} 0 V64 H${barR}`;
 
 const GLYPHS = [
-  "M4.5 64 V0 H34 M4.5 29.5 H27", // F
-  "M34 0 H4.5 V64 H34 M4.5 29.5 H28", // E
-  "M4.5 0 V64 H34", // L
-  "M4.5 0 V64 M4.5 0 H21 A32 32 0 0 1 21 64 H4.5", // D
-  "M4.5 64 V0 H20 A17.75 17.75 0 0 1 20 35.5 H4.5 M20 35.5 L43 64", // R
-  "M3.5 32 a28.5 28.5 0 1 0 57 0 a28.5 28.5 0 1 0 -57 0", // O
-  "M4.5 64 V0 L37.5 64 V0", // N
-  "M34 0 H4.5 V64 H34 M4.5 29.5 H28", // E
+  // weight, path, advance (centre-line units)
+  [W_BOLD, B(6, 32.5, 25.5), 0], // F — arms ink to 38.5 / 31.5
+  [W_BOLD, E(6, 32.5, 26.5), 53], // E — arms ink to 38.5 / 32.5
+  [W_BOLD, L(6, 32.5), 106], // L
+  [W_LIGHT, "M3.25 0 V64 M3.25 0 H19.75 A32 32 0 0 1 19.75 64 H3.25", 158.5], // D — bowl ink 55
+  [
+    W_LIGHT,
+    "M3.25 64 V0 H18.25 A17.75 17.75 0 0 1 18.25 35.5 H3.25 M18.25 35.5 L44.25 64",
+    227.5,
+  ], // R — leg ink 47.5
+  [
+    W_LIGHT,
+    "M3.25 32 a29.75 29.75 0 1 0 59.5 0 a29.75 29.75 0 1 0 -59.5 0",
+    285,
+  ], // O — ring ink 0..66, optically reduced
+  [W_LIGHT, "M3.25 64 V0 L38.75 64 V0", 361], // N — ink 0..42
+  [W_LIGHT, E(3.25, 35.25, 29.25), 417], // E — closes the word
 ];
-// advance table in glyph space; lockups scale by W_SCALE
-const WORDMARK_X = [0, 53, 106, 181, 253, 315, 390, 446.5];
+const WORDMARK_ADV = GLYPHS.map((g) => g[2]);
+const WORDMARK_W = GLYPHS.map((g) => g[0]);
+const WORDMARK_PATHS = GLYPHS.map((g) => g[1]);
+const WORD_INK_RIGHT = 455.5; // final E right ink edge, centre-line units
+// v5.2: W_SCALE kept — 14u gaps project to the 14.4u ≈ 15u lockup rhythm.
 const W_SCALE = 1.03125;
-const W_STROKE = 9;
 // v5: mark rides 4u right (lean rebalance), wordmark pulled left so the
-// mark→“F” optical gap (≈15u) sits at the same rhythm as the 16u internal
-// letter gaps — one unified lockup, not two elements. Canvas/viewBox kept
-// at 659 × 128 so every embedding on the site reflows zero.
-const H_LOCKUP = { canvas: [659, 128], markT: [13.0, 1], markScale: 0.7, glyphY: 31 };
+// mark→“F” optical gap (≈15u) sits at the same rhythm as the internal
+// letter gaps — one unified lockup, not two elements.
+// v5.2: one unified word is 24u shorter, so the canvas closes in on it:
+// word right ink 608.7 + margin mirrors the mark's 23.6 left ink margin.
+const H_LOCKUP = { canvas: [632, 128], markT: [13.0, 1], markScale: 0.7, glyphY: 31 };
 // Skewed mark's ink centre shifts right; recentre it over the wordmark axis.
-const STACKED = { canvas: [517, 218], markT: [197.4, 1], markScale: 0.7, glyphY: 150, glyphX0: 8 };
+// Stacked: word ink width 469.7 centred on 517 → x0 = (517 − 469.7)/2.
+const STACKED = { canvas: [517, 218], markT: [197.4, 1], markScale: 0.7, glyphY: 150, glyphX0: 23.63 };
 // Favicon = OPTICAL SIZE of the mark, not a mathematical downscale (v5.1):
 // the mark fills 45u of the 64u chip (+14% mass vs the lockup projection) and
 // the rotor-1 aperture widens 6u→8.5u so the cut-out survives AA at 16 px.
@@ -114,18 +153,20 @@ const markGroup = (id, ink, accent) => {
   return `<g fill="${ink}" mask="url(#${id})">${MARK}</g>${hubs}`;
 };
 
+// per-glyph stroke weight rides on each <path> so the FEL/DRONE contrast
+// survives in every consumer (svg files, geo board, React data module).
 const glyphGroup = (xOf, y, ink, scaleTransform = true) =>
-  `<g fill="none" stroke="${ink}" stroke-width="${n(W_STROKE)}" stroke-linecap="butt" stroke-linejoin="miter">${GLYPHS.map(
+  `<g fill="none" stroke="${ink}" stroke-linecap="butt" stroke-linejoin="miter">${WORDMARK_PATHS.map(
     (d, i) =>
-      `<path transform="translate(${xOf(i)} ${n(y)})${scaleTransform ? ` scale(${n(W_SCALE)})` : ""}" d="${d}"/>`,
+      `<path stroke-width="${n(WORDMARK_W[i])}" transform="translate(${xOf(i)} ${n(y)})${scaleTransform ? ` scale(${n(W_SCALE)})` : ""}" d="${d}"/>`,
   ).join("")}</g>`;
 
-// v5 optical spacing: wordmark starts 11u earlier than v4 so the
-// mark→“F” gap matches the internal letter rhythm, not a detached island.
+// v5 optical spacing: the mark→“F” gap (≈15u) matches the internal letter
+// rhythm, not a detached island. Unchanged in v5.2 (one word, same axis).
 const LOCKUP_X0 = 139;
-const lockupX = (i) => n(LOCKUP_X0 + WORDMARK_X[i] * W_SCALE);
-const stackedX = (i) => f4(STACKED.glyphX0 + WORDMARK_X[i] * W_SCALE);
-const wordX = (i) => n(WORDMARK_X[i]);
+const lockupX = (i) => n(LOCKUP_X0 + WORDMARK_ADV[i] * W_SCALE);
+const stackedX = (i) => f4(STACKED.glyphX0 + WORDMARK_ADV[i] * W_SCALE);
+const wordX = (i) => n(WORDMARK_ADV[i]);
 
 const svgDoc = (viewBox, body) =>
   `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}">\n${body}\n</svg>\n`;
@@ -176,14 +217,17 @@ const geoSvg = () => {
     .join("")}</g>`;
   const construction = `<g fill="none" stroke="#d67d2e" stroke-width="1" opacity="0.85" transform="${markTransform(H_LOCKUP)}"><circle cx="134" cy="36" r="31"/><circle cx="114" cy="96" r="26"/><line x1="0" y1="36" x2="${n(GEO.canvas.w)}" y2="36"/><line x1="0" y1="96" x2="${n(GEO.canvas.w)}" y2="96"/><line x1="36" y1="0" x2="36" y2="${n(GEO.canvas.h)}"/><line x1="60" y1="0" x2="60" y2="${n(GEO.canvas.h)}"/><line x1="0" y1="146" x2="${n(GEO.canvas.w)}" y2="146"/><line x1="0" y1="170" x2="${n(GEO.canvas.w)}" y2="170"/></g>`;
   const caption =
-    '<text x="8" y="152" font-family="DejaVu Sans" font-size="11" fill="#7c8798">grid 4u · spar 24u · 3° forward lean · rotor 1 = ⌀52 on spar axis · rotor 2 = ⌀42 on mid axis · skid 72 × 24 · mark→word gap matches the 15u internal letter rhythm</text>';
+    '<text x="8" y="152" font-family="DejaVu Sans" font-size="11" fill="#7c8798">grid 4u · spar 26u · 3° forward lean · rotor 1 = ⌀52 on spar axis · rotor 2 = ⌀42 on mid axis · skid 72 × 26 · one word FELDRONE: FEL 12u / DRONE 6.5u stroke, 14u rhythm, O kerned tight at 10u</text>';
   const mark = `<g transform="${markTransform(H_LOCKUP)}">${maskDef(id)}${markGroup(id, GEO.ink.light, GEO.accent.light)}</g>`;
   return svgDoc(`0 0 679 162`, grid + mark + glyphGroup(lockupX, H_LOCKUP.glyphY, GEO.ink.light) + construction + caption);
 };
 
+// Standalone wordmark: viewBox now frames the full ink box (bold overshoot
+// above the cap line included) — the v5.0 build cropped 4.5u off the bar
+// terminals. 8u breathing all round; two weights via per-path stroke-width.
 const wordmarkSvg = (ink) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 485 64">\n  <g fill="none" stroke="${ink}" stroke-width="${n(W_STROKE)}" stroke-linecap="butt" stroke-linejoin="miter">\n${GLYPHS.map(
-    (d, i) => `    <path transform="translate(${wordX(i)} 0)" d="${d}"/>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 471.5 80">\n  <g fill="none" stroke="${ink}" stroke-linecap="butt" stroke-linejoin="miter" transform="translate(8 8)">\n${WORDMARK_PATHS.map(
+    (d, i) => `    <path stroke-width="${n(WORDMARK_W[i])}" transform="translate(${wordX(i)} 0)" d="${d}"/>`,
   ).join("\n")}\n  </g>\n</svg>\n`;
 
 const faviconSvg = () => {
@@ -204,7 +248,7 @@ const brandmarkTs = `/** GENERATED by scripts/brand-gen.mjs — do not edit by h
 export type BrandRect = { t: "rect"; x: number; y: number; w: number; h: number; rx?: number };
 export type BrandCircle = { t: "circle"; cx: number; cy: number; r: number };
 export type BrandShape = BrandRect | BrandCircle;
-export type BrandGlyph = { d: string; x: string; y: number };
+export type BrandGlyph = { d: string; x: string; y: number; w: number };
 
 export type BrandData = {
   canvas: { w: number; h: number };
@@ -214,7 +258,6 @@ export type BrandData = {
     markTransform: string;
     glyphY: number;
     glyphScale: number;
-    strokeWidth: number;
   };
   colors: {
     light: string;
@@ -239,13 +282,12 @@ export const BRAND: BrandData = ${JSON.stringify(
       markTransform: markTransform(H_LOCKUP),
       glyphY: H_LOCKUP.glyphY,
       glyphScale: W_SCALE,
-      strokeWidth: W_STROKE,
     },
     colors: { ...GEO.ink, accentLight: GEO.accent.light, accentDark: GEO.accent.dark },
     mark: GEO.mark,
     holes: GEO.holes.map(({ cx, cy, r }) => ({ t: "circle", cx, cy, r })),
     hubs: GEO.hubs.map(({ cx, cy, r }) => ({ t: "circle", cx, cy, r })),
-    glyphs: GLYPHS.map((d, i) => ({ d, x: lockupX(i), y: H_LOCKUP.glyphY })),
+    glyphs: WORDMARK_PATHS.map((d, i) => ({ d, x: lockupX(i), y: H_LOCKUP.glyphY, w: WORDMARK_W[i] })),
   },
   null,
   2,

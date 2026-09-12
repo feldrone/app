@@ -2,7 +2,7 @@
 export type BrandRect = { t: "rect"; x: number; y: number; w: number; h: number; rx?: number };
 export type BrandCircle = { t: "circle"; cx: number; cy: number; r: number };
 export type BrandShape = BrandRect | BrandCircle;
-export type BrandGlyph = { d: string; x: string; y: number };
+export type BrandGlyph = { d: string; x: string; y: number; w: number };
 
 export type BrandData = {
   canvas: { w: number; h: number };
@@ -12,7 +12,6 @@ export type BrandData = {
     markTransform: string;
     glyphY: number;
     glyphScale: number;
-    strokeWidth: number;
   };
   colors: {
     light: string;
@@ -34,12 +33,11 @@ export const BRAND: BrandData = {
     "h": 180
   },
   "lockup": {
-    "width": 659,
+    "width": 632,
     "height": 128,
     "markTransform": "translate(13.000 1.000) scale(0.7) skewX(-3)",
     "glyphY": 31,
-    "glyphScale": 1.03125,
-    "strokeWidth": 9
+    "glyphScale": 1.03125
   },
   "colors": {
     "light": "#0e1f30",
@@ -54,7 +52,7 @@ export const BRAND: BrandData = {
       "t": "rect",
       "x": 36,
       "y": 24,
-      "w": 24,
+      "w": 26,
       "h": 134
     },
     {
@@ -62,21 +60,21 @@ export const BRAND: BrandData = {
       "x": 36,
       "y": 24,
       "w": 98,
-      "h": 24
+      "h": 26
     },
     {
       "t": "rect",
       "x": 60,
-      "y": 84,
+      "y": 83,
       "w": 54,
-      "h": 24
+      "h": 26
     },
     {
       "t": "rect",
       "x": 24,
-      "y": 146,
+      "y": 144,
       "w": 72,
-      "h": 24,
+      "h": 26,
       "rx": 4
     },
     {
@@ -122,44 +120,52 @@ export const BRAND: BrandData = {
   ],
   "glyphs": [
     {
-      "d": "M4.5 64 V0 H34 M4.5 29.5 H27",
+      "d": "M6 64 V0 H32.5 M6 29.5 H25.5",
       "x": "139",
-      "y": 31
+      "y": 31,
+      "w": 12
     },
     {
-      "d": "M34 0 H4.5 V64 H34 M4.5 29.5 H28",
+      "d": "M32.5 0 H6 V64 H32.5 M6 29.5 H26.5",
       "x": "193.65625",
-      "y": 31
+      "y": 31,
+      "w": 12
     },
     {
-      "d": "M4.5 0 V64 H34",
+      "d": "M6 0 V64 H32.5",
       "x": "248.3125",
-      "y": 31
+      "y": 31,
+      "w": 12
     },
     {
-      "d": "M4.5 0 V64 M4.5 0 H21 A32 32 0 0 1 21 64 H4.5",
-      "x": "325.65625",
-      "y": 31
+      "d": "M3.25 0 V64 M3.25 0 H19.75 A32 32 0 0 1 19.75 64 H3.25",
+      "x": "302.453125",
+      "y": 31,
+      "w": 6.5
     },
     {
-      "d": "M4.5 64 V0 H20 A17.75 17.75 0 0 1 20 35.5 H4.5 M20 35.5 L43 64",
-      "x": "399.90625",
-      "y": 31
+      "d": "M3.25 64 V0 H18.25 A17.75 17.75 0 0 1 18.25 35.5 H3.25 M18.25 35.5 L44.25 64",
+      "x": "373.609375",
+      "y": 31,
+      "w": 6.5
     },
     {
-      "d": "M3.5 32 a28.5 28.5 0 1 0 57 0 a28.5 28.5 0 1 0 -57 0",
-      "x": "463.84375",
-      "y": 31
+      "d": "M3.25 32 a29.75 29.75 0 1 0 59.5 0 a29.75 29.75 0 1 0 -59.5 0",
+      "x": "432.90625",
+      "y": 31,
+      "w": 6.5
     },
     {
-      "d": "M4.5 64 V0 L37.5 64 V0",
-      "x": "541.1875",
-      "y": 31
+      "d": "M3.25 64 V0 L38.75 64 V0",
+      "x": "511.28125",
+      "y": 31,
+      "w": 6.5
     },
     {
-      "d": "M34 0 H4.5 V64 H34 M4.5 29.5 H28",
-      "x": "599.453125",
-      "y": 31
+      "d": "M35.25 0 H3.25 V64 H35.25 M3.25 29.5 H29.25",
+      "x": "569.03125",
+      "y": 31,
+      "w": 6.5
     }
   ]
 };

@@ -8,7 +8,9 @@ import { BRAND, type BrandShape } from "../brand/brandmark";
  * data is hand-coded in this component: to amend the mark, change the table
  * in the brand lab once and run `npm run brand:gen`.
  *
- * v5 adds the 3° forward lean to the MARK group only (wordmark untouched):
+ * v5.2 unifies the wordmark to a single FELDRONE (FEL 12u bold / DRONE 6.5u
+light on one ink-locked grid) and balances the mark's spars to 26u. v5's
+3° forward lean stays on the MARK group only:
  * mark, mask apertures and hubs skew as one construct, so cut-outs stay
  * concentric and monochrome reproduction holds. The horizontal optical gap
  * between mark and “FEL” now matches the internal letter rhythm — one
@@ -19,9 +21,9 @@ import { BRAND, type BrandShape } from "../brand/brandmark";
  * spine, the two horizontal bars are rotor spars — forward spar (top bar,
  * full length) and sensor spar (middle bar, shorter) — each terminating in a
  * rotor disc whose centre is drilled through the spar. The foot is the
- * landing skid. One module rules the whole mark: the spar weight (24u)
- * equals the letter stroke, rotor 1 spans 2.16 spar widths, rotor 2 sits one
- * spar below on the optical mid-axis. No wings, no shield, no drone clipped
+ * landing skid. One module rules the whole mark: the spar weight (26u)
+ * balances the bold half of the wordmark, rotor 1 spans 2.0 spar widths, rotor 2
+ * sits one spar below on the optical mid-axis. No wings, no shield, no drone clipped
  * beside an F: remove the discs and it is still an F; remove the F logic and
  * it falls apart as an airframe.
  *
@@ -79,16 +81,11 @@ export default function Logo({
           ))}
         </g>
       </g>
-      <g
-        fill="none"
-        stroke={ink}
-        strokeWidth={BRAND.lockup.strokeWidth}
-        strokeLinecap="butt"
-        strokeLinejoin="miter"
-      >
+      <g fill="none" stroke={ink} strokeLinecap="butt" strokeLinejoin="miter">
         {BRAND.glyphs.map((g) => (
           <path
             key={g.x}
+            strokeWidth={g.w}
             transform={`translate(${g.x} ${g.y}) scale(${BRAND.lockup.glyphScale})`}
             d={g.d}
           />
