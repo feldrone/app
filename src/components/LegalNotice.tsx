@@ -1,4 +1,4 @@
-import { company, team, activities } from "../data/content";
+import { company, activities } from "../data/content";
 
 /**
  * Legal notices — the single, deliberate place where company registry
@@ -21,7 +21,6 @@ function Term({ term, children }: { term: string; children: React.ReactNode }) {
 }
 
 export default function LegalNotice() {
-  const manager = team.find((m) => m.role.includes("Gérant"));
   return (
     <section
       id="mentions-legales"
@@ -43,7 +42,7 @@ export default function LegalNotice() {
           <Term term="Siège social">
             {company.addressLine1}, {company.addressLine2}, {company.country}
           </Term>
-          {manager && <Term term="Gérant">{manager.name}</Term>}
+          {company.gerant && <Term term="Gérant">{company.gerant}</Term>}
           <Term term="Contact">
             <a href={`mailto:${company.email}`} className="transition-colors hover:text-navy-900">
               {company.email}

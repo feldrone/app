@@ -36,6 +36,9 @@ export const company = {
   phone: "+213 6 61 61 33 99",
   phoneHref: "+213661613399",
   url: "https://www.feldrone.dz",
+  /** Legal gérance (registry fact) — feeds Mentions légales only; never a
+   *  marketing label, and never derived from the team array (roles change). */
+  gerant: "Yassine Fellah",
 };
 
 /**
@@ -55,20 +58,20 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     name: "Yassine Fellah",
-    role: "Actionnaire & Gérant",
+    role: "Actionnaire",
     note: "Responsable légal et administratif de la société.",
     initials: "YF",
   },
   {
     name: "Menouar Fellah",
-    role: "Conseiller Aviation & Opérations",
+    role: "Actionnaire",
     note: "Cadre de l'aviation (à la retraite) — référent de la supervision des vols et de la culture sécurité.",
     initials: "MF",
   },
   {
     name: "Amine Fellah",
-    role: "Responsable Technique & Systèmes",
-    note: "Pilote l'atelier : diagnostic, réparation, intégration des capteurs et suivi technique de la flotte.",
+    role: "Actionnaire",
+    note: "Ingénieur informatique",
     initials: "AF",
   },
 ];
