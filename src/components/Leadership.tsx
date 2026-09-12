@@ -43,6 +43,11 @@ export default function Leadership() {
                           {member.role}
                         </span>
                       </div>
+                      {member.title && (
+                        <p className="mt-1.5 text-[14.5px] font-medium tracking-tight text-navy-900">
+                          {member.title}
+                        </p>
+                      )}
                       {member.note && (
                         <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-ink-soft">
                           {member.note}
