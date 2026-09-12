@@ -1,11 +1,14 @@
 # FEL DRONE — Identity system
 
-> Status: v5.0 — refinement pass (2026-09). The mark gains a **3° forward
+> Status: v5.1 — refinement pass (2026-09). The mark gains a **3° forward
 > lean** — a restrained flight cue applied to the mark group only, so the
 > whole construct (discs, hubs, cut-outs) leans as one airframe at takeoff
 > roll, never the wordmark. The horizontal lockup's mark→“FEL” gap is
 > corrected from 28u to ≈15u, matching the wordmark's internal 16u letter
 > rhythm: symbol and letters now read as ONE logo, tight but not fused.
+> The favicon is an optical size of its own (bigger mass, opened rotor-1
+> aperture, micro-detail dropped) so the mark wins at 16 px — see
+> “Sizes & clear space”.
 > Provenance (v4) holds: everything is emitted from `scripts/brand-gen.mjs`
 > and `npm run brand:check` keeps the files honest. Geometry, colours, the
 > 4u grid and the wordmark itself are otherwise unchanged from v3.
@@ -98,6 +101,13 @@ the single brand accent and is always the hub dot — never the letters.
 - Symbol alone: minimum **14 px**; apertures stay open at 16 px because they
   are cut-outs, not painted rings.
 - On photo or coloured grounds use mono-white / mono-black; contrast ≥ 4.5:1.
+- **Favicon = optical size, not a mathematical downscale (v5.1).** In the
+  chip the mark fills 45u of 64u (vs 40u projected from the lockup), the
+  rotor-1 aperture widens 6u → 8.5u so the cut-out survives antialiasing at
+  16 px, and rotor 2 drops its 9.5u aperture (sub-pixel noise) — the small
+  disc reads solid, keeping the two-rotor silhouette. The full-geometry
+  lockup and standalone symbol are untouched; the favicon is the only file
+  built on these constants (`FAVICON` + `FAV_HOLES` in the brand lab).
 
 ## Real-world tests passed
 
@@ -115,7 +125,7 @@ simulated: skid joins but F and both apertures hold.
 ```
 scripts/brand-gen.mjs                         the brand lab: single geometry source
 src/brand/brandmark.ts                          GENERATED data table (consumed by Logo.tsx)
-public/favicon.svg                            navy chip 64u, cut-out apertures
+public/favicon.svg                            navy chip 64u — optical small-size build
 public/brand/fel-drone-symbol.svg             ink (+ gold hubs)
 public/brand/fel-drone-symbol-inverted.svg    paper (+ gold hubs)
 public/brand/fel-drone-symbol-mono-black.svg
@@ -152,6 +162,12 @@ Components never hard-code path data by hand.
 
 ## Changelog
 
+- **v5.1 (2026-09) — favicon optical size.** Dedicated small-size
+  construction for the chip favicon (bigger mark mass, widened rotor-1
+  aperture, micro-detail removed); A/B render QA at 16/24/32/48/64 px on
+  light and dark before and after. Lockups, stacked and symbol files are
+  byte-identical to v5.0 — this is an optical scaling pass, not a
+  geometry change.
 - **v5.0 (2026-09) — refinement pass.** 3° forward lean on the mark group
   (wordmark never leans) — a subtle flight cue that vanishes below ~20 px;
   horizontal lockup spacing corrected (mark→“F” gap 28u → ≈15u, matched to

@@ -81,8 +81,14 @@ const W_STROKE = 9;
 const H_LOCKUP = { canvas: [659, 128], markT: [13.0, 1], markScale: 0.7, glyphY: 31 };
 // Skewed mark's ink centre shifts right; recentre it over the wordmark axis.
 const STACKED = { canvas: [517, 218], markT: [197.4, 1], markScale: 0.7, glyphY: 150, glyphX0: 8 };
-// Favicon: +1.12u x-translation re-centers the leaning mark in the chip.
-const FAVICON = { canvas: 64, chipRx: 14, t: [11.27, 11.625], scale: 0.2375 };
+// Favicon = OPTICAL SIZE of the mark, not a mathematical downscale (v5.1):
+// the mark fills 45u of the 64u chip (+14% mass vs the lockup projection) and
+// the rotor-1 aperture widens 6u→8.5u so the cut-out survives AA at 16 px.
+// The small rotor 2 keeps no aperture at chip scale — at ≤16 px a 1 px hole
+// reads as noise; solid disc + drilled big disc preserves the two-rotor DNA.
+// Same geometry otherwise: proportions, 3° lean, weights, clear space ≥1 spar.
+const FAVICON = { canvas: 64, chipRx: 14, t: [7.16, 7.97], scale: 0.27 };
+const FAV_HOLES = [{ cx: 134, cy: 36, r: 8.5 }];
 
 /* ── Formatting rules (fixed in v4 for byte-stable output) ─────────────── */
 const n = (x) => String(x); // plain shortest decimal
@@ -181,10 +187,15 @@ const wordmarkSvg = (ink) =>
   ).join("\n")}\n  </g>\n</svg>\n`;
 
 const faviconSvg = () => {
+  // Optical favicon construction (v5.1): dedicated FAV_HOLES mask — see the
+  // FAVICON constants. Ink + apertures share the group transform, so the
+  // cut-out stays concentric with its rotor under the 3° lean.
   const { canvas, chipRx, t, scale } = FAVICON;
+  const favHoles = FAV_HOLES.map((h) => `<circle cx="${n(h.cx)}" cy="${n(h.cy)}" r="${n(h.r)}"/>`).join("");
+  const favMask = `<defs><mask id="fv"><rect x="0" y="0" width="${n(GEO.canvas.w)}" height="${n(GEO.canvas.h)}" fill="#fff"/><g fill="#000">${favHoles}</g></mask></defs>`;
   return svgDoc(
     `0 0 ${n(canvas)} ${n(canvas)}`,
-    `<rect width="${n(canvas)}" height="${n(canvas)}" rx="${n(chipRx)}" fill="${GEO.ink.light}"/><g transform="translate(${n3(t[0])} ${n3(t[1])}) scale(${n(scale)})${LEAN}">${maskDef("fv")}${`<g fill="${GEO.ink.dark}" mask="url(#fv)">${MARK}</g>`}</g>`,
+    `<rect width="${n(canvas)}" height="${n(canvas)}" rx="${n(chipRx)}" fill="${GEO.ink.light}"/><g transform="translate(${n3(t[0])} ${n3(t[1])}) scale(${n(scale)})${LEAN}">${favMask}${`<g fill="${GEO.ink.dark}" mask="url(#fv)">${MARK}</g>`}</g>`,
   );
 };
 
