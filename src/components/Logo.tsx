@@ -3,10 +3,16 @@ import { cn } from "../utils/cn";
 import { BRAND, type BrandShape } from "../brand/brandmark";
 
 /**
- * FEL DRONE — identity lockup v4, rendered from the brand-lab geometry table
+ * FEL DRONE — identity lockup v5, rendered from the brand-lab geometry table
  * (scripts/brand-gen.mjs → src/brand/brandmark.ts; docs/BRAND.md). No path
  * data is hand-coded in this component: to amend the mark, change the table
  * in the brand lab once and run `npm run brand:gen`.
+ *
+ * v5 adds the 3° forward lean to the MARK group only (wordmark untouched):
+ * mark, mask apertures and hubs skew as one construct, so cut-outs stay
+ * concentric and monochrome reproduction holds. The horizontal optical gap
+ * between mark and “FEL” now matches the internal letter rhythm — one
+ * unified lockup at every size, header 30 px down to favicon 16 px.
  *
  * The mark is one engineered construct, not an ornament: the letter F read
  * as a twin-rotor airframe seen from above. The vertical stem is the fuselage

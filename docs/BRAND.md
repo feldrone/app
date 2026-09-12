@@ -1,18 +1,18 @@
 # FEL DRONE — Identity system
 
-> Status: v4.0 — provenance pass (2026-09). Geometry is **frozen from v3.0**:
-> the mark, the wordmark and every lockup are unchanged in proportion and
-> colour. What v4 moves is *where truth lives*: the brand lab now exists in
-> this repo (`scripts/brand-gen.mjs`), every file — SVGs, favicon and the
-> React component's data — is emitted from one geometry table, mask ids are
-> stable and reproducible (v3 emitted random ids per run), and
-> `src/components/Logo.tsx` renders the emitted table instead of a hand-copied
-> duplicate. History: the v2 “Rotor F” (letter + disc beside it) was retired
-> because the disc read as a badge attached to the F rather than as structure.
-> v3 rebuilt the mark from scratch: the letter F **is** the airframe — one
-> skeleton, two simultaneous readings, no decoration. Developed over 12
-> explored concepts; every candidate was rejected until one survived
-> black/white testing at 16 px.
+> Status: v5.0 — refinement pass (2026-09). The mark gains a **3° forward
+> lean** — a restrained flight cue applied to the mark group only, so the
+> whole construct (discs, hubs, cut-outs) leans as one airframe at takeoff
+> roll, never the wordmark. The horizontal lockup's mark→“FEL” gap is
+> corrected from 28u to ≈15u, matching the wordmark's internal 16u letter
+> rhythm: symbol and letters now read as ONE logo, tight but not fused.
+> Provenance (v4) holds: everything is emitted from `scripts/brand-gen.mjs`
+> and `npm run brand:check` keeps the files honest. Geometry, colours, the
+> 4u grid and the wordmark itself are otherwise unchanged from v3.
+>
+> History: v2 “Rotor F” retired (disc read as a badge); v3 rebuilt the mark —
+> the letter F **is** the airframe; v4 moved the brand lab in-repo; v5 makes
+> it move.
 
 ## The mark — “Gantry F”
 
@@ -32,6 +32,11 @@ A twin-rotor UAV seen from above, constructed with lettering weights:
 **Engineering logic:** remove the discs and it is still a valid F; remove the
 F logic and the airframe falls apart. No wings, no shield, no globe, no
 aircraft outline, no drone clipped above or beside a letter.
+
+**Flight cue (v5):** the mark group carries a uniform 3° forward lean
+(`skewX(-3)` in every emitted file, including the mask content, so apertures
+remain concentric). It is a trim angle, not a decoration: below ~20 px it
+vanishes optically; the silhouette stays the F. The wordmark never leans.
 
 ### Geometry (design grid 4u, canvas 168 × 180)
 
@@ -55,16 +60,21 @@ the whole module.
 Unchanged from v2 (it survived critique): custom monoline geometry, 9-unit
 stroke on a 64-unit cap height, butt caps, miter joins; constructed from the
 same family of parts as the mark (bars and true circles). Tracking 14.5, word
-gap 22. In lockups the wordmark starts 20u closer to the mark than in v2 to
-match the narrower mark box.
+gap 22. From v5 the wordmark starts at x 139 in the lockup canvas — pulled
+left so the mark→“F” ink gap (≈15u) sits on the same optical rhythm as the
+16u internal letter gaps.
 
 ## Lockups
 
 1. **Primary horizontal** — symbol, gap, wordmark on a 659 × 128 canvas;
-   the mark occupies the legacy 8→140 / 8→120 column, so page rhythm is
-   unchanged from v2.
-2. **Stacked** — centred symbol above wordmark, 517 × 218 (avatars, signage).
-3. **Symbol alone** — favicon, app icon, drone body, uniform, print.
+   the mark occupies x ≈14.7→123.6 after its 3° lean (v4 column retired),
+   the wordmark begins at 139. The canvas size is frozen so every embed on
+   the site reflows zero.
+2. **Stacked** — centred symbol above wordmark, 517 × 218 (avatars,
+   signage); v5 recentres the leaning mark's ink mass over the wordmark
+   axis (x 197.4).
+3. **Symbol alone** — favicon, app icon, drone body, uniform, print; the
+   lean rides inside the file as a group transform, never baked coordinates.
 4. **Geographic secondary** (`-geo` files) — construction/grid view, for
    brand documentation and the wall plaque only; never part of primary use.
 
@@ -142,6 +152,13 @@ Components never hard-code path data by hand.
 
 ## Changelog
 
+- **v5.0 (2026-09) — refinement pass.** 3° forward lean on the mark group
+  (wordmark never leans) — a subtle flight cue that vanishes below ~20 px;
+  horizontal lockup spacing corrected (mark→“F” gap 28u → ≈15u, matched to
+  the wordmark's internal 16u rhythm); stacked mark re-centred (197.4);
+  favicon re-centred in the chip (11.27); construction sheet shows the
+  leaning spar axes inside the construction group. Monochrome reproduction,
+  cut-out apertures and 16 px recognition re-tested after the change.
 - **v4.0 (2026-09) — provenance pass.** Brand lab moved in-repo
   (`scripts/brand-gen.mjs`); all brand SVGs, the favicon and the component
   data table (`src/brand/brandmark.ts`) re-emitted from one geometry source;

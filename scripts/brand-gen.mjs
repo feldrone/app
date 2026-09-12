@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
- * FEL DRONE — brand lab, in-repo (identity v4).
+ * FEL DRONE — brand lab, in-repo (identity v5).
  *
  * Single geometry source for the entire identity system. Every brand file
  * (public/brand/*.svg, public/favicon.svg) and the React lockup data
  * (src/brand/brandmark.ts) are EMITTED from the table below — never
- * hand-edited (docs/BRAND.md § Updating). This replaces the out-of-band
- * gen_final.js used during v2/v3, so regeneration is now reproducible.
+ * hand-edited (docs/BRAND.md § Updating). Regeneration is deterministic:
+ * stable mask ids, fixed number formatting, one source of truth.
  *
- * v4 changes vs v3 are provenance-only:
- *   - stable, deterministic mask ids (v3 emitted random ids per run),
- *   - all files re-derived byte-exactly from one table,
- *   - Logo.tsx consumes the emitted data instead of duplicated path data.
- * Geometry, proportions, colours and the wordmark are untouched.
+ * v4 → geometry provenance pass (files byte-stable, look unchanged).
+ * v5 → refinement pass: 3° forward lean on the mark only (subtle flight
+ * cue, wordmark untouched) + corrected horizontal optical spacing
+ * (mark→“F” gap matched to the internal letter rhythm). To amend: change
+ * the table once, run npm run brand:gen.
  *
  * Usage:
  *   node scripts/brand-gen.mjs          # write all files
@@ -25,6 +25,13 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 /* ── Geometry (design grid 4u, mark canvas 168 × 180) ─────────────────── */
+
+/* v5 motion cue: a uniform 3° forward lean on the mark only (never the
+   wordmark). Skew is applied to the whole mark group — discs, hubs and the
+   mask apertures share it, so every cut-out stays concentric with its rotor.
+   At header scale it reads as airspeed; at 16px it disappears gracefully. */
+const LEAN_DEG = 3;
+const LEAN = ` skewX(${-LEAN_DEG})`;
 
 const GEO = {
   canvas: { w: 168, h: 180 },
@@ -67,9 +74,15 @@ const GLYPHS = [
 const WORDMARK_X = [0, 53, 106, 181, 253, 315, 390, 446.5];
 const W_SCALE = 1.03125;
 const W_STROKE = 9;
-const H_LOCKUP = { canvas: [659, 128], markT: [9.6, 1], markScale: 0.7, glyphY: 31 };
-const STACKED = { canvas: [517, 218], markT: [194.1, 1], markScale: 0.7, glyphY: 150, glyphX0: 8 };
-const FAVICON = { canvas: 64, chipRx: 14, t: [10.15, 11.625], scale: 0.2375 };
+// v5: mark rides 4u right (lean rebalance), wordmark pulled left so the
+// mark→“F” optical gap (≈15u) sits at the same rhythm as the 16u internal
+// letter gaps — one unified lockup, not two elements. Canvas/viewBox kept
+// at 659 × 128 so every embedding on the site reflows zero.
+const H_LOCKUP = { canvas: [659, 128], markT: [13.0, 1], markScale: 0.7, glyphY: 31 };
+// Skewed mark's ink centre shifts right; recentre it over the wordmark axis.
+const STACKED = { canvas: [517, 218], markT: [197.4, 1], markScale: 0.7, glyphY: 150, glyphX0: 8 };
+// Favicon: +1.12u x-translation re-centers the leaning mark in the chip.
+const FAVICON = { canvas: 64, chipRx: 14, t: [11.27, 11.625], scale: 0.2375 };
 
 /* ── Formatting rules (fixed in v4 for byte-stable output) ─────────────── */
 const n = (x) => String(x); // plain shortest decimal
@@ -101,14 +114,18 @@ const glyphGroup = (xOf, y, ink, scaleTransform = true) =>
       `<path transform="translate(${xOf(i)} ${n(y)})${scaleTransform ? ` scale(${n(W_SCALE)})` : ""}" d="${d}"/>`,
   ).join("")}</g>`;
 
-const lockupX = (i) => n(150 + WORDMARK_X[i] * W_SCALE);
+// v5 optical spacing: wordmark starts 11u earlier than v4 so the
+// mark→“F” gap matches the internal letter rhythm, not a detached island.
+const LOCKUP_X0 = 139;
+const lockupX = (i) => n(LOCKUP_X0 + WORDMARK_X[i] * W_SCALE);
 const stackedX = (i) => f4(STACKED.glyphX0 + WORDMARK_X[i] * W_SCALE);
 const wordX = (i) => n(WORDMARK_X[i]);
 
 const svgDoc = (viewBox, body) =>
   `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}">\n${body}\n</svg>\n`;
 
-const markTransform = ({ markT, markScale }) => `translate(${n3(markT[0])} ${n3(markT[1])}) scale(${n(markScale)})`;
+const markTransform = ({ markT, markScale }) =>
+  `translate(${n3(markT[0])} ${n3(markT[1])}) scale(${n(markScale)})${LEAN}`;
 
 const lockupSvg = (kind, variant) => {
   const spec = kind === "horizontal" ? H_LOCKUP : STACKED;
@@ -134,9 +151,11 @@ const symbolSvg = (variant) => {
   const accent = variant === "inverted" || variant === "ink" ? (variant === "inverted" ? GEO.accent.dark : GEO.accent.light) : null;
   const bg = variant === "inverted" ? `<rect width="${n(GEO.canvas.w)}" height="${n(GEO.canvas.h)}" fill="${GEO.ink.light}"/>` : "";
   const id = "fm" + variantIndex(variant);
+  // Standalone symbol carries the lean as its own group transform so the
+  // mark, mask apertures and hubs skew as one construct (never separately).
   return svgDoc(
     `0 0 ${n(GEO.canvas.w)} ${n(GEO.canvas.h)}`,
-    bg + maskDef(id) + markGroup(id, ink, accent),
+    bg + `<g transform="${LEAN.trim()}">` + maskDef(id) + markGroup(id, ink, accent) + `</g>`,
   );
 };
 
@@ -144,12 +163,14 @@ const variantIndex = (v) => ({ ink: 1, "mono-black": 2, "mono-white": 3, inverte
 
 const geoSvg = () => {
   const id = "hm9";
-  const grid = `<g stroke="#b9c2cf" stroke-width="1" fill="none">${[36, 96, 8, 120, 128]
+  // v5: spar axes are no longer horizontal (3° lean) — they are shown inside
+  // the construction group; the canvas grid keeps only the lockup rules.
+  const grid = `<g stroke="#b9c2cf" stroke-width="1" fill="none">${[8, 120, 128]
     .map((y) => `<line x1="0" y1="${n(y)}" x2="${n(H_LOCKUP.canvas[0])}" y2="${n(y)}"/>`)
     .join("")}</g>`;
   const construction = `<g fill="none" stroke="#d67d2e" stroke-width="1" opacity="0.85" transform="${markTransform(H_LOCKUP)}"><circle cx="134" cy="36" r="31"/><circle cx="114" cy="96" r="26"/><line x1="0" y1="36" x2="${n(GEO.canvas.w)}" y2="36"/><line x1="0" y1="96" x2="${n(GEO.canvas.w)}" y2="96"/><line x1="36" y1="0" x2="36" y2="${n(GEO.canvas.h)}"/><line x1="60" y1="0" x2="60" y2="${n(GEO.canvas.h)}"/><line x1="0" y1="146" x2="${n(GEO.canvas.w)}" y2="146"/><line x1="0" y1="170" x2="${n(GEO.canvas.w)}" y2="170"/></g>`;
   const caption =
-    '<text x="8" y="152" font-family="DejaVu Sans" font-size="11" fill="#7c8798">grid 4u · spar 24u · rotor 1 = ⌀52 on spar axis · rotor 2 = ⌀42 on mid axis · skid 72 × 24 · every dimension a multiple of the letter weight</text>';
+    '<text x="8" y="152" font-family="DejaVu Sans" font-size="11" fill="#7c8798">grid 4u · spar 24u · 3° forward lean · rotor 1 = ⌀52 on spar axis · rotor 2 = ⌀42 on mid axis · skid 72 × 24 · mark→word gap matches the 15u internal letter rhythm</text>';
   const mark = `<g transform="${markTransform(H_LOCKUP)}">${maskDef(id)}${markGroup(id, GEO.ink.light, GEO.accent.light)}</g>`;
   return svgDoc(`0 0 679 162`, grid + mark + glyphGroup(lockupX, H_LOCKUP.glyphY, GEO.ink.light) + construction + caption);
 };
@@ -163,7 +184,7 @@ const faviconSvg = () => {
   const { canvas, chipRx, t, scale } = FAVICON;
   return svgDoc(
     `0 0 ${n(canvas)} ${n(canvas)}`,
-    `<rect width="${n(canvas)}" height="${n(canvas)}" rx="${n(chipRx)}" fill="${GEO.ink.light}"/><g transform="translate(${n3(t[0])} ${n3(t[1])}) scale(${n(scale)})">${maskDef("fv")}${`<g fill="${GEO.ink.dark}" mask="url(#fv)">${MARK}</g>`}</g>`,
+    `<rect width="${n(canvas)}" height="${n(canvas)}" rx="${n(chipRx)}" fill="${GEO.ink.light}"/><g transform="translate(${n3(t[0])} ${n3(t[1])}) scale(${n(scale)})${LEAN}">${maskDef("fv")}${`<g fill="${GEO.ink.dark}" mask="url(#fv)">${MARK}</g>`}</g>`,
   );
 };
 
@@ -213,7 +234,7 @@ export const BRAND: BrandData = ${JSON.stringify(
     mark: GEO.mark,
     holes: GEO.holes.map(({ cx, cy, r }) => ({ t: "circle", cx, cy, r })),
     hubs: GEO.hubs.map(({ cx, cy, r }) => ({ t: "circle", cx, cy, r })),
-    glyphs: GLYPHS.map((d, i) => ({ d, x: n(150 + WORDMARK_X[i] * W_SCALE), y: H_LOCKUP.glyphY })),
+    glyphs: GLYPHS.map((d, i) => ({ d, x: lockupX(i), y: H_LOCKUP.glyphY })),
   },
   null,
   2,
