@@ -14,7 +14,7 @@ export default defineConfig({
   // bundled and public asset URL must be prefixed with it. Vite rewrites
   // index.html references (favicon, module scripts) and publicDir files
   // (brand SVGs, robots, sitemap) through this base at build time.
-  base: "/app/",
+  base: process.env.VITE_BASE ?? "/app/",
   plugins: [
     react(),
     tailwindcss(),
@@ -48,9 +48,14 @@ export default defineConfig({
     // Allow the sandbox/preview host (and any *.e2b.app dev host) in dev and preview.
     allowedHosts: [".e2b.app"],
     open: "/template.html",
+    // Dev convenience: the quote API runs next to vite (npm run dev:api).
+    proxy: { "/api": "http://localhost:8787" },
   },
   preview: {
     allowedHosts: [".e2b.app"],
+    // Same /api wiring as dev, so `npm run preview` demos the real backend
+    // flow (pair with `npm run dev:api`).
+    proxy: { "/api": "http://localhost:8787" },
   },
   resolve: {
     alias: {

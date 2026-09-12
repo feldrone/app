@@ -21,7 +21,7 @@ function Term({ term, children }: { term: string; children: React.ReactNode }) {
 }
 
 export default function LegalNotice() {
-  const manager = team.find((m) => m.role === "Gérant");
+  const manager = team.find((m) => m.role.includes("Gérant"));
   return (
     <section
       id="mentions-legales"

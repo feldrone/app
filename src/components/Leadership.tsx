@@ -11,7 +11,7 @@ import SectionHeading from "./SectionHeading";
  */
 export default function Leadership() {
   return (
-    <section id="direction" aria-labelledby="leadership-heading" className="bg-white py-28 lg:py-36">
+    <section id="direction" aria-labelledby="leadership-heading" className="bg-white py-32 lg:py-40">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
@@ -43,9 +43,11 @@ export default function Leadership() {
                           {member.role}
                         </span>
                       </div>
-                      <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-ink-soft">
-                        {member.note}
-                      </p>
+                      {member.note && (
+                        <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-ink-soft">
+                          {member.note}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </Reveal>
