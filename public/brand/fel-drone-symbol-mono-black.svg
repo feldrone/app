@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 180">
-<g transform="skewX(-3)"><defs><mask id="fm2"><rect x="0" y="0" width="168" height="180" fill="#fff"/><g fill="#000"><circle cx="134" cy="36" r="6"/><circle cx="114" cy="96" r="4.75"/></g></mask></defs><g fill="#000000" mask="url(#fm2)"><rect x="36" y="24" width="26" height="134"/><rect x="36" y="24" width="98" height="26"/><rect x="60" y="83" width="54" height="26"/><rect x="24" y="144" width="72" height="26" rx="4"/><circle cx="134" cy="36" r="26"/><circle cx="114" cy="96" r="21"/></g></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 160">
+<path fill="#000000" fill-rule="evenodd" d="M0 0H56A80 80 0 0 1 56 160H0ZM24 24H56A56 56 0 0 1 56 136H24Z"/><path fill="#000000" d="M24 60H88L104 72L88 84H24Z"/>
 </svg>

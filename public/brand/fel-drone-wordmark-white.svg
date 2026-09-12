@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 471.5 80">
-  <g fill="none" stroke="#fbfaf8" stroke-linecap="butt" stroke-linejoin="miter" transform="translate(8 8)">
-    <path stroke-width="12" transform="translate(0 0)" d="M6 64 V0 H32.5 M6 29.5 H25.5"/>
-    <path stroke-width="12" transform="translate(53 0)" d="M32.5 0 H6 V64 H32.5 M6 29.5 H26.5"/>
-    <path stroke-width="12" transform="translate(106 0)" d="M6 0 V64 H32.5"/>
-    <path stroke-width="6.5" transform="translate(158.5 0)" d="M3.25 0 V64 M3.25 0 H19.75 A32 32 0 0 1 19.75 64 H3.25"/>
-    <path stroke-width="6.5" transform="translate(227.5 0)" d="M3.25 64 V0 H18.25 A17.75 17.75 0 0 1 18.25 35.5 H3.25 M18.25 35.5 L44.25 64"/>
-    <path stroke-width="6.5" transform="translate(285 0)" d="M3.25 32 a29.75 29.75 0 1 0 59.5 0 a29.75 29.75 0 1 0 -59.5 0"/>
-    <path stroke-width="6.5" transform="translate(361 0)" d="M3.25 64 V0 L38.75 64 V0"/>
-    <path stroke-width="6.5" transform="translate(417 0)" d="M35.25 0 H3.25 V64 H35.25 M3.25 29.5 H29.25"/>
+  <g fill="none" stroke="#fbfaf8" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter" transform="translate(8 8)">
+    <path transform="translate(0 0)" d="M5 64 V0 H33.5 M5 29.5 H26.5"/>
+    <path transform="translate(53 0)" d="M33.5 0 H5 V64 H33.5 M5 29.5 H27.5"/>
+    <path transform="translate(106 0)" d="M5 0 V64 H33.5"/>
+    <path transform="translate(158.5 0)" d="M5 0 V64 M5 0 H18 A32 32 0 0 1 18 64 H5"/>
+    <path transform="translate(227.5 0)" d="M5 64 V0 H21.5 A16.875 16.875 0 0 1 21.5 33.75 H5 M21.5 33.75 L42.5 64"/>
+    <path transform="translate(285 0)" d="M5 32 a28 28 0 1 0 56 0 a28 28 0 1 0 -56 0"/>
+    <path transform="translate(361 0)" d="M5 64 V0 L37 64 V0"/>
+    <path transform="translate(417 0)" d="M33.5 0 H5 V64 H33.5 M5 29.5 H27.5"/>
   </g>
 </svg>
