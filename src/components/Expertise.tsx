@@ -28,7 +28,7 @@ const principles = [
 
 export default function Expertise() {
   return (
-    <section id="expertise" aria-labelledby="expertise-heading" className="bg-white py-28 lg:py-36">
+    <section id="expertise" aria-labelledby="expertise-heading" className="bg-white py-32 lg:py-44">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
           {/* Image — offset, editorial framing with a drawn border */}
@@ -66,7 +66,7 @@ export default function Expertise() {
                   Deux disciplines réunies : la sécurité aérienne et l'ingénierie moderne.
                 </>
               }
-              lede="FEL DRONE réunit une discipline opérationnelle héritée des standards de l'aviation et une maîtrise fine des systèmes embarqués. Cette double culture structure notre manière de vendre, d'exploiter et d'entretenir chaque drone : rien n'est laissé à l'approximation."
+              lede="FEL DRONE réunit une discipline opérationnelle héritée des standards de l'aviation et une maîtrise fine des systèmes embarqués. Cette double culture structure notre manière de vendre, d'exploiter et de maintenir chaque drone : rien n'est laissé à l'approximation."
             />
 
             <dl className="mt-12">

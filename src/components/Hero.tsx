@@ -11,8 +11,8 @@ import { heroImage } from "../lib/images";
  */
 export default function Hero() {
   return (
-    <section id="accueil" aria-label="Présentation de FEL DRONE" className="relative overflow-hidden bg-paper pt-[calc(var(--header-h)+3.5rem)] lg:pt-[calc(var(--header-h)+5rem)]">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-14 px-6 lg:grid-cols-12 lg:gap-10 lg:px-12">
+    <section id="accueil" aria-label="Présentation de FEL DRONE" className="relative overflow-hidden bg-paper pb-20 pt-[calc(var(--header-h)+4.5rem)] lg:pb-24 lg:pt-[calc(var(--header-h)+7rem)]">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-x-10 gap-y-16 px-6 lg:grid-cols-12 lg:px-12">
         {/* Text column — intentionally asymmetric (7/12) */}
         <div className="lg:col-span-7">
           <Reveal>
@@ -31,27 +31,27 @@ export default function Hero() {
 
           <Reveal delay={160}>
             <p className="mt-7 max-w-xl text-[17px] leading-relaxed text-ink-soft">
-              {company.legalName} vend, loue, entretient et opère des flottes de drones
-              professionnels depuis {company.city}. Une discipline d'exécution héritée de
-              l'aviation, appliquée à l'agriculture, au BTP, à l'industrie et à la sécurité
-              civile.
+              {company.legalName} vend, loue, assure la maintenance et opère des flottes de
+              drones professionnels depuis {company.city}. Une discipline d'exécution
+              inspirée de l'aviation, appliquée à l'agriculture, au BTP, à l'industrie et à
+              la sécurité civile.
             </p>
           </Reveal>
 
           <Reveal delay={240}>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="mt-11 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center gap-2 bg-navy-900 px-7 py-4 text-[14px] font-medium tracking-wide text-white transition-colors hover:bg-navy-800"
+                className="group inline-flex w-full items-center justify-center gap-2.5 bg-navy-900 px-8 py-4 text-[14px] font-medium tracking-wide text-white shadow-[0_18px_36px_-18px_rgba(14,31,48,0.7)] transition-[background-color,transform,box-shadow] duration-200 hover:bg-navy-800 hover:shadow-[0_22px_40px_-18px_rgba(14,31,48,0.75)] active:translate-y-px sm:w-auto"
               >
                 Demander un devis
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </a>
               <a
-                href="#poles"
-                className="inline-flex items-center justify-center border border-line-strong px-7 py-4 text-[14px] font-medium tracking-wide text-navy-900 transition-colors hover:border-navy-900"
+                href="#services"
+                className="inline-flex w-full items-center justify-center border border-line-strong bg-white px-8 py-4 text-[14px] font-medium tracking-wide text-navy-900 transition-[border-color,background-color] duration-200 hover:border-navy-900 hover:bg-paper active:translate-y-px sm:w-auto"
               >
-                Découvrir nos quatre pôles
+                Découvrir nos services
               </a>
             </div>
           </Reveal>
@@ -93,8 +93,8 @@ export default function Hero() {
 
       {/* Application fields rail — capability data, not a card grid */}
       <Reveal delay={200}>
-        <div className="mx-auto mt-20 max-w-[1400px] border-t border-line px-6 lg:px-12">
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-4">
+        <div className="mx-auto mt-24 max-w-[1400px] border-t border-line px-6 lg:px-12">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-9 py-12 sm:grid-cols-4">
             {sectors.map((sector) => (
               <div key={sector.label} className="border-l border-line pl-5">
                 <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-mute">

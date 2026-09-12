@@ -9,3 +9,7 @@ generated
 *.local
 .DS_Store
 image-search/
+tsconfig.tsbuildinfo
+
+# local dev API store (never committed)
+.dev-data

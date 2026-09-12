@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import { navLinks } from "../data/content";
 import { cn } from "../utils/cn";
@@ -74,7 +74,7 @@ export default function Header() {
           <Logo />
         </a>
 
-        <nav aria-label="Navigation principale" className="hidden items-center gap-9 lg:flex">
+        <nav aria-label="Navigation principale" className="hidden items-center gap-6 lg:flex xl:gap-9">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -99,9 +99,10 @@ export default function Header() {
 
         <a
           href="#contact"
-          className="hidden border border-navy-900 px-5 py-2.5 text-[13px] font-medium tracking-wide text-navy-900 transition-colors hover:bg-navy-900 hover:text-white lg:inline-flex"
+          className="group hidden items-center gap-2 bg-navy-900 px-5 py-2.5 text-[13px] font-medium tracking-wide text-white shadow-[0_12px_24px_-14px_rgba(14,31,48,0.7)] transition-[background-color,transform] duration-200 hover:bg-navy-800 active:translate-y-px lg:inline-flex"
         >
-          Nous contacter
+          Demander un devis
+          <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
         </a>
 
         <button
@@ -141,9 +142,10 @@ export default function Header() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center bg-navy-900 px-5 py-4 text-[14px] font-medium tracking-wide text-white"
+            className="flex items-center justify-center gap-2 bg-navy-900 px-5 py-4.5 text-[15px] font-medium tracking-wide text-white transition-colors hover:bg-navy-800"
           >
-            Nous contacter
+            Demander un devis
+            <ArrowRight size={15} aria-hidden="true" />
           </a>
         </div>
       </div>

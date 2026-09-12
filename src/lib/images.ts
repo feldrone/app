@@ -89,34 +89,41 @@ export const safetyImage: Img = photo({
 });
 
 /* ------------------------------------------------------------------ */
-/* Business poles — consistent framing: hands-on, documentary, warm   */
-/* natural light, no renders.                                           */
+/* Service cards — consistent framing: hands-on, documentary, warm    */
+/* natural light, no renders. Each subject verified on its Pexels     */
+/* page as real UAV / drone-operations photography.                   */
 /* ------------------------------------------------------------------ */
 
-export const pillarImages: Record<string, Img> = {
-  commerce: photo({
+export const serviceImages: Record<string, Img> = {
+  vente: photo({
     id: 9182739,
     alt: "Drone professionnel et sa radiocommande présentés en lumière rasante, matériel prêt à la livraison",
     ratio: [16, 10],
-    sizes: "(max-width: 1023px) 92vw, 46vw",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
   }),
   location: photo({
-    id: 9152367,
-    alt: "Prise de vue aérienne d'une rivière serpentant entre forêts et montagnes",
+    id: 37288723,
+    alt: "Drone professionnel en configuration de décollage dans un champ au lever du soleil, prêt pour une mission",
     ratio: [16, 10],
-    sizes: "(max-width: 1023px) 92vw, 46vw",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
   }),
   maintenance: photo({
     id: 32208773,
     alt: "Technicien réparant un drone à l'établi, outils de précision en atelier",
     ratio: [16, 10],
-    sizes: "(max-width: 1023px) 92vw, 46vw",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
   }),
-  services: photo({
-    id: 34182316,
-    alt: "Agriculteur pilotant un drone de traitement au-dessus d'une parcelle cultivée",
+  prestations: photo({
+    id: 34182367,
+    alt: "Drone agricole de traitement en vol au-dessus d'une parcelle cultivée, reliefs en arrière-plan",
     ratio: [16, 10],
-    sizes: "(max-width: 1023px) 92vw, 46vw",
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
+  }),
+  inspection: photo({
+    id: 6165166,
+    alt: "Drone professionnel en vol à proximité d'un chantier urbain, structures et engins dans le cadre",
+    ratio: [16, 10],
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
   }),
 };
 

@@ -41,13 +41,15 @@ npm run pages:sync # after build: write the single-file bundle to ./index.html
 | ------------------------------- | ------------------------------ |
 | Legal identity, contacts         | `src/data/content.ts`          |
 | Leadership entries (1..N)       | `src/data/content.ts → team`   |
-| Business poles                  | `src/data/content.ts → pillars`|
+| Services (cards, workflows, CTAs) | `src/data/content.ts → services` |
+| FAQ entries                       | `src/data/content.ts → faq`      |
+| Quote API (backend)               | `api/` + `lib/quote-core.mjs` (see `docs/BACKEND.md`) |
 | Photography (source & crops)    | `src/lib/images.ts`            |
 | Logo mark & wordmark            | `src/components/Logo.tsx` + `public/favicon.svg` |
 | Identity rules, lockups, palette  | `docs/BRAND.md` + `public/brand/`    |
 | Image licensing inventory       | `docs/IMAGES.md`               |
 
-The identity is the engineered "Rotor F" system (mark, wordmark, lockups)
+The identity is the engineered "Gantry F" system (mark, wordmark, lockups)
 introduced in the 2026 brand redesign — geometry, usage rules and the full
 asset manifest live in **[`docs/BRAND.md`](docs/BRAND.md)**; ready-to-use SVGs
 in `public/brand/`. `src/components/Logo.tsx` embeds the primary horizontal
@@ -83,3 +85,28 @@ Factual rules for this site:
 - SEO head (title, OG, canonical, JSON-LD Organization) lives in
   `index.html`; adjust the domain there and in `public/robots.txt` +
   `public/sitemap.xml` when the final hostname is decided.
+
+## Quote-request API (backend)
+
+The contact form posts to `POST /api/quote` — Vercel serverless functions in
+`api/` sharing one dependency-free core (`lib/quote-core.mjs`): server-side
+validation + sanitisation, per-IP rate limiting, a honeypot, persistent
+records (Upstash Redis when configured, in-memory for dev) and best-effort
+email notification to the company via Resend. A private, token-guarded
+`GET/PATCH /api/quote-requests` powers triage today and a future admin
+dashboard later.
+
+```bash
+npm run dev      # site — vite proxies /api to the local API
+npm run dev:api  # same handlers over node:http (:8787)
+npm run test:api # 10-case end-to-end suite
+```
+
+Required environment variables are documented in `.env.example` and
+`docs/BACKEND.md` (deployment, security notes, request schema). No secrets
+are committed and the frontend never imports backend code. Without an API
+(e.g. the GitHub Pages deployment) the form detects it and offers a
+prefilled mailto fallback — it never pretends a message was sent.
+
+For Vercel hosting, `vercel.json` builds with `VITE_BASE=/` so the bundle
+serves at the domain root (GitHub Pages keeps the `/app/` base).

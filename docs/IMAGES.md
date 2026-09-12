@@ -33,3 +33,16 @@ company. When swapping imagery, keep to the Pexels License.
 Photographic direction for any future additions: documentary, natural
 light, real operations; no renders, no toy drones, no sci-fi, no
 exaggerated blue color grading.
+
+## Current inventory (Pexels, verified UAV-relevant)
+
+| Slot        | Photo ID  | Subject                                                   |
+| ----------- | --------- | --------------------------------------------------------- |
+| Hero        | 28467369  | Operator with professional drone before a wind-farm field |
+| Expertise   | 8981852   | Pilot hands on pro radio controller with FPV smartphone   |
+| Safety      | 34585109  | Drone + controller prepared on the ground before takeoff  |
+| Vente       | 9182739   | Professional drone and controller, raking product light   |
+| Location    | 37288723  | Drone in take-off configuration in a field at sunrise   |
+| Maintenance | 32208773  | Technician repairing a drone at the workbench            |
+| Prestations | 34182367  | Agricultural treatment drone in flight over crops        |
+| Inspection  | 6165166   | Drone in flight beside an urban construction site        |

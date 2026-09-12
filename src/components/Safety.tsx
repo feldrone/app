@@ -35,7 +35,7 @@ export default function Safety() {
     <section
       id="securite"
       aria-labelledby="safety-heading"
-      className="relative overflow-hidden bg-navy-900 py-28 text-white lg:py-36"
+      className="relative overflow-hidden bg-navy-900 py-32 text-white lg:py-44"
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">

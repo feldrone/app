@@ -17,7 +17,7 @@
  * localized content) without touching layout logic.
  */
 
-import { pillarImages, type Img } from "../lib/images";
+import { serviceImages, type Img } from "../lib/images";
 
 export const company = {
   legalName: "SARL FEL DRONE",
@@ -47,88 +47,192 @@ export const company = {
 export type TeamMember = {
   name: string;
   role: string;
-  note: string;
+  /** Optional one-line context — omitted entirely rather than invented. */
+  note?: string;
   initials: string;
 };
 
 export const team: TeamMember[] = [
   {
     name: "Yassine Fellah",
-    role: "Gérant",
+    role: "Actionnaire & Gérant",
     note: "Responsable légal et administratif de la société.",
     initials: "YF",
   },
   {
     name: "Menouar Fellah",
-    role: "Partenaire — Aviation & Opérations",
+    role: "Conseiller Aviation & Opérations",
     note: "Cadre de l'aviation (à la retraite) — référent de la supervision des vols et de la culture sécurité.",
     initials: "MF",
   },
   {
     name: "Amine Fellah",
     role: "Responsable Technique & Systèmes",
-    note: "Télépilote professionnel certifié Classe 3, spécialisé en systèmes embarqués et automatisation.",
     initials: "AF",
   },
 ];
 
-export type Pillar = {
+export type ServiceCta = { label: string; verb: "devis" | "location" | "prestation" };
+
+export type Service = {
+  slug: string;
   index: string;
   title: string;
-  summary: string;
+  tag: string;
+  intro: string;
   points: string[];
+  /** Delivered workflow — how a standard engagement runs, no promises. */
+  steps: string[];
+  cta: ServiceCta;
   image: Img;
 };
 
-export const pillars: Pillar[] = [
+/**
+ * The five public-facing services, one card each. Copy stays inside the
+ * registered scope of the company (no invented capabilities, certifications
+ * or guarantees) and each card carries a four-step "how it works" — process
+ * description, not a promise of outcome.
+ */
+export const services: Service[] = [
   {
+    slug: "vente",
     index: "01",
-    title: "Commerce",
-    summary:
-      "Vente en gros et au détail de drones professionnels, de capteurs thermiques et LiDAR, ainsi que de pièces de rechange.",
+    title: "Vente",
+    tag: "Commerce",
+    intro:
+      "Drones professionnels, capteurs thermiques et LiDAR, pièces de rechange — choisis pour l'usage, testés avant livraison.",
     points: [
-      "Drones professionnels et industriels",
+      "Aéronefs professionnels et industriels",
       "Capteurs thermiques & LiDAR",
       "Pièces de rechange et accessoires",
     ],
-    image: pillarImages.commerce,
+    steps: [
+      "Expression du besoin et du cas d'usage",
+      "Sélection du matériel et configuration",
+      "Tests et vérifications avant remise",
+      "Livraison et prise en main",
+    ],
+    cta: { label: "Demander un devis", verb: "devis" },
+    image: serviceImages.vente,
   },
   {
+    slug: "location",
     index: "02",
     title: "Location",
-    summary:
-      "Une flotte d'aéronefs télépilotés, entretenue et calibrée, mise à disposition de missions ponctuelles sous supervision aéronautique.",
+    tag: "Flotte",
+    intro:
+      "Une flotte entretenue et calibrée, mise à disposition pour des missions ponctuelles sous supervision opérationnelle stricte.",
     points: [
       "Flotte entretenue et calibrée",
       "Supervision opérationnelle stricte",
       "Mise à disposition pour missions ponctuelles",
     ],
-    image: pillarImages.location,
+    steps: [
+      "Définition de la mission et de la durée",
+      "Disponibilité et devis",
+      "Préparation du matériel et briefing",
+      "Restitution et contrôle de l'équipement",
+    ],
+    cta: { label: "Louer un drone", verb: "location" },
+    image: serviceImages.location,
   },
   {
+    slug: "maintenance",
     index: "03",
     title: "Maintenance",
-    summary:
-      "Atelier spécialisé en réparation, diagnostic et étalonnage des systèmes de drones et de leurs capteurs.",
+    tag: "Atelier",
+    intro:
+      "Réparation, diagnostic et étalonnage des systèmes de drones et de leurs capteurs, avec traçabilité à chaque étape.",
     points: [
       "Diagnostic technique approfondi",
       "Réparation et remise en service",
       "Étalonnage et calibration de précision",
     ],
-    image: pillarImages.maintenance,
+    steps: [
+      "Diagnostic",
+      "Contrôle technique",
+      "Intervention",
+      "Vérification finale",
+    ],
+    cta: { label: "Demander un devis", verb: "devis" },
+    image: serviceImages.maintenance,
   },
   {
+    slug: "prestations",
     index: "04",
     title: "Prestations de services",
-    summary:
-      "Missions opérées par des télépilotes certifiés, au service de l'agriculture, du BTP, de l'industrie et de la sécurité civile.",
+    tag: "Missions",
+    intro:
+      "Missions opérées par des télépilotes certifiés : cartographie, imagerie et suivi de sites, du champ à la donnée livrée.",
     points: [
       "Agriculture de précision (imagerie NDVI)",
       "Topographie et modélisation 3D pour le BTP",
       "Inspection thermographique industrielle",
       "Appui à la sécurité civile",
     ],
-    image: pillarImages.services,
+    steps: [
+      "Cadrage du site et des objectifs",
+      "Plan de vol et conformité réglementaire",
+      "Acquisition sur site",
+      "Livraison des données et rapport",
+    ],
+    cta: { label: "Demander une prestation", verb: "prestation" },
+    image: serviceImages.prestations,
+  },
+  {
+    slug: "inspection",
+    index: "05",
+    title: "Inspection sur chantier",
+    tag: "BTP & actifs",
+    intro:
+      "Suivi d'avancement, documentation visuelle et observations de sécurité ou techniques — une lecture aérienne régulière du chantier.",
+    points: [
+      "Suivi d'avancement photographique",
+      "Documentation visuelle des zones sensibles",
+      "Observations sécurité et techniques",
+    ],
+    steps: [
+      "Définition du périmètre et des points d'attention",
+      "Plan de vol et autorisations d'accès",
+      "Acquisition photo et vidéo",
+      "Rapport d'avancement et visuels horodatés",
+    ],
+    cta: { label: "Demander une prestation", verb: "prestation" },
+    image: serviceImages.inspection,
+  },
+];
+
+/**
+ * FAQ — answers stay inside what the company can actually commit to:
+ * process, contact routes, registered scope. No prices, no delays,
+ * no coverage claims.
+ */
+export type FaqItem = { q: string; a: string };
+
+export const faq: FaqItem[] = [
+  {
+    q: "Le service de location est-il destiné aux particuliers ou aux entreprises ?",
+    a: "La flotte est mise à disposition pour des missions ponctuelles, sous supervision opérationnelle stricte — un cadre pensé avant tout pour des usages professionnels. Décrivez-nous votre projet : nous évaluons ensemble la faisabilité et les conditions adaptées.",
+  },
+  {
+    q: "Combien de temps prend une opération de maintenance ?",
+    a: "La durée dépend de la nature de l'intervention — un simple étalonnage n'engage pas le même temps d'atelier qu'une réparation. Le diagnostic préalable permet de communiquer un délai avant toute intervention ; envoyez-nous les symptômes constatés et nous revenons vers vous avec une évaluation.",
+  },
+  {
+    q: "Quels types d'inspections pouvez-vous réaliser ?",
+    a: "Nous intervenons sur chantier (suivi d'avancement, documentation visuelle, observations de sécurité) et sur des actifs industriels via l'inspection thermographique. Chaque mission combine le vol d'acquisition et une restitution exploitable : visuels géolocalisés, rapports et données.",
+  },
+  {
+    q: "Intervenez-vous dans toute l'Algérie ?",
+    a: "FEL DRONE est implantée à El Tarf, à la frontière tunisienne. Pour les projets en dehors de notre zone immédiate, indiquez-nous le lieu de la mission : nous étudions la logistique et vous répondons clairement sur la faisabilité.",
+  },
+  {
+    q: "Comment demander un devis ?",
+    a: "Le plus simple : le formulaire « Demander un devis » en bas de page (nom, téléphone, service, contexte), ou un appel direct. Précisez le lieu, la période souhaitée et l'objectif de la mission — c'est ce qui nous permet de chiffrer juste, au plus près du besoin réel.",
+  },
+  {
+    q: "Quels types de drones proposez-vous ?",
+    a: "Des aéronefs professionnels et industriels — plates-formes multirotores pour l'inspection et les relevés, capteurs thermiques et LiDAR, accessoires et pièces de rechange — choisis pour l'usage visé, testés avant remise. Nous conseillons la configuration adaptée plutôt que le catalogue le plus large.",
   },
 ];
 
@@ -142,9 +246,10 @@ export const activities = [
 
 export const navLinks = [
   { href: "#expertise", label: "Expertise" },
-  { href: "#poles", label: "Services" },
+  { href: "#services", label: "Services" },
   { href: "#securite", label: "Sécurité" },
   { href: "#direction", label: "Entreprise" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -155,7 +260,7 @@ export const navLinks = [
  */
 export const sectors = [
   { label: "Agriculture", value: "Imagerie NDVI & traitement de précision" },
-  { label: "BTP & Topographie", value: "Relevés, plans et modélisation 3D" },
+  { label: "BTP & Topographie", value: "Relevés, modélisation 3D, suivi de chantier" },
   { label: "Industrie", value: "Inspection thermographique des actifs" },
   { label: "Sécurité civile", value: "Appui opérationnel par drone" },
 ];
