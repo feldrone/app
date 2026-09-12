@@ -1,11 +1,18 @@
 # FEL DRONE — Identity system
 
-> Status: v3.0 — final identity pass (2026-09). The v2 “Rotor F” (letter +
-> disc beside it) was retired because the disc read as a badge attached to the
-> F rather than as structure. v3 rebuilds the mark from scratch: the letter F
-> **is** the airframe — one skeleton, two simultaneous readings, no
-> decoration. Developed over 12 explored concepts; every candidate was
-> rejected until one survived black/white testing at 16 px.
+> Status: v4.0 — provenance pass (2026-09). Geometry is **frozen from v3.0**:
+> the mark, the wordmark and every lockup are unchanged in proportion and
+> colour. What v4 moves is *where truth lives*: the brand lab now exists in
+> this repo (`scripts/brand-gen.mjs`), every file — SVGs, favicon and the
+> React component's data — is emitted from one geometry table, mask ids are
+> stable and reproducible (v3 emitted random ids per run), and
+> `src/components/Logo.tsx` renders the emitted table instead of a hand-copied
+> duplicate. History: the v2 “Rotor F” (letter + disc beside it) was retired
+> because the disc read as a badge attached to the F rather than as structure.
+> v3 rebuilt the mark from scratch: the letter F **is** the airframe — one
+> skeleton, two simultaneous readings, no decoration. Developed over 12
+> explored concepts; every candidate was rejected until one survived
+> black/white testing at 16 px.
 
 ## The mark — “Gantry F”
 
@@ -96,27 +103,33 @@ simulated: skid joins but F and both apertures hold.
 ## File manifest
 
 ```
-public/favicon.svg                          navy chip 64u, cut-out apertures
-public/brand/fel-drone-symbol.svg           ink (+ gold hubs)
-public/brand/fel-drone-symbol-inverted.svg  paper (+ gold hubs)
+scripts/brand-gen.mjs                         the brand lab: single geometry source
+src/brand/brandmark.ts                          GENERATED data table (consumed by Logo.tsx)
+public/favicon.svg                            navy chip 64u, cut-out apertures
+public/brand/fel-drone-symbol.svg             ink (+ gold hubs)
+public/brand/fel-drone-symbol-inverted.svg    paper (+ gold hubs)
 public/brand/fel-drone-symbol-mono-black.svg
 public/brand/fel-drone-symbol-mono-white.svg
-public/brand/fel-drone-horizontal*.svg      4 variants (ink/inverted/mono black/white)
-public/brand/fel-drone-stacked*.svg         4 variants
-public/brand/fel-drone-wordmark(-white).svg letters only (unchanged since v2)
-public/brand/fel-drone-horizontal-geo.svg   construction/grid sheet
+public/brand/fel-drone-horizontal*.svg        4 variants (ink/inverted/mono black/white)
+public/brand/fel-drone-stacked*.svg           4 variants
+public/brand/fel-drone-wordmark(-white).svg   letters only (unchanged since v2)
+public/brand/fel-drone-horizontal-geo.svg     construction/grid sheet
 ```
 
 The root `favicon.svg` and `index.html` at repo root are **generated** build
 artifacts for Pages (`npm run build && npm run pages:sync`) — never edit by
-hand; edit `template.html` and `public/favicon.svg`.
+hand; edit `template.html` and `public/favicon.svg` (itself emitted by the
+brand lab).
 
 ## Updating
 
 `src/components/Logo.tsx`, the favicon and every brand file come from one
-geometry source (brand-lab `gen_final.js`: `GEO` + glyph table). To amend the
-mark: change the unit geometry once, re-emit SVGs + component; components
-never hard-code path data by hand.
+geometry source: the table at the top of `scripts/brand-gen.mjs` (the v4
+brand lab, replacing the out-of-band `gen_final.js` of v2/v3). To amend the
+mark: change the unit geometry once, run `npm run brand:gen`, and every SVG,
+the favicon and the component's data table are re-emitted together — nothing
+else changes. `npm run brand:check` verifies no file drifted from the table.
+Components never hard-code path data by hand.
 
 ## Prohibitions
 
@@ -126,3 +139,19 @@ never hard-code path data by hand.
   without a plate.
 - Do not use the geographic lockup as primary.
 - Do not render the lockup below minimum sizes; drop to the symbol alone.
+
+## Changelog
+
+- **v4.0 (2026-09) — provenance pass.** Brand lab moved in-repo
+  (`scripts/brand-gen.mjs`); all brand SVGs, the favicon and the component
+  data table (`src/brand/brandmark.ts`) re-emitted from one geometry source;
+  deterministic mask ids (`hm*/sm*/fm*/fv`) replace per-run random ids;
+  `Logo.tsx` renders the emitted table instead of duplicated path data.
+  Geometry, colours, wordmark and lockup metrics: unchanged from v3.0.
+  Same pass ships the mobile-nav fix (sheet portalled to `<body>`, escaping
+  the header's `backdrop-filter` containing block) and full leadership roles
+  (Yassine / Menouar / Amine) in `src/data/content.ts`.
+- **v3.0 (2026-09) — “Gantry F”.** Mark rebuilt from scratch; rotor discs
+  become structure drilled through the spars; wordmark kept from v2.
+- **v2.0 — “Rotor F”.** First engineered mark + custom monoline wordmark;
+  legacy logo retired.

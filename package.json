@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "pages:sync": "node scripts/sync-pages.mjs",
+    "brand:gen": "node scripts/brand-gen.mjs",
+    "brand:check": "node scripts/brand-gen.mjs --check",
     "dev:api": "node scripts/dev-api.mjs",
     "test:api": "node scripts/test-api.mjs"
   },

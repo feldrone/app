@@ -68,6 +68,7 @@ export const team: TeamMember[] = [
   {
     name: "Amine Fellah",
     role: "Responsable Technique & Systèmes",
+    note: "Pilote l'atelier : diagnostic, réparation, intégration des capteurs et suivi technique de la flotte.",
     initials: "AF",
   },
 ];
