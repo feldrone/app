@@ -229,6 +229,9 @@ export default function Contact() {
                 <MapPin size={18} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
                 <span className="text-[14.5px] leading-relaxed text-ink">
                   {company.addressLine1}, {company.addressLine2}, {company.country}
+                  <span className="block text-[12px] text-mute">
+                    Plus Code {company.plusCode} — Aïn El Assel
+                  </span>
                 </span>
               </li>
               <li className="flex items-start gap-4">
@@ -249,8 +252,8 @@ export default function Contact() {
             <Reveal delay={160}>
               <div className="no-print mt-12 aspect-[4/3] w-full overflow-hidden border border-line grayscale transition-[filter] duration-500 hover:grayscale-0">
                 <iframe
-                  title="Localisation de FEL DRONE — Aïn El Assel, El Tarf, Algérie"
-                  src="https://www.google.com/maps?q=A%C3%AFn%20El%20Assel%2C%20El%20Tarf%2C%20Alg%C3%A9rie&output=embed"
+                  title="Localisation FEL DRONE — Q9JM+542, Aïn El Assel, Wilaya d'El Tarf, Algérie"
+                  src="https://www.google.com/maps?q=Q9JM%2B542%20A%C3%AFn%20El%20Assel&output=embed"
                   className="h-full w-full border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

@@ -28,10 +28,13 @@ export const company = {
   rcDate: "28.07.2026",
   /** Internal record only — do not display in the public interface. */
   capital: "1 000 000 DA",
-  addressLine1: "Cité 150 Logements",
+  addressLine1: "Cité 150 Logements B",
   addressLine2: "Commune de Aïn El Assel, Wilaya d'El Tarf",
   city: "El Tarf",
   country: "Algérie",
+  /** Precise business pin — Open Location Code (short form, resolved with
+   *  the commune context). The map embed and the printed address share it. */
+  plusCode: "Q9JM+542",
   email: "contact.feldrone@gmail.com",
   phone: "+213 6 61 61 33 99",
   phoneHref: "+213661613399",
