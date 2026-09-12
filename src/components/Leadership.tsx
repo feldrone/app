@@ -39,7 +39,7 @@ export default function Leadership() {
                         <h3 className="text-[17px] font-semibold tracking-tight text-navy-900">
                           {member.name}
                         </h3>
-                        <span className="whitespace-nowrap text-[12.5px] font-medium tracking-[0.08em] text-signal-600 uppercase">
+                        <span className="text-balance text-[13px] font-bold tracking-[0.075em] text-signal-600 uppercase md:whitespace-nowrap">
                           {member.role}
                         </span>
                       </div>
