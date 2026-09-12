@@ -52,11 +52,10 @@ export const company = {
  */
 export type TeamMember = {
   name: string;
-  /** Gold uppercase label rendered beside the name. */
+  /** Gold uppercase identity line: shareholder status and function as ONE
+   *  statement ("Actionnaire — <function>"), rendered on a single line
+   *  beside the name. Never split into a label + separate role line. */
   role: string;
-  /** Approved role/function line, rendered under the name (kept separate
-   *  from the label so labels can change without ever deleting a role). */
-  title?: string;
   /** Optional one-line context — omitted entirely rather than invented. */
   note?: string;
   initials: string;
@@ -65,21 +64,19 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     name: "Yassine Fellah",
-    role: "Actionnaire",
-    title: "Directeur & Gérant",
+    role: "Actionnaire — Directeur & Gérant",
     note: "Responsable légal et administratif de la société.",
     initials: "YF",
   },
   {
     name: "Menouar Fellah",
-    role: "Actionnaire",
-    title: "Conseiller Aviation & Opérations",
+    role: "Actionnaire — Conseiller Aviation & Opérations",
     note: "Cadre de l'aviation (à la retraite) — référent de la supervision des vols et de la culture sécurité.",
     initials: "MF",
   },
   {
     name: "Amine Fellah",
-    role: "Actionnaire",
+    role: "Actionnaire — Responsable Technique & Systèmes",
     note: "Étudiant en informatique",
     initials: "AF",
   },

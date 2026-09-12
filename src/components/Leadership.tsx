@@ -39,15 +39,10 @@ export default function Leadership() {
                         <h3 className="text-[17px] font-semibold tracking-tight text-navy-900">
                           {member.name}
                         </h3>
-                        <span className="text-[12.5px] font-medium tracking-[0.08em] text-signal-600 uppercase">
+                        <span className="whitespace-nowrap text-[12.5px] font-medium tracking-[0.08em] text-signal-600 uppercase">
                           {member.role}
                         </span>
                       </div>
-                      {member.title && (
-                        <p className="mt-1.5 text-[14.5px] font-medium tracking-tight text-navy-900">
-                          {member.title}
-                        </p>
-                      )}
                       {member.note && (
                         <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-ink-soft">
                           {member.note}
