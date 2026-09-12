@@ -13,3 +13,6 @@ tsconfig.tsbuildinfo
 
 # local dev API store (never committed)
 .dev-data
+
+# transportable git bundles (session hand-off artifacts, never committed)
+*.bundle
