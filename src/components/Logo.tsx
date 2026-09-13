@@ -2,47 +2,45 @@ import { cn } from "../utils/cn";
 import { BRAND, type BrandLockup } from "../brand/brandmark";
 
 /**
- * FELDRONE — identity lockups v7.2 “THE CLEARANCE”, rendered from the
- * brand-lab geometry table (scripts/brand-gen.mjs → src/brand/brandmark.ts;
- * docs/BRAND.md). No path data is hand-coded in this component.
+ * FEL DRONE — identity lockups v8 “ROTOR F”, rendered from the brand
+ * generator (scripts/brand-gen.mjs → src/brand/brandmark.ts; docs/BRAND.md).
+ * No path data is hand-coded in this component.
  *
- * The mark is three solid rectilinear blocks — a slab and two shelves — and
- * the F is the clearance they leave between them: a negative-relief letter,
- * the instrument of the trade (fit, calibration, precision), never a drone
- * part. One grid (4u unit, 32u module), ink = void at every scale, and 45°
- * as the only non-right angle: the shelves’ chamfers and the D/O/R bowl
- * cuts are the same grammar, so symbol and wordmark read as one system.
- * Flat fills, even-odd counters, integer coordinates — no strokes, no
- * gradients, no frames; any ground carries it.
+ * The mark is ONE symbol: the F letterform built as a machine. The stem is
+ * the spar; the top and mid arms terminate at their hub centers and drive two
+ * rotors — the primary rotor (⌀ 64u, grounded to the top and right edges) and
+ * the secondary (⌀ 48u, floating 8u off the floor). Every rotor follows the
+ * same radial law — band 12u, aperture 8u — so the counter of the F IS the
+ * rotor: recognizable at any size without the wordmark, because the wordmark
+ * begins with the same letter. Nonzero winding does the booleans: the arms
+ * cross the apertures and open them as a "C" exactly where the spar meets the
+ * motor; nothing tangents, nothing slivers, nothing floats.
+ *
+ * The site renders the mark in ink only — the gold hub jewel is a brand-asset
+ * exclusive (fel-drone-mark-accent.svg); color inside the UI stays a site
+ * token. Flat fills, integer grid, no strokes, no gradients, no frames.
  *
  * Tiers: MASTER (these lockups, ≥ 64 px incl. the header/footer renders),
- * COMPACT (the symbol alone at 40–64 px), MICRO (16–32 px: chamfers
- * deleted — see public/favicon.svg and fel-drone-symbol-micro.svg). The
- * wordmark is never shown below COMPACT. Mobile gets the STACKED build
- * automatically; the horizontal lockup ships a 32u mark→word clearance
- * (≥ 24u floor), so the pairing can never fuse.
+ * COMPACT (the symbol alone at 40–64 px), MICRO (16–32 px: a DIFFERENT,
+ * correct drawing — the apertures are deleted and the rotors render as solid
+ * discs, so nothing pinches; see public/favicon.svg). Mobile gets the
+ * STACKED build automatically; the horizontal lockup ships a 32u mark→word
+ * clearance and a 48u word-space between FEL and DRONE, so the pairing can
+ * never fuse.
  */
 function Lockup({ spec, ink, className }: { spec: BrandLockup; ink: string; className?: string }) {
   return (
     <svg
-      viewBox={`0 0 ${spec.width} ${spec.height}`}
+      viewBox={`0 0 ${spec.w} ${spec.h}`}
       role="img"
-      aria-label="FELDRONE"
+      aria-label="FEL DRONE"
       focusable="false"
       className={cn("w-auto shrink-0", className)}
     >
-      <g transform={spec.markTransform}>
-        <path fill={ink} fillRule="evenodd" d={BRAND.mark} />
+      <g fill={ink} fillRule="nonzero">
+        <path d={BRAND.mark} transform={`translate(${spec.markX} ${spec.markY})`} />
+        <path d={BRAND.word} transform={`translate(${spec.wordX} ${spec.baseline - 104})`} />
       </g>
-      {spec.glyphs.map((g) => (
-        <path
-          key={`${spec.width}:${g.x}`}
-          transform={`translate(${g.x} ${g.y})`}
-          fill={ink}
-          fillRule="evenodd"
-          d={g.d}
-        />
-      ))}
     </svg>
   );
 }

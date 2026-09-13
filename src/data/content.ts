@@ -77,7 +77,7 @@ export const team: TeamMember[] = [
   {
     name: "Amine Fellah",
     role: "Actionnaire — Responsable Technique & Systèmes",
-    note: "Étudiant en informatique",
+    note: "Étudiant en informatique. Télépilote professionnel certifié Classe 3, spécialisé en systèmes embarqués et automatisation.",
     initials: "AF",
   },
 ];

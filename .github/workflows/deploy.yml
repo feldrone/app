@@ -24,6 +24,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Verify (typecheck · brand sync · API)
+        run: |
+          npm run typecheck
+          npm run brand:check
+          npm run test:api
       - run: npm run build
       - name: Sync built entry to repo root (legacy Pages branch mode)
         if: github.ref == 'refs/heads/main'

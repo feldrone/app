@@ -1,189 +1,138 @@
 #!/usr/bin/env node
 /**
- * FEL DRONE — application board renderer (identity v4).
+ * FEL DRONE — application board renderer (identity v8 "ROTOR F").
  *
- * Regenerates docs/brand-board.png: an HTML-free vector composite that
- * embeds the SAME files the brand lab emits (public/brand/*.svg,
- * public/favicon.svg) via <image> hrefs, so the board can never drift from
- * the identity. Text-only font is Inter, prepared on the fly from
- * @fontsource/inter (woff2 → ttf for fontconfig/librsvg).
+ * Regenerates docs/brand-board-v8.png: a vector composite that embeds the
+ * SAME files the brand generator emits (public/brand/*.svg, public/favicon.svg)
+ * by reading them at build time — the board can never drift from the identity.
+ * Pipeline: every asset is rasterized by resvg (exact winding semantics,
+ * same engine QA uses), then composed into a master SVG with <image> hrefs
+ * and rasterized again. No fonts are required on the host beyond resvg's
+ * fallback set; labels are drawn with sans-serif.
  *
- * Requires (dev-only, no package.json churn):
- *   npm i --no-save sharp @fontsource/inter wawoff2
- *
- * Usage:  node scripts/brand-board.mjs   # → docs/brand-board.png
+ * Usage:  node scripts/brand-board.mjs   # → docs/brand-board-v8.png
  */
 import fs from "node:fs";
 import path from "node:path";
-import os from "node:os";
 import { fileURLToPath } from "node:url";
+import { Resvg } from "@resvg/resvg-js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const FONT_DIR = process.env.BRAND_FONTS || path.join(os.tmpdir(), "boardfonts");
+const read = (p) => fs.readFileSync(path.join(ROOT, p), "utf8");
 
-async function prepareFonts() {
-  if (fs.existsSync(path.join(FONT_DIR, "Inter-Bold.ttf"))) return;
-  let wawoff2, ffDir;
-  try {
-    wawoff2 = (await import("wawoff2")).default;
-    ffDir = path.join(ROOT, "node_modules/@fontsource/inter/files");
-    if (!fs.existsSync(ffDir)) throw new Error("no @fontsource/inter");
-  } catch {
-    console.error("font prep unavailable — run: npm i --no-save sharp @fontsource/inter wawoff2");
-    process.exit(1);
-  }
-  fs.mkdirSync(FONT_DIR, { recursive: true });
-  for (const [src, out] of [
-    ["inter-latin-400-normal.woff2", "Inter-Regular.ttf"],
-    ["inter-latin-500-normal.woff2", "Inter-Medium.ttf"],
-    ["inter-latin-600-normal.woff2", "Inter-SemiBold.ttf"],
-    ["inter-latin-700-normal.woff2", "Inter-Bold.ttf"],
-  ]) {
-    const ttf = await wawoff2.decompress(fs.readFileSync(path.join(ffDir, src)));
-    fs.writeFileSync(path.join(FONT_DIR, out), Buffer.from(ttf));
-  }
-}
+const NAVY = "#0e1f30", PAPER = "#fbfaf8", BLACK = "#000000", SLATE = "#243b52",
+  BG = "#eef0f2", PANEL = "#ffffff", GOLD = "#b4722c", LABEL = "#41546b", FOOT = "#63758c";
 
-/* palette */
-const BG = "#f8f7f4";
-const PANEL = "#f6f3ee";
-const BAR = "#ececE5";
-const NAVY = "#0e1f30";
-const SLATE = "#4a5568";
-const TITLE = "#10263a";
-const SUB = "#5b6a7d";
-const LABEL = "#6b7787";
-const INKLABEL = "#4b5866";
-const FOOT = "#9aa5b1";
-
-const W = 1600;
-const H = 1800;
-const M = 56;
-const PW = W - 2 * M;
-
-/**
- * Embed a brand file INLINED as a nested <svg> (librsvg-safe: no external
- * <image> resolution). The source file's inner markup is copied verbatim —
- * the board always shows the identity as emitted by the brand lab.
- */
-function brandImg(href, x, y, h, w) {
-  const src = fs.readFileSync(path.join(ROOT, href), "utf8");
-  const vb = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/.exec(src);
-  const [, vw, vh] = vb;
-  const width = w ?? (h * Number(vw)) / Number(vh);
-  const open = src.match(/<svg[^>]*>/)[0];
-  const inner = src.slice(src.indexOf(open) + open.length, src.lastIndexOf("</svg>"));
-  const attrs = `viewBox="${/viewBox="[^"]+"/.exec(open)[0].slice(9, -1)}" preserveAspectRatio="xMidYMid meet"`;
-  return `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${width.toFixed(1)}" height="${h.toFixed(1)}" ${attrs}>${inner}</svg>`;
-}
-function centered(href, boxX, boxY, boxW, boxH, h) {
-  const src = fs.readFileSync(path.join(ROOT, href), "utf8");
-  const vb = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/.exec(src);
-  const w = (h * Number(vb[1])) / Number(vb[2]);
-  return brandImg(href, boxX + (boxW - w) / 2, boxY + (boxH - h) / 2, h, w);
-}
-
-const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+/** render a brand SVG file to a PNG buffer at a target pixel box */
+const asset = (rel, w, h) => {
+  const fit = h ? undefined : { mode: "width", value: w };
+  const r = new Resvg(read(rel), { fitTo: h ? { mode: "width", value: w } : fit, background: "rgba(0,0,0,0)" });
+  return Buffer.from(r.render().asPng()).toString("base64");
+};
+const img = (rel, x, y, w, h, b64) =>
+  `<image href="data:image/png;base64,${b64 ?? asset(rel, w)}" x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}"/>`;
+const fmt = (n) => Math.round(n * 100) / 100;
+const rect = (x, y, w, h, fill, r = 10) => `<rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" rx="${r}" fill="${fill}"/>`;
 const label = (x, y, t) =>
-  `<text x="${x}" y="${y}" font-family="Inter" font-size="16" font-weight="600" letter-spacing="2.4" fill="${LABEL}">${esc(t)}</text>`;
+  `<text x="${x}" y="${y}" font-family="sans-serif" font-size="15" font-weight="700" letter-spacing="1.6" fill="${LABEL}">${t}</text>`;
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
-const rect = (x, y, w, h, fill, r = 10) =>
-  `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}"/>`;
-
-/* ── layout ── */
-let y = 0;
+const W = 1520, M = 40, PW = W - 2 * M;
 const parts = [];
+let y = 0;
 
-// masthead
-parts.push(`<text x="${M}" y="96" font-family="Inter" font-size="40" font-weight="700" fill="${TITLE}">${esc("FELDRONE — identity system v7.2 \u201cTHE CLEARANCE\u201d")}</text>`);
+parts.push(rect(0, 0, W, 240, PAPER, 0));
+parts.push(`<text x="${M}" y="92" font-family="sans-serif" font-size="40" font-weight="700" fill="${NAVY}">${esc("FEL DRONE — identity system v8 \u201cROTOR F\u201d")}</text>`);
 parts.push(
-  `<text x="${M}" y="134" font-family="Inter" font-size="17" fill="${SUB}">${esc("three solid blocks, one F-shaped clearance: the letter is the VOID of a machined fit \u00b7 grid 4u, module 32u, ink = air \u00b7 45\u00b0 is the only cut, shared by shelves and by D/O/R \u00b7 monochrome by construction")}</text>`,
+  `<text x="${M}" y="132" font-family="sans-serif" font-size="17" fill="${LABEL}">${esc("the F letterform IS the airframe: stem 32u spar, arms terminating at their hub centers · rotors are the counters of the letter")}</text>`,
 );
 parts.push(
-  `<text x="${M}" y="160" font-family="Inter" font-size="14" fill="${SUB}">${esc("v7.2 correction of 2026-09-13 \u2014 rotor read retired; responsive tiers MASTER \u2265 64 / COMPACT 40\u201364 / MICRO 16\u201332 (chamfers deleted, nothing else) \u00b7 one geometry source: scripts/brand-gen.mjs")}</text>`,
+  `<text x="${M}" y="158" font-family="sans-serif" font-size="14" fill="${LABEL}">${esc("band 12u · aperture 8u — no tangency, no sliver · one weight family: mark M 32u, type 24u")}</text>`,
+);
+parts.push(
+  `<text x="${M}" y="182" font-family="sans-serif" font-size="14" fill="${LABEL}">${esc("client-authorized integration 2026-09-14 — re-engineered, never traced · grid 4u, module 32u · one geometry source: scripts/brand-gen.mjs · brand:check gates CI AND the Vercel build")}</text>`,
 );
 
-// primary horizontal lockup
-y = 206;
-parts.push(label(M, y, "PRIMARY — HORIZONTAL LOCKUP"));
-const p1y = y + 20, p1h = 420;
+y = 272;
+parts.push(label(M, y, "PRIMARY — HORIZONTAL LOCKUP (MASTER TIER)"));
+const p1y = y + 20, p1h = 340;
 parts.push(rect(M, p1y, PW, p1h, PANEL));
-parts.push(brandImg("public/brand/fel-drone-horizontal.svg", M + (PW - 1240) / 2, p1y + (p1h - 231.8) / 2, 231.8, 1240));
+parts.push(img("public/brand/fel-drone-lockup.svg", M + (PW - 1240) / 2, p1y + (p1h - 226) / 2, 1240, 226));
 
-// row 2 — inverted + stacked
-y = p1y + p1h + 60; // 706
+y = p1y + p1h + 56; // 668
 parts.push(label(M, y, "INVERTED (NAVY GROUND)"));
-parts.push(label(800, y, "STACKED (AVATAR / SIGNAGE)"));
-const p2y = y + 20, p2h = 300;
-parts.push(rect(M, p2y, 700, p2h, PANEL)); // panel bg behind navy plate
-const invH = (700 * 160) / 856;
-parts.push(brandImg("public/brand/fel-drone-horizontal-inverted.svg", M, p2y + (p2h - invH) / 2, invH, 700));
-parts.push(rect(800, p2y, 744, p2h, PANEL));
-parts.push(centered("public/brand/fel-drone-stacked.svg", 800, p2y, 744, p2h, 220));
+parts.push(label(800, y, "STACKED (MOBILE · SIGNAGE · AVATAR PLATE)"));
+const p2y = y + 20, p2h = 280;
+parts.push(rect(M, p2y, 700, p2h, NAVY, 10));
+parts.push(img("public/brand/fel-drone-lockup-inverse.svg", M + 40, p2y + (p2h - 113) / 2, 620, 113));
+parts.push(rect(800, p2y, 680, p2h, PANEL));
+parts.push(img("public/brand/fel-drone-stacked.svg", 800 + (680 - 255) / 2, p2y + 24, 255, 105));
+parts.push(label(800, p2y + p2h - 26, "word baseline anchored · 16u margins hold at any print size"));
 
-// row 3 — symbol variants
-y = p2y + p2h + 60; // 1066
-const tileW = (PW - 3 * 16) / 4; // 360
-const tileX = (i) => M + i * (tileW + 16);
-const tileH = 250;
-parts.push(label(tileX(0), y, "SYMBOL — INK"));
-parts.push(label(tileX(1), y, "SYMBOL — PAPER"));
-parts.push(label(tileX(2), y, "MONO BLACK (PRINT, DECAL)"));
-parts.push(label(tileX(3), y, "MONO WHITE (VEHICLE, BODY)"));
+y = p2y + p2h + 56; // 948
+const tileW = (PW - 3 * 16) / 4, tileX = (i) => M + i * (tileW + 16), tileH = 240;
+parts.push(label(tileX(0), y, "SYMBOL — INK (PAPER GROUND)"));
+parts.push(label(tileX(1), y, "SYMBOL — ACCENT (HUB JEWEL)"));
+parts.push(label(tileX(2), y, "MONO BLACK (PRINT · DECAL)"));
+parts.push(label(tileX(3), y, "MONO WHITE (VEHICLE · BODY)"));
 const p3y = y + 20;
 parts.push(rect(tileX(0), p3y, tileW, tileH, PANEL));
-parts.push(rect(tileX(1), p3y, tileW, tileH, NAVY));
+parts.push(rect(tileX(1), p3y, tileW, tileH, PAPER));
 parts.push(rect(tileX(2), p3y, tileW, tileH, PANEL));
 parts.push(rect(tileX(3), p3y, tileW, tileH, SLATE));
-parts.push(centered("public/brand/fel-drone-symbol.svg", tileX(0), p3y, tileW, tileH, 160));
-parts.push(centered("public/brand/fel-drone-symbol-inverted.svg", tileX(1), p3y, tileW, tileH, tileH)); // navy bg = seamless bleed
-parts.push(centered("public/brand/fel-drone-symbol-mono-black.svg", tileX(2), p3y, tileW, tileH, 160));
-parts.push(centered("public/brand/fel-drone-symbol-mono-white.svg", tileX(3), p3y, tileW, tileH, 160));
+parts.push(img("public/brand/fel-drone-mark.svg", tileX(0) + (tileW - 150) / 2, p3y + 45, 150, 150));
+parts.push(img("public/brand/fel-drone-mark-accent.svg", tileX(1) + (tileW - 150) / 2, p3y + 45, 150, 150));
+parts.push(img("public/brand/fel-drone-mark-mono.svg", tileX(2) + (tileW - 150) / 2, p3y + 45, 150, 150));
+const whiteMark = (() => {
+  const r = new Resvg(read("public/brand/fel-drone-mark-mono.svg").replace(/#000000/g, "#ffffff"), { fitTo: { mode: "width", value: 150 } });
+  return Buffer.from(r.render().asPng()).toString("base64");
+})();
+parts.push(img("", tileX(3) + (tileW - 150) / 2, p3y + 45, 150, 150, whiteMark));
 
-// row 4 — favicon sizes
-y = p3y + tileH + 60; // 1396
-parts.push(label(M, y, "FAVICON & APPLICATION SIZES — CHANNEL & COUNTERS HOLD TO 16 PX"));
-const barY = y + 20, barH = 170;
-parts.push(rect(M, barY, PW, barH, BAR));
+y = p3y + tileH + 56; // 1244
+parts.push(label(M, y, "MICRO TIER — VOIDs DELETED (SOLID ROTORS) · FAVICON CHIP + STANDALONE 64→16"));
+const barY = y + 20, barH = 200;
+parts.push(rect(M, barY, PW, barH, PANEL));
 let cx = M + 44;
 for (const size of [64, 48, 32, 24, 16]) {
-  const cy = barY + (barH - size) / 2;
-  parts.push(brandImg("public/favicon.svg", cx, cy, size, size));
-  parts.push(
-    `<text x="${cx + size + 12}" y="${barY + barH / 2 + 5}" font-family="Inter" font-size="15" fill="${INKLABEL}">${size}px</text>`,
-  );
-  cx += size + 12 + 46 + 28;
+  const cy = barY + (barH - size) / 2 - 12;
+  parts.push(img("public/favicon.svg", cx, cy, size, size));
+  parts.push(`<text x="${cx}" y="${barY + barH - 34}" font-family="sans-serif" font-size="15" fill="${LABEL}">${size}px</text>`);
+  cx += 110;
 }
-// standalone symbol at small sizes (no chip)
-parts.push(brandImg("public/brand/fel-drone-symbol.svg", M + 900, barY + (barH - 32) / 2, 32, 32));
-parts.push(brandImg("public/brand/fel-drone-symbol.svg", M + 952, barY + (barH - 24) / 2, 24, 24));
-parts.push(
-  `<text x="${M + 900}" y="${barY + barH - 18}" font-family="Inter" font-size="13" fill="${LABEL}">${esc("standalone \u2014 min 24")}</text>`,
-);
+const microWhite = (() => {
+  const r = new Resvg(read("public/brand/fel-drone-mark-micro.svg").replace(/#000000/g, "#ffffff"), { fitTo: { mode: "width", value: 128 } });
+  return Buffer.from(r.render().asPng()).toString("base64");
+})();
+cx = M + 5 * 110 + 20;
+for (const size of [64, 48, 32, 24, 16]) {
+  parts.push(
+    `<g transform="translate(${cx} ${barY + (barH - size - 24) / 2})">` +
+    rect(-12, -12, size + 24, size + 24, NAVY, 14) +
+    `<image href="data:image/png;base64,${microWhite}" x="0" y="0" width="${size}" height="${size}"/></g>`,
+  );
+  cx += size + 60;
+}
+parts.push(`<text x="${M + 5 * 110 + 20}" y="${barY + barH - 22}" font-family="sans-serif" font-size="15" fill="${LABEL}">standalone MICRO on navy — solid rotors, nothing to pinch</text>`);
 
-// footer
-parts.push(
-  `<text x="${M}" y="${H - 44}" font-family="Inter" font-size="13" fill="${FOOT}">${esc("regenerated by scripts/brand-board.mjs from scripts/brand-gen.mjs output \u00b7 identity v7.2 \u00b7 2026-09 \u00b7 negative-relief F per client correction brief of 2026-09-13 \u00b7 grid 4u module 32u")}</text>`,
-);
-parts.push(
-  `<text x="${W - M}" y="${H - 44}" text-anchor="end" font-family="Inter" font-size="13" fill="${FOOT}">${esc("SARL FEL DRONE \u2014 El Tarf, Alg\u00e9rie")}</text>`,
-);
+y = barY + barH + 56; // 1500
+parts.push(label(M, y, "WORDMARK — “FEL DRONE”, TWO WORDS · ENGINEERED STADIUM TYPE · 48u WORD-SPACE"));
+const p4y = y + 20, p4h = 190;
+parts.push(rect(M, p4y, PW - 400, p4h, PANEL));
+parts.push(img("public/brand/fel-drone-wordmark.svg", M + (PW - 400 - 1000) / 2, p4y + (p4h - 151) / 2, 1000, 151));
+parts.push(rect(PW - 340, p4y, 340 + M, p4h, PANEL));
+parts.push(img("public/brand/fel-drone-geo.svg", PW - 330, p4y + 20, 150, 150));
+parts.push(`<text x="${PW - 160}" y="${p4y + 78}" font-family="sans-serif" font-size="14" fill="${LABEL}">${esc("construction sheet:")}</text><text x="${PW - 160}" y="${p4y + 98}" font-family="sans-serif" font-size="14" fill="${LABEL}">${esc("4u grid · M 32 · rotor")}<tspan font-weight="700">⌀</tspan>${esc("64/48")}</text><text x="${PW - 160}" y="${p4y + 118}" font-family="sans-serif" font-size="14" fill="${LABEL}">${esc("band 12u · aperture 8u")}</text>`);
 
+y = p4y + p4h + 40; // 1730
+parts.push(`<text x="${M}" y="${y}" font-family="sans-serif" font-size="13" fill="${FOOT}">${esc("scripts/brand-board.mjs ← scripts/brand-gen.mjs output · identity v8 · 2026-09 · reference board preserved at docs/brand-board.png")}</text>`);
+parts.push(`<text x="${W - M}" y="${y}" text-anchor="end" font-family="sans-serif" font-size="13" fill="${FOOT}">${esc("SARL FEL DRONE — El Tarf, Algérie")}</text>`);
+
+const H = y + 60;
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
 ${rect(0, 0, W, H, BG, 0)}
 ${parts.join("\n")}
-</svg>
-`;
-
-await prepareFonts();
-process.env.FONTCONFIG_FILE = (() => {
-  const p = path.join(os.tmpdir(), "brand-board-fonts.conf");
-  fs.writeFileSync(p, `<?xml version="1.0"?>\n<!DOCTYPE fontconfig SYSTEM "fonts.dtd">\n<fontconfig>\n  <dir>${FONT_DIR}</dir>\n  <cachedir>${path.join(os.tmpdir(), "brand-board-fc-cache")}</cachedir>\n</fontconfig>\n`);
-  return p;
-})();
-
-const tmpSvg = path.join(os.tmpdir(), "brand-board.svg");
-fs.writeFileSync(tmpSvg, svg);
-const sharp = (await import("sharp")).default;
-await sharp(tmpSvg, { limit: 2000 }).png().toFile(path.join(ROOT, "docs/brand-board.png"));
-console.log("rendered docs/brand-board.png");
+</svg>`;
+const out = new Resvg(svg, { background: BG }).render().asPng();
+fs.writeFileSync(path.join(ROOT, "docs/brand-board-v8.png"), out);
+console.log(`docs/brand-board-v8.png — ${W}×${H}, ${out.length} bytes`);
