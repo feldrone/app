@@ -2,24 +2,25 @@ import { cn } from "../utils/cn";
 import { BRAND, type BrandLockup } from "../brand/brandmark";
 
 /**
- * FELDRONE — identity lockups v7.0 "THE VANE", rendered from the brand-lab
- * geometry table (scripts/brand-gen.mjs → src/brand/brandmark.ts;
+ * FELDRONE — identity lockups v7.2 “THE CLEARANCE”, rendered from the
+ * brand-lab geometry table (scripts/brand-gen.mjs → src/brand/brandmark.ts;
  * docs/BRAND.md). No path data is hand-coded in this component.
  *
- * The mark is a proprietary F built as a windsock seen at rest-to-wind:
- * a mast stem, a top arm that is a tapered cone (flat top edge, a single
- * rising underside, square-cut open end) and a shorter airflow bar. The
- * word's own F carries the identical wedge at 12u — the symbol is the
- * letter, the letter is the symbol. Everything is flat filled geometry on
- * an integer grid (one ring, even-odd counters); one weight language,
- * monochrome by construction, so any ground — paper, navy, black, white —
- * carries it without a single extra rule.
+ * The mark is three solid rectilinear blocks — a slab and two shelves — and
+ * the F is the clearance they leave between them: a negative-relief letter,
+ * the instrument of the trade (fit, calibration, precision), never a drone
+ * part. One grid (4u unit, 32u module), ink = void at every scale, and 45°
+ * as the only non-right angle: the shelves’ chamfers and the D/O/R bowl
+ * cuts are the same grammar, so symbol and wordmark read as one system.
+ * Flat fills, even-odd counters, integer coordinates — no strokes, no
+ * gradients, no frames; any ground carries it.
  *
- * The horizontal lockup keeps the ≥ 24u clear space between mark and word
- * (the build ships 28u); mobile / constrained viewports get the STACKED
- * build — mark centred above the word — so the risky side-by-side pairing
- * never renders below the sm breakpoint. Exactly one variant is in the
- * accessibility tree per viewport.
+ * Tiers: MASTER (these lockups, ≥ 64 px incl. the header/footer renders),
+ * COMPACT (the symbol alone at 40–64 px), MICRO (16–32 px: chamfers
+ * deleted — see public/favicon.svg and fel-drone-symbol-micro.svg). The
+ * wordmark is never shown below COMPACT. Mobile gets the STACKED build
+ * automatically; the horizontal lockup ships a 32u mark→word clearance
+ * (≥ 24u floor), so the pairing can never fuse.
  */
 function Lockup({ spec, ink, className }: { spec: BrandLockup; ink: string; className?: string }) {
   return (
