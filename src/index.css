@@ -70,6 +70,30 @@ body {
   padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
 }
 
+/* ── Footer — links: full-contrast ink + premium interaction states ────────
+   Client pass 2026-09-13: the sitemap links read as dark gray on deep navy
+   on small phones, and the global navy-800 focus ring is invisible on the
+   navy ground. Links now carry crisp #FFFFFF ink, an elegant light-blue
+   hover/focus (#8AB4FF, restrained — the only accent motion in the footer),
+   a currentColor focus-visible ring with 3px offset, and a soft active
+   state. Unlayered on purpose: these rules replace the utility classes that
+   caused the problem, and the @media print rules still win where defined. */
+footer a {
+  color: #ffffff;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+footer a:hover {
+  color: #8ab4ff;
+}
+footer a:focus-visible {
+  color: #8ab4ff;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+footer a:active {
+  opacity: 0.8;
+}
+
 /* Display type: optical sizing keeps large serif cuts tight and editorial */
 .font-display {
   font-optical-sizing: auto;

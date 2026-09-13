@@ -16,10 +16,13 @@ export default function Hero() {
         {/* Text column — intentionally asymmetric (7/12) */}
         <div className="lg:col-span-7">
           <Reveal>
-            <p className="mb-7 flex flex-wrap items-center gap-3 text-[11px] font-medium uppercase tracking-[0.24em] text-mute sm:text-[12px]">
-              <span className="h-px w-8 bg-signal-600" aria-hidden="true" />
-              Vente, location, maintenance et services
-            </p>
+            <div className="mb-7 flex items-start gap-3">
+              <span className="mt-2 h-px w-8 shrink-0 bg-signal-600" aria-hidden="true" />
+              <p className="max-w-md text-[13.5px] leading-relaxed text-ink-soft sm:text-[14.5px]">
+                Spécialiste en maintenance, diagnostic, calibration et prestations
+                de services par drone.
+              </p>
+            </div>
           </Reveal>
 
           <Reveal delay={80}>

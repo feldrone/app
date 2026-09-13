@@ -25,13 +25,13 @@ export default function Footer() {
             <ul className="mt-5 space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-[13.5px] text-white/90 transition-colors hover:text-white">
+                  <a href={link.href} className="text-[13.5px]">
                     {link.label}
                   </a>
                 </li>
               ))}
               <li>
-                <a href="#mentions-legales" className="text-[13.5px] text-white/90 transition-colors hover:text-white">
+                <a href="#mentions-legales" className="text-[13.5px]">
                   Mentions légales
                 </a>
               </li>
@@ -49,12 +49,12 @@ export default function Footer() {
                 {company.country}
               </p>
               <p>
-                <a href={`mailto:${company.email}`} className="transition-colors hover:text-white">
+                <a href={`mailto:${company.email}`}>
                   {company.email}
                 </a>
               </p>
               <p>
-                <a href={`tel:${company.phoneHref}`} className="transition-colors hover:text-white">
+                <a href={`tel:${company.phoneHref}`}>
                   {company.phone}
                 </a>
               </p>
@@ -68,7 +68,7 @@ export default function Footer() {
           </p>
           <a
             href="#main"
-            className="inline-flex items-center gap-2 self-start text-white/85 transition-colors hover:text-white sm:self-auto"
+            className="inline-flex items-center gap-2 self-start sm:self-auto"
           >
             Haut de page
             <ArrowUp size={13} aria-hidden="true" />
