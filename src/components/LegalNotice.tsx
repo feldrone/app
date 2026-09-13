@@ -57,7 +57,9 @@ export default function LegalNotice() {
               Activités déclarées
             </dt>
             <dd className="mt-1.5 text-[13.5px] leading-relaxed text-ink-soft">
-              {activities.join(" · ")}
+              {activities.length > 1
+                ? `${activities.slice(0, -1).join(", ")} et ${activities[activities.length - 1]}`
+                : activities[0]}
             </dd>
           </div>
         </dl>

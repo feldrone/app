@@ -1,6 +1,8 @@
 # FELDRONE — Identity system
 
-> Status: **v6.0 — full redesign executed per the client brand specification
+> Status: **v6.1** — v6.0 redesign (client spec of 2026-09-13, `COMPLETE_
+> LOGO_REDESIGN`) plus the same-day correction: strict ≥ 24u icon→word
+> clear space and a mandated stacked lockup on mobile viewports.
 > of 2026-09-13** (`COMPLETE_LOGO_REDESIGN`, benchmark: industrial UAV).
 > The mark is a **unified F/D counter monogram** on a strict **136 × 160**
 > grid, module 4u, **one stroke weight (T = 24)** across symbol and wordmark.
@@ -81,11 +83,13 @@ hairlines: at the 24 px lockup floor the lightest ink in the system is
 
 ## Lockups
 
-1. **Primary horizontal** — symbol, gap, wordmark on a **628 × 128** canvas;
+1. **Primary horizontal** — symbol, gap, wordmark on a **637 × 128** canvas;
    the mark occupies x 23.6→118.8, y 8→120 (overhang above and below the
    word ink: 17.8u each — perfect optical centring), the wordmark begins at
-   134 (mark→“F” gap 15.2u ≈ the 14.4u letter rhythm) and its ink ends at
-   ≈603.8, mirroring the margins (23.6 / 24.2u).
+   **143** (v6.1: strict ≥ 24u clear space — actual 24.2u — so the ring can
+   never fuse with the F) and its ink ends at ≈612.7, mirroring the margins
+   (23.6 / 24.3u). **Below the `sm` breakpoint the horizontal build is not
+   rendered at all** — `Logo.tsx` switches to the stacked lockup.
 2. **Stacked** — centred symbol above wordmark, **517 × 236**; mark and word
    share the axis at x 258.5 (word x₀ = 23.63), vertical rhythm
    8 / 120 → 150.8 (gap 30.8) → 227.2 / 236 (margin 8.8).
@@ -110,7 +114,9 @@ tints, or strokes over the silhouette.
 
 ## Sizes & clear space
 
-- Clear space on all sides: **one stroke width (24u)** around any ink.
+- Clear space on all sides: **one stroke width (24u)** around any ink — and
+  between mark and wordmark in the horizontal lockup (v6.1, enforced in the
+  geometry table, not left to consumers).
 - Horizontal lockup: minimum rendered height **24 px** (print: 8 mm).
 - Symbol alone: minimum **24 px**; the 7.4u channel holds AA from 24 px up
   (verified 14/16/24/32/48 — it fuses below 24, hence the floor).
@@ -180,6 +186,17 @@ engineering authority.
 
 ## Changelog
 
+- **v6.1 (2026-09-13) — legibility correction.** Client feedback: the v6.0
+  15.2u icon→word gap let the D-ring fuse with the leading F (“DFELDRONE”
+  misread). The horizontal lockup now keeps a strict minimum of one stroke
+  width (≥ 24u; actual 24.2u, canvas 628 → 637, margins re-mirrored at
+  23.6/24.3u), and mobile / constrained viewports (< `sm`) are served the
+  STACKED build — symbol centred above the word — by `Logo.tsx`, so the
+  side-by-side pairing never renders small. Related UI round: footer text
+  lifted to white 85–90 % for WCAG contrast on navy, dot-separated copy
+  chains replaced by clean French lists (hero eyebrow, service badges, legal
+  activities enumeration), and a global `env(safe-area-inset)` padding guard
+  added (section shells were already ≥ px-6 = 24px ≥ the 20px floor).
 - **v6.0 (2026-09-13) — full redesign per client specification.** F/D merged
   counter monogram on the strict 136 × 160 grid (module 4u, T = 24, single
   even-odd path + chiselled arm), replacing the gantry-F airframe; all dots

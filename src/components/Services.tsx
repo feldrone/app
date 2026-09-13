@@ -68,7 +68,7 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
           className="h-full w-full scale-[1.001] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
         />
         <span className="absolute top-4 left-4 bg-white/95 px-2.5 py-1 text-[10.5px] font-semibold tracking-[0.18em] text-navy-900 uppercase">
-          {service.index} · {service.tag}
+          {service.index} — {service.tag}
         </span>
       </div>
 

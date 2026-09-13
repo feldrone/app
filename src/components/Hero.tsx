@@ -18,7 +18,7 @@ export default function Hero() {
           <Reveal>
             <p className="mb-7 flex flex-wrap items-center gap-3 text-[11px] font-medium uppercase tracking-[0.24em] text-mute sm:text-[12px]">
               <span className="h-px w-8 bg-signal-600" aria-hidden="true" />
-              Vente · Location · Maintenance · Services
+              Vente, location, maintenance et services
             </p>
           </Reveal>
 

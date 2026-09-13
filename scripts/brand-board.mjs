@@ -108,7 +108,7 @@ y = 206;
 parts.push(label(M, y, "PRIMARY — HORIZONTAL LOCKUP"));
 const p1y = y + 20, p1h = 420;
 parts.push(rect(M, p1y, PW, p1h, PANEL));
-parts.push(brandImg("public/brand/fel-drone-horizontal.svg", M + (PW - 1240) / 2, p1y + (p1h - 252.7) / 2, 252.7, 1240));
+parts.push(brandImg("public/brand/fel-drone-horizontal.svg", M + (PW - 1240) / 2, p1y + (p1h - 249.1) / 2, 249.1, 1240));
 
 // row 2 — inverted + stacked
 y = p1y + p1h + 60; // 706
@@ -116,7 +116,7 @@ parts.push(label(M, y, "INVERTED (NAVY GROUND)"));
 parts.push(label(800, y, "STACKED (AVATAR / SIGNAGE)"));
 const p2y = y + 20, p2h = 300;
 parts.push(rect(M, p2y, 700, p2h, PANEL)); // panel bg behind navy plate
-const invH = (700 * 128) / 628;
+const invH = (700 * 128) / 637;
 parts.push(brandImg("public/brand/fel-drone-horizontal-inverted.svg", M, p2y + (p2h - invH) / 2, invH, 700));
 parts.push(rect(800, p2y, 744, p2h, PANEL));
 parts.push(centered("public/brand/fel-drone-stacked.svg", 800, p2y, 744, p2h, 236));

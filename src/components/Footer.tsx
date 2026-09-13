@@ -9,29 +9,29 @@ import Logo from "./Logo";
  */
 export default function Footer() {
   return (
-    <footer className="bg-navy-950 text-white/70">
+    <footer className="bg-navy-950 text-white/90">
       <div className="mx-auto max-w-[1400px] px-6 pt-16 pb-10 lg:px-12">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <Logo dark />
-            <p className="mt-6 max-w-xs text-[13.5px] leading-relaxed text-white/50">
+            <p className="mt-6 max-w-xs text-[13.5px] leading-relaxed text-white/85">
               Vente, location, maintenance et prestations de services par drone. Rigueur
               aéronautique, précision technologique.
             </p>
           </div>
 
           <nav aria-label="Navigation de pied de page" className="lg:col-span-3 lg:col-start-6">
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/55">Plan du site</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">Plan du site</p>
             <ul className="mt-5 space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-[13.5px] text-white/70 transition-colors hover:text-white">
+                  <a href={link.href} className="text-[13.5px] text-white/90 transition-colors hover:text-white">
                     {link.label}
                   </a>
                 </li>
               ))}
               <li>
-                <a href="#mentions-legales" className="text-[13.5px] text-white/70 transition-colors hover:text-white">
+                <a href="#mentions-legales" className="text-[13.5px] text-white/90 transition-colors hover:text-white">
                   Mentions légales
                 </a>
               </li>
@@ -39,8 +39,8 @@ export default function Footer() {
           </nav>
 
           <div className="lg:col-span-4 lg:col-start-9">
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/55">Coordonnées</p>
-            <address className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed not-italic text-white/70">
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">Coordonnées</p>
+            <address className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed not-italic text-white/90">
               <p>
                 {company.addressLine1}
                 <br />
@@ -62,13 +62,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[12.5px] text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[12.5px] text-white/85 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {company.legalName}. Tous droits réservés.
           </p>
           <a
             href="#main"
-            className="inline-flex items-center gap-2 self-start text-white/50 transition-colors hover:text-white sm:self-auto"
+            className="inline-flex items-center gap-2 self-start text-white/85 transition-colors hover:text-white sm:self-auto"
           >
             Haut de page
             <ArrowUp size={13} aria-hidden="true" />

@@ -62,6 +62,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Global safe-area guard (client spec 2026-09-13): every shell already
+   carries ≥ 20px inline padding (px-6 = 24px); on notched or rounded
+   displays the device inset adds on top, so content can never touch the
+   physical screen edge. */
+body {
+  padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
+}
+
 /* Display type: optical sizing keeps large serif cuts tight and editorial */
 .font-display {
   font-optical-sizing: auto;
