@@ -1,220 +1,181 @@
 # FELDRONE — Identity system
 
-> Status: **v6.1** — v6.0 redesign (client spec of 2026-09-13, `COMPLETE_
-> LOGO_REDESIGN`) plus the same-day correction: strict ≥ 24u icon→word
-> clear space and a mandated stacked lockup on mobile viewports.
-> of 2026-09-13** (`COMPLETE_LOGO_REDESIGN`, benchmark: industrial UAV).
-> The mark is a **unified F/D counter monogram** on a strict **136 × 160**
-> grid, module 4u, **one stroke weight (T = 24)** across symbol and wordmark.
-> Zero literal drone parts, zero dots: the rotors, spars, skid, drilled
-> apertures, gold hub accents and the 3° lean of the v3–v5 gantry mark are
-> retired by instruction. The wordmark stays **one word, FELDRONE** (the
-> v5.2 kerning table), now at a single unified 10u weight — the light 6.5u
-> DRONE half violated the new "no hairline parts below 24 px" rule.
-> Provenance holds: everything is emitted from `scripts/brand-gen.mjs` and
-> `npm run brand:check` keeps the files honest.
->
-> History: v2 "Rotor F" retired; v3 rebuilt the mark (the letter F **was**
-> the airframe); v4 moved the brand lab in-repo; v5 added the 3° lean;
-> v5.1 the favicon optical size; v5.2 the one-word lockup; v6.0 is the
-> specified redesign. The superseded v5.2 system remains the immediate
-> ancestors of every file in git history (`bae79cb`).
+**v7.0 “THE VANE”** — full redesign per the client brief of 2026-09-13
+(« imagine FELDRONE as a brand founded today; do not improve the old logo »).
+One geometry source — `scripts/brand-gen.mjs` — emits every brand file and
+the React lockup data. Nothing here is hand-drawn downstream.
 
-## The mark — “FD counter monogram”
+---
 
-One silhouette, two letters, merged through **negative space**:
+## Research note (brief §1)
 
-- the outer form is a **flat-shouldered D**: a vertical stem face, straight
-  top and bottom edges, and a true semicircular bowl (r 80, centred (56, 80))
-  closing the right side;
-- the **F is the shared ink**: the D's stem is also the F's stem, the D's
-  top edge is also the F's top arm, and a **floating mid arm** (y 60→84)
-  completes the letter — the classic 40/60 window split inherited from the
-  gantry crossbar, sitting 8u above the geometric centre;
-- the arm's tip is a **16u chisel point** aimed at the bowl and stopping
-  **7.4u short of the inner wall**. That channel is the merge: the counter
-  remains **one connected region** (no B or P can form at any size), any
-  ground flows through the mark, and the arm reads as a vector of airflow —
-  the motion cue of the retired lean, re-cast as geometry;
-- the counter (the window) is the D construction inset by exactly T: inner
-  bowl r 56, square shoulders at (24, 24) and (24, 136).
+Principles observed across DJI, Skydio, Autel, Parrot, Zipline, Wing,
+AeroVironment, Quantum Systems, Wingtra, Freefly — studied for *quality
+level*, never copied:
 
-**Engineering logic:** every radius is a multiple of 8u; every coordinate is
-on the 4u module; the ring is a single `fill-rule="evenodd"` path (a true
-through-hole — the mark is monochrome-correct on **any** ground by
-construction, no masks anywhere in the system). Remove the arm and it is a
-perfectly valid D; remove the bowl and it is a perfectly valid F. No dots,
-no propellers, no wings, no shield, no circuit ornaments, no clichés.
+- the category leaders are **wordmark-first**; a symbol only earns its
+  place when it is one idea, instantly readable;
+- the strongest symbols in the field are **letters made dynamic**
+  (Zipline’s Z of two arrows) — the letter IS the gesture;
+- one weight, flat terminals, generous counters; colour is applied later
+  and never carries the form;
+- every mark must self-clean at 16 px: no hairline details, no enclosed
+  gaps below ~2 px at render size;
+- aviation credibility comes from **instrument discipline** (alignment,
+  chamfers, consistent cut angles), not from aircraft silhouettes.
 
-### Geometry — the specification table (v6.0)
+## The five concepts (brief §12)
 
-Symbol grid **136 × 160**, unit module 4u, single weight T = 24:
+| # | Concept | Idea | Verdict |
+|---|---------|------|---------|
+| 01 | Minimal Aerospace “APX” | F from three ascending bars | bars read as a menu glyph; stacked-bar marks are crowded territory — rejected |
+| 02 | F Monogram, continuous line | one unbroken stroke drawing the F | repeats the retired v6 device; the return path needs 2u channels that die at 16 px — rejected |
+| 03 | Flight / Trajectory | ascending rhombic track as crossbar | pretty, forgettable; reads as generic “growth chart” — rejected |
+| 04 | Engineering / Precision | F built from dimension lines and ticks | ticks < 2u at favicon size — fails brief §10 — rejected |
+| 05 | **Abstract Signature “THE VANE”** | **the F is a windsock**: mast stem, tapered cone top arm, airflow bar | winner — one idea, instrument-grade meaning, letter-first silhouette |
 
-| Element        | Geometry                                                         |
-| -------------- | ---------------------------------------------------------------- |
-| Ink box        | 136 × 160 exactly (0,0 → 136,160); canvas = ink box             |
-| Stem           | x 0→24, y 0→160 (full-height rect = F stem = D stem)            |
-| Top edge/arm   | y 0→24, x 0→56 (the D's flat shoulder **is** the F's top arm)   |
-| Bottom edge    | y 136→160, x 0→56                                               |
-| Bowl (outer)   | semicircle r **80**, centre (56, 80), from (56, 0) to (56, 160) |
-| Counter (inner)| flat shoulders (24, 24)/(24, 136), semicircle r **56**, same centre; counter T = 24 throughout |
-| Mid arm        | y 60→84 (T = 24), x 24→104; chisel: tip (104, 72), faces at (88, 60)/(88, 84) |
-| Channel        | arm tip → inner wall at y 72: 111.4 − 104 = **7.4u**            |
-| Windows        | upper 36u / lower 52u (40/60 split)                             |
+Winner scoring (brief §12 rubric): originality 13/15 · memorisation 14/15 ·
+professionalism 9/10 · aviation 10/10 · technology 8/10 · B2B 10/10 ·
+international 9/10 · scalability 9/10 · timelessness 9/10.
 
-Path data (the canonical strings emitted everywhere):
+## The mark — “THE VANE”
 
-```
-ring  M0 0H56A80 80 0 0 1 56 160H0Z M24 24H56A56 56 0 0 1 56 136H24Z   (evenodd)
-arm   M24 60H88L104 72L88 84H24Z
-arm-favicon (chip build, widened channel 15.4u)  M24 60H84L96 72L84 84H24Z
-```
+A proprietary **F** seen at the moment wind commits: the top arm is a
+**windsock cone** — flat top edge, one underside rising 20u over 80u (~14°),
+a square-cut open end; the mid arm is a shorter, lighter **airflow bar**; the
+stem is the **mast**. A windsock is the one instrument every pilot reads
+before go/no-go — it makes FELDRONE’s mark say *conditions mastered, flight
+cleared*: maintenance, diagnostic, calibration, safety. It is not a drone
+clip-art, not wings, not a shield, not a globe, and it is not an F inside a
+frame. The letter reads first; the instrument rewards the second look; the
+tapered arm is the one-second memorable feature.
+
+The wordmark’s own F carries the same wedge at type scale — the symbol is
+the letter, the letter is the symbol.
+
+### Geometry — the specification table (v7.0)
+
+All coordinates integer, on a 136 × 160 icon canvas (ink 104 × 120,
+margins 16/16/20/20). One clockwise ring, zero holes, zero transforms
+inside the icon.
+
+| Part | Coordinates (local units) |
+|------|---------------------------|
+| Mast stem | x 16..40 · y 20..140 (24u wide) |
+| Cone top arm | (16,20)→(120,20)→(120,32)→(40,52): base 32u → tip 12u |
+| Airflow bar | x 40..96 · y 80..96 (16u tall, 56u long) |
+| Cone↔bar sky gap | 28u at the stem face |
+| Ring | `M16 20L120 20L120 32L40 52L40 80L96 80L96 96L40 96L40 140L16 140Z` |
+
+Rules: minimum standalone feature ≥ 12u on the 160 canvas (silhouette cuts
+— the cone tip — may sit at 12u because they never isolate); all terminals
+square-cut; the only diagonals in the mark are the cone undersides.
 
 ## Wordmark — “FELDRONE”
 
-One word, one weight: the v5.2 ink-locked construction (cap centre-lines
-0/29.5/64, arm ink edges 38.5 / 31.5 / 32.5, D bowl ink 55, R leg 47.5,
-O ring 66, N 42) re-centred for a unified **10u** stroke — the same 64-unit
-cap grid, the same family of parts as the mark (bars and true circles, butt
-caps, miter joins). Kerning preserved from v5.2: 14.5u inside FEL, 14u at
-the seams, 10u around the round O. No word space, no weight contrast, no
-hairlines: at the 24 px lockup floor the lightest ink in the system is
-10u × 1.03125 × (24/128) ≈ **1.9 px**.
+Custom monoline-grotesque, one word, one weight. Cap 72u, stem 12u
+(ratio 0.167 — technical, not neon). D and O bowls are **45° chamfered at
+12u outer / 6u inner** (altimeter-glass counters, walls never below 12.7u);
+R’s leg is a 14u diagonal launched from the bowl underside; E’s mid arm is
+shortened to 38u; the F is the mark set to type (tip 12u = the system’s own
+stroke weight). Kerning hand-set: 18u default, **16u at R-O and O-N**
+(round-to-round optical closure). Total ink 484u. Glyph outlines are filled
+single rings with even-odd counters — no stroke rendering exists anywhere
+in the system anymore.
 
 ## Lockups
 
-1. **Primary horizontal** — symbol, gap, wordmark on a **637 × 128** canvas;
-   the mark occupies x 23.6→118.8, y 8→120 (overhang above and below the
-   word ink: 17.8u each — perfect optical centring), the wordmark begins at
-   **143** (v6.1: strict ≥ 24u clear space — actual 24.2u — so the ring can
-   never fuse with the F) and its ink ends at ≈612.7, mirroring the margins
-   (23.6 / 24.3u). **Below the `sm` breakpoint the horizontal build is not
-   rendered at all** — `Logo.tsx` switches to the stacked lockup.
-2. **Stacked** — centred symbol above wordmark, **517 × 236**; mark and word
-   share the axis at x 258.5 (word x₀ = 23.63), vertical rhythm
-   8 / 120 → 150.8 (gap 30.8) → 227.2 / 236 (margin 8.8).
-3. **Symbol alone** — app icon, drone body, uniform, print; never below
-   24 px (the channel fuses at 14–16 px — that is what the favicon build is for).
-4. **Geographic secondary** (`-geo` file) — construction/grid view for brand
-   documentation only.
+| Lockup | Canvas | Rhythm |
+|--------|--------|--------|
+| Horizontal (primary) | 648 × 160 | mark ink 16..120 · **28u clear space** (≥ 24u floor — the v6.1 “DFELDRONE” misread can never recur) · word x 148..632, cap centred y 44..116 |
+| Stacked (mobile / avatar) | 516 × 248 | mark centred y 16..136 · 24u · word centred y 160..232 |
+
+No scaling, no transforms other than the stacked centre shift — the same
+integer geometry serves the 16 px favicon and the 6 m hangar door.
 
 ## Colour
 
-Monochrome first — and now monochrome **only**: the mark carries no colour.
+Monochrome-first by construction; colour is a garment, never structure.
 
-| Token            | Light surfaces | Dark surfaces |
-| ---------------- | -------------- | ------------- |
-| Ink              | `#0e1f30`      | `#fbfaf8`     |
-| Mono reproduction | `#000000`     | `#ffffff`     |
+| Token | Hex | Use |
+|-------|-----|-----|
+| Ink | `#0e1f30` | mark on light grounds (site `navy-900`) |
+| Paper | `#fbfaf8` | reverse on navy |
+| Mono black | `#000000` | print, decals, one-colour |
+| Mono white | `#ffffff` | vehicle, helmet, body, dark signage |
 
-The gold hubs are retired with the v5 mark (the spec forbids dots).
-`#b4823c` / `#c6934a` remain **site UI accents** only (buttons, rules,
-eyebrows) — never inside the logo. No gradients, shadows, 3D, outlines,
-tints, or strokes over the silhouette.
+Explored and rejected for the mark: electric blue (violates the site’s
+navy+gold restraint and reads “consumer gadget”), orange (rescues nothing
+that geometry doesn’t), gold (site UI accent only — `#b4823c` stays in the
+interface, never inside the logo).
 
 ## Sizes & clear space
 
-- Clear space on all sides: **one stroke width (24u)** around any ink — and
-  between mark and wordmark in the horizontal lockup (v6.1, enforced in the
-  geometry table, not left to consumers).
-- Horizontal lockup: minimum rendered height **24 px** (print: 8 mm).
-- Symbol alone: minimum **24 px**; the 7.4u channel holds AA from 24 px up
-  (verified 14/16/24/32/48 — it fuses below 24, hence the floor).
-- **Favicon = optical size, not a mathematical downscale (v5.1 rule kept).**
-  In the 64u chip the mark fills 45u, centred (12.875, 9.5), scale 0.28125,
-  rx 14, paper ink on navy; the arm tip pulls back 104 → 96 so the channel
-  widens 7.4u → 15.4u and the counter stays visibly open at 16 px
-  (≈1.9 px of ground through the mark). It is the same silhouette,
-  same grid, one dimension simplified — no other variant carries this.
-- On photo or coloured grounds use mono-white / mono-black; contrast ≥ 4.5:1.
+- Standalone symbol: **never below 24 px**; app icon / favicon use the
+  native 64u simplified cut (stem 10, cone 13→5, bar 8, gaps ≥ 10 —
+  every feature ≥ 1.2 px at 16 px; the taper is kept because it IS the
+  silhouette).
+- Favicon chip: 64 box, `rx 14`, ink ground + paper mark (browser favours
+  square chips; radius mirrors the instrument bezel).
+- Clear space all round: ≥ the airflow bar (16u at icon scale); lockup
+  mark→word keeps its 28u minimum.
+- Header builds (Logo.tsx): stacked < `sm`, horizontal ≥ `sm` (30/34 px).
 
-## Real-world tests passed
+## Real-world tests passed (brief §§9–11, verified on rasters)
 
-- 16 → 512 px ladder, all four grounds (paper / navy / pure black / white):
-  one connected mark, legible word at ≥ 24 px.
-- Numeric probes on the 512 px render: stem band 68 px (= 24 × 0.7 × 4 ✓),
-  arm ink to tip exactly 104u (canvas 96.4 → px 386 ✓), channel 20 px
-  open ✓, mark spans px 32→480 (= canvas 8→120 ✓).
-- One-colour invoice / watermark / laser-etch: the ring's even-odd hole and
-  the 7.4u channel are true negative space — nothing to “fade”.
-- Sticker/embroidery: minimum feature = T = 24u = 10.7 % of mark height;
-  at a 75 mm sticker that is 8 mm of ink — safe; the chisel tip is the only
-  fine feature (16u face height → ≥ 1.5 mm at 25 mm patches, acceptable).
-- Monochrome black/white files are single-path-fill — no masks in any
-  emitted file (v5's mask machinery is gone).
+- zero-ink scan proves a full 6 px clean channel mark→word at the 34 px
+  header render (no optical fusion, ever);
+- favicon@16 row-by-row scan: taper survives (ink right-edge steps
+  12→10→6→4 px across the cone) and 12/16 rows carry the silhouette;
+- mono-black vs mono-white @24: identical ink mass (184 px) — the mark
+  holds on any ground with no extra rules;
+- stacked: rows across the 24u rhythm band contain zero ink;
+- memorisation: one unusual feature (tapered top arm) — recallable in a
+  sketch after one second;
+- print/engrave/cut-vinyl safe: solid single ring, no hairlines, no
+  counters inside the mark; the word’s counters are the smallest features
+  and they stay open.
 
-## File manifest
+## File manifest (emitted by `npm run brand:gen`)
 
-```
-scripts/brand-gen.mjs                           the brand lab: single geometry source
-src/brand/brandmark.ts                            GENERATED data table (consumed by Logo.tsx)
-public/favicon.svg                                navy chip 64u — optical small-size build
-public/brand/fel-drone-symbol.svg               ink (pure monochrome)
-public/brand/fel-drone-symbol-inverted.svg      paper on navy ground
-public/brand/fel-drone-symbol-mono-black.svg
-public/brand/fel-drone-symbol-mono-white.svg
-public/brand/fel-drone-horizontal*.svg          4 variants (ink/inverted/mono black/white)
-public/brand/fel-drone-stacked*.svg             4 variants
-public/brand/fel-drone-wordmark(-white).svg     letters only — FELDRONE, one weight
-public/brand/fel-drone-horizontal-geo.svg       construction/grid sheet
-```
-
-The root `favicon.svg` and `index.html` at repo root are **generated** build
-artifacts for Pages (`npm run build && npm run pages:sync`) — never edit by
-hand; edit `template.html` and `public/favicon.svg` (itself emitted by the
-brand lab).
+- `public/favicon.svg` — app icon / favicon (chip + simplified cut)
+- `public/brand/fel-drone-icon-64.svg` / `-mono-black.svg` — SMALL ICON
+- `public/brand/fel-drone-symbol*.svg` — SYMBOL × {ink, inverted, mono black, mono white}
+- `public/brand/fel-drone-horizontal*.svg` — PRIMARY lockup × 4 grounds
+- `public/brand/fel-drone-stacked*.svg` — stacked × 4 grounds
+- `public/brand/fel-drone-horizontal-geo.svg` — construction sheet
+- `public/brand/fel-drone-wordmark(-white).svg` — WORDMARK
+- `src/brand/brandmark.ts` — data consumed by `src/components/Logo.tsx`
+- `docs/brand-board.png` — board, rendered by `node scripts/brand-board.mjs`
 
 ## Updating
 
-`src/components/Logo.tsx`, the favicon and every brand file come from one
-geometry source: the table at the top of `scripts/brand-gen.mjs`. To amend
-the mark: change the unit geometry once, run `npm run brand:gen`, and every
-SVG, the data table and the React lockup update together.
-`npm run brand:check` fails CI if anything drifted. The board
-(`docs/brand-board.png`) regenerates with `node scripts/brand-board.mjs`.
+Edit `scripts/brand-gen.mjs` only, then `npm run brand:gen`; CI guards with
+`npm run brand:check` (sync) + build of `index.html` from the same data.
+Keep every emitted number integer; never hand-edit `public/brand/*`,
+`public/favicon.svg` or `src/brand/brandmark.ts`.
 
-## Prohibitions (from the client spec, standing)
+## Prohibitions (from client specs, standing)
 
-No drone-propeller forms · no circuit dots or board traces · no hairline
-parts that fade below 24 px · no cliché tech symbols (waves, globes,
-shields, wings, jets) · no separated multi-word spacing · no gradients,
-3D, bevels, shadows, glows, metallic effects · no decorative flourishes ·
-no extra letters, symbols or taglines · the brand word is **FELDRONE**,
-never split. Mandatory: pure vector path consistency · monochrome-first
-compliance (flawless B/W) · sharp geometric angles · industrial
-engineering authority.
+- no drone-clip-art (top view, rotors, propellers, airframe, wings, globe,
+  shield, circuit, rocket); no F inside a circle or square;
+- no dots, decorative gradients, shadows or outlines inside the logo;
+- no colour inside the logo (mono + ink/paper only);
+- no hairline below 12u on the 160 icon grid; no sub-2px feature at 16 px;
+- mark→word clear space never below 24u; stacked build mandatory below `sm`;
+- the wordmark stays one word, one weight, custom glyphs — never typeset
+  text in a stock font.
 
 ## Changelog
 
-- **v6.1 (2026-09-13) — legibility correction.** Client feedback: the v6.0
-  15.2u icon→word gap let the D-ring fuse with the leading F (“DFELDRONE”
-  misread). The horizontal lockup now keeps a strict minimum of one stroke
-  width (≥ 24u; actual 24.2u, canvas 628 → 637, margins re-mirrored at
-  23.6/24.3u), and mobile / constrained viewports (< `sm`) are served the
-  STACKED build — symbol centred above the word — by `Logo.tsx`, so the
-  side-by-side pairing never renders small. Related UI round: footer text
-  lifted to white 85–90 % for WCAG contrast on navy, dot-separated copy
-  chains replaced by clean French lists (hero eyebrow, service badges, legal
-  activities enumeration), and a global `env(safe-area-inset)` padding guard
-  added (section shells were already ≥ px-6 = 24px ≥ the 20px floor).
-- **v6.0 (2026-09-13) — full redesign per client specification.** F/D merged
-  counter monogram on the strict 136 × 160 grid (module 4u, T = 24, single
-  even-odd path + chiselled arm), replacing the gantry-F airframe; all dots
-  and colour accents removed from the logo; the wordmark keeps the v5.2
-  one-word FELDRONE kerning at a unified 10u weight (no hairlines below the
-  24 px floor); horizontal canvas 632 → 628 (mirrored margins), stacked
-  517 × 218 → 517 × 236 (new optical-centre rhythm); favicon keeps the v5.1
-  optical rule (45u in the 64u chip) with the channel widened 7.4u → 15.4u.
-  Mask machinery deleted system-wide: every file is flat fill/stroke vector.
-  The superseded v5.2 geometry lives in git history at `bae79cb`.
-- **v5.2 (2026-09) — one-word lockup + mark optical weight.** “FEL DRONE”
-  became FELDRONE (FEL 12u bold / DRONE 6.5u light, kerned L→D at 14u) and
-  the gantry mark's spars went 24u → 26u. Superseded by v6.0.
-- **v5.1 (2026-09) — favicon optical size.** Dedicated small-size chip
-  build (bigger mass, widened aperture, micro-detail removed); A/B render QA
-  at 16–64 px light and dark.
-- **v5.0 (2026-09) — refinement pass.** 3° forward lean on the mark group;
-  horizontal spacing corrected to the 15u rhythm; stacked re-centred.
-- **v4.0 (2026-09) — provenance pass.** Brand lab moved in-repo; all brand
-  SVGs, the favicon and the component data table emitted from one source.
-- **v3.0 / v2.0.** The gantry-F airframe rebuild and the original rotor F.
+- **v7.0 (2026-09-13)** — full identity redesign per the client “from
+  scratch” brief: “THE VANE” windsock-F replaces the FD counter monogram;
+  wordmark rebuilt as custom filled glyphs (cap 72/stem 12, 45° chamfers,
+  hand-kerned); zero strokes, zero scaling anywhere in the system; new
+  SMALL ICON deliverables (`fel-drone-icon-64*`); header renders 28u
+  mark→word clear space at 1:1. Site UI, colours, copy and layout untouched.
+- v6.1 (2026-09-13) — ≥24u lockup gap rule + stacked mobile enforcement;
+  footer/hero UX pass.
+- v6.0 (2026-09-13) — FD counter monogram redesign (superseded by v7.0).
+- v5.2 → one-word FELDRONE, two weights. · v5.1 favicon optical size.
+- v5 — 3° lean + optical gap. · v4 — byte-stable emission.

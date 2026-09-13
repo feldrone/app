@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 160">
-<path fill="#000000" fill-rule="evenodd" d="M0 0H56A80 80 0 0 1 56 160H0ZM24 24H56A56 56 0 0 1 56 136H24Z"/><path fill="#000000" d="M24 60H88L104 72L88 84H24Z"/>
+<path fill="#000000" fill-rule="evenodd" d="M16 20L120 20L120 32L40 52L40 80L96 80L96 96L40 96L40 140L16 140Z"/>
 </svg>
