@@ -78,6 +78,34 @@ different repo/machine). On that machine, diagnose with:
 `origin/main` remains untouched at f6c8252; strict ff path to f5b29cc
 unchanged.
 
+## 1d. Fourth delivery attempt — platform attachment (2026-09-14, same session)
+
+Owner attached `feldrone-brand-v8-f5b29cc.bundle.txt` (the .txt transport
+wrapper) and the platform reported: "saved to /home/user/uploads/".
+Verification per the transport task's own procedure:
+
+1. `ls /home/user/uploads/` → **No such file or directory** — the declared
+   save location does not exist on disk
+2. `find / -xdev -name "*f5b29cc*"` → **zero results** (whole filesystem)
+3. 30 s sync wait + `find /home /tmp /var/tmp -mmin -10` → only session
+   artifacts; nothing new landed
+4. Task source path `/home/user/app/v8-handoff/feldrone-brand-v8-f5b29cc.bundle`
+   → still absent (fourth confirmation)
+
+Per the task rule "if any verification fails, STOP immediately and report
+the exact failure": **Step 1 (verify the original .bundle exists) FAILED**.
+No .txt copy was created — there are no bytes to copy, and fabricating a
+file to match the expected SHA-256 is impossible by definition (and would be
+exactly the false completion this mission forbids).
+
+New evidence: the platform itself now claims the file was saved, yet the
+directory and file are absent. The upload→sandbox delivery path is
+definitively broken for this session (four consecutive failures: direct
+.bundle ×1, workspace claim ×2, .txt attachment ×1). The only delivery
+channel proven working in both directions is **git push to GitHub**.
+
+`origin/main` remains untouched at f6c8252; strict ff path intact.
+
 ## 2. The blocker (why the mission stops here)
 
 ### B1 — v8 handoff artifact is absent from every accessible location (HUMAN BOUNDARY)
