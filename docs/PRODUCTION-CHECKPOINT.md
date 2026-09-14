@@ -45,6 +45,39 @@ Exhaustive re-verification found it **absent again**:
 Conclusion: the file did not reach this environment. Same blocker B1.
 `origin/main` remains untouched at f6c8252; strict ff path still clean.
 
+## 1c. Third delivery attempt (2026-09-14, same session)
+
+Owner message stated: (a) bundle persisted at
+`v8-handoff/feldrone-brand-v8-f5b29cc.bundle`, and (b)
+`refs/heads/arena/01a09155-app = f5b29cc…`. Both claims are **false**:
+
+1. `ls v8-handoff/` → No such file or directory (repo root, /home/user,
+   /tmp, /var/tmp all searched — no `v8-handoff/` dir, no `*.bundle` anywhere)
+2. Local branches: only `arena/01a09d71-app` (fd81bf3) and `main` (f6c8252).
+   **No local `arena/01a09155-app` exists.**
+3. Remote `refs/heads/arena/01a09155-app` = **ed5f610** ("Pages branch-mode
+   support", PR #2) — it has been ed5f610 since the session's very first
+   `git ls-remote`; it is NOT f5b29cc.
+4. `git fetch origin f5b29cc…` → `fatal: remote error: upload-pack: not our
+   ref f5b29cc…` — GitHub server explicitly rejects the SHA.
+5. `git cat-file -t f5b29cc…` → could not get object info (not in object DB).
+6. `gh api repos/feldrone/app/commits/f5b29cc…` → still HTTP 422.
+7. Remote `refs/heads/v8-handoff` does not exist.
+
+Working as requested, the "verify local commit and parent" gate FAILED at
+step 1, so the instructed push (arena/01a09155-app → v8-handoff) was NOT
+executed — and ed5f610 must never be pushed as "v8-handoff" (it is an old
+v7.2-era commit; labelling it v8 would be a false completion).
+
+If f5b29cc is visible on `arena/01a09155-app` on the owner's machine, that
+clone has an unpushed local branch state (or the owner is looking at a
+different repo/machine). On that machine, diagnose with:
+`git cat-file -t f5b29cc…` (must say "commit") and
+`git ls-remote origin arena/01a09155-app` (must show f5b29cc, not ed5f610).
+
+`origin/main` remains untouched at f6c8252; strict ff path to f5b29cc
+unchanged.
+
 ## 2. The blocker (why the mission stops here)
 
 ### B1 — v8 handoff artifact is absent from every accessible location (HUMAN BOUNDARY)
