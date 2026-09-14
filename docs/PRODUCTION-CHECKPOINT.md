@@ -25,6 +25,26 @@
 until f5b29cc arrives** — any other commit on main would break the required
 strict fast-forward.
 
+## 1b. Second delivery attempt (2026-09-14, resumed session)
+
+Owner message stated the bundle was "now available in the workspace".
+Exhaustive re-verification found it **absent again**:
+
+1. `ls /home/user/app/*.bundle` → No such file or directory
+2. Whole-filesystem `find / -xdev` for `*.bundle` / `*f5b29cc*` → zero results
+3. PACK-magic (bundle header) scan of all candidate files → zero results
+4. `find / -xdev -newermt "2026-09-14 01:05"` → only this session's own
+   artifacts (npm cache, dist/, .dev-data/, this checkpoint file) — no
+   user-uploaded file landed anywhere
+5. `git cat-file -t f5b29cc…` → "could not get object info" (not in object DB)
+6. `git ls-remote origin` → no new branch/PR (no `v8-handoff`)
+7. `gh api repos/feldrone/app/commits/f5b29cc…` → **still 422** on the
+   GitHub server
+8. 20 s sync-delay wait + re-list of /home/user and repo root → nothing
+
+Conclusion: the file did not reach this environment. Same blocker B1.
+`origin/main` remains untouched at f6c8252; strict ff path still clean.
+
 ## 2. The blocker (why the mission stops here)
 
 ### B1 — v8 handoff artifact is absent from every accessible location (HUMAN BOUNDARY)
