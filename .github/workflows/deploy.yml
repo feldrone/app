@@ -36,8 +36,9 @@ jobs:
           node scripts/sync-pages.mjs
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- index.html favicon.svg; then
-            git add index.html favicon.svg
+          # Screens entry + deep-link hand-off + crawler files (V12 routes).
+          git add -f index.html favicon.svg 404.html robots.txt sitemap.xml 2>/dev/null || true
+          if ! git diff --cached --quiet; then
             git commit -m "Deploy: sync built entry for GitHub Pages [skip ci]"
             git push origin HEAD:main
           fi

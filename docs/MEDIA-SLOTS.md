@@ -1,6 +1,14 @@
-# FEL DRONE — Media Slots — V10
+# FEL DRONE — Media Slots — V10 / V11
 
-> V10 business website — truthful media inventory. No invented assets, no stock "cheese", drone-only.
+> Business website — truthful media inventory. No invented assets, no stock "cheese", drone-only.
+>
+> **V11 note — alternative text.** The photographs and their crop URLs still come
+> from `src/lib/images.ts` (one place, `docs/IMAGES.md`). Their **alt text is now
+> translated**: each dictionary carries `media.*` (FR `content.fr.ts`, EN
+> `content.en.ts`, AR `content.ar.ts`) and the components render the dictionary
+> value, so screen-reader copy follows the interface language. When a slot is
+> replaced, update the alt text in all three dictionaries (and keep the French
+> line in `src/lib/images.ts` as the reference/fallback).
 
 ## Rule
 - Every aviation visual must show real professional UAVs, operators or workshops — never manned aircraft, cockpits, airports, military hardware.

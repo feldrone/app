@@ -1,13 +1,16 @@
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
-import { methodSteps } from "../data/content";
+import { useDict } from "../i18n";
 
 /**
- * V10 Method — "Huit étapes, zéro improvisation"
+ * Method — "Eight steps, zero improvisation".
  * Truthful process description, no guarantees, no invented timelines.
- * Uses V10 eight-step methodology from content.ts.
+ * V11: the eight steps and every caption come from the active dictionary.
  */
 export default function Method() {
+  const dict = useDict();
+  const t = dict.method;
+
   return (
     <section
       id="methode"
@@ -19,21 +22,18 @@ export default function Method() {
           <div className="lg:col-span-4">
             <SectionHeading
               id="methode-heading"
-              eyebrow="Notre méthode"
-              title="Huit étapes, zéro improvisation"
-              lede="De l'expression du besoin à la livraison — chaque mission suit le même cadre, cadré par devis, sans zone grise. Sur devis, tarification selon la mission, étude selon le besoin."
+              eyebrow={t.eyebrow}
+              title={t.title}
+              lede={t.lede}
             />
             <Reveal delay={120}>
-              <p className="mt-8 max-w-md text-[13.5px] leading-relaxed text-mute">
-                Aucune promesse de résultat, aucune statistique inventée. La méthode décrit
-                le déroulement, pas une garantie.
-              </p>
+              <p className="mt-8 max-w-md text-[13.5px] leading-relaxed text-mute">{t.note}</p>
             </Reveal>
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
-            <ol className="border-t border-line" aria-label="Méthodologie en huit étapes">
-              {methodSteps.map((step, i) => (
+            <ol className="border-t border-line" aria-label={t.aria}>
+              {t.steps.map((step, i) => (
                 <Reveal key={step.n} delay={i * 40}>
                   <li className="grid grid-cols-[3.5rem_1fr] gap-x-6 border-b border-line py-7">
                     <span className="font-display text-[22px] font-semibold text-signal-600">

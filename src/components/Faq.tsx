@@ -1,18 +1,24 @@
 import { useId, useState } from "react";
 import { Plus } from "lucide-react";
-import { faq } from "../data/content";
+import { useDict } from "../i18n";
 import { requestQuote } from "../utils/quote";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import { cn } from "../utils/cn";
 
 /**
- * FAQ — single-open accordion, quiet by design: hairline rules, a plus
- * mark that rotates into a minus, rows that expand via a grid-rows
- * transition (no height measurement, no layout jank). Answers are process
- * facts and contact routes — never invented prices, delays or coverage.
+ * FAQ — single-open accordion, quiet by design: hairline rules, a plus mark
+ * that rotates into a minus, rows that expand via a grid-rows transition (no
+ * height measurement, no layout jank). Answers are process facts and contact
+ * routes — never invented prices, delays or coverage.
+ *
+ * V11: questions and answers come from the active dictionary; the "ask a
+ * question" button pre-fills the form with the canonical "Autre" service value
+ * so the API contract is language-independent.
  */
 export default function Faq() {
+  const dict = useDict();
+  const t = dict.faq;
   const uid = useId();
   const [open, setOpen] = useState<number | null>(0);
 
@@ -23,9 +29,9 @@ export default function Faq() {
           <div className="lg:col-span-4">
             <SectionHeading
               id="faq-heading"
-              eyebrow="Questions fréquentes"
-              title="Les réponses, sans langue de bois."
-              lede="Location, maintenance, inspections, devis — l'essentiel, dit simplement. Pour le reste, un appel répond mieux qu'un formulaire."
+              eyebrow={t.eyebrow}
+              title={t.title}
+              lede={t.lede}
             />
             <Reveal delay={120}>
               <button
@@ -33,14 +39,14 @@ export default function Faq() {
                 onClick={() => requestQuote("Autre")}
                 className="mt-10 inline-flex items-center gap-2 border border-line-strong px-5 py-3 text-[13px] font-medium tracking-wide text-navy-900 transition-[border-color,background-color,transform] duration-200 hover:border-navy-900 hover:bg-paper active:translate-y-px"
               >
-                Poser une question précise
+                {t.askCta}
               </button>
             </Reveal>
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
             <dl className="border-t border-line">
-              {faq.map((item, i) => {
+              {t.items.map((item, i) => {
                 const isOpen = open === i;
                 const btnId = `${uid}-q-${i}`;
                 const panelId = `${uid}-a-${i}`;
@@ -54,7 +60,7 @@ export default function Faq() {
                           aria-expanded={isOpen}
                           aria-controls={panelId}
                           onClick={() => setOpen(isOpen ? null : i)}
-                          className="group flex w-full items-baseline justify-between gap-8 py-6 text-left"
+                          className="group flex w-full items-baseline justify-between gap-8 py-6 text-start"
                         >
                           <span
                             className={cn(

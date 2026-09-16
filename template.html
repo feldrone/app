@@ -43,14 +43,34 @@
 
     <meta name="theme-color" content="#fbfaf8" />
 
-    <!-- Favicon — V10 FLIGHT ARC -->
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <!-- Favicon — V12 symbol (public/favicon.svg). The URL is resolved from the
+         served document's own path instead of a fixed relative href, because the
+         same bundle is deployed twice: at the ROOT of a Vercel host (every deep
+         route is rewritten to this file, so the icon must resolve to
+         /favicon.svg from /services/topographie too) and under the /app/ GitHub
+         Pages project path. Same rule as the router's detectBase() fallback —
+         see src/router/index.tsx. -->
+    <script>
+      (function () {
+        var path = location.pathname;
+        var dir = path.slice(0, path.lastIndexOf("/") + 1);
+        var base = path.slice(-1) === "/" || /\.html?$/i.test(path) ? dir : "/";
+        var link = document.createElement("link");
+        link.rel = "icon";
+        link.type = "image/svg+xml";
+        link.href = base + "favicon.svg";
+        document.head.appendChild(link);
+      })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.pexels.com" />
+    <!-- One superfamily, three languages: IBM Plex Sans (Latin) + IBM Plex Sans
+         Arabic (العربية). Both are loaded up front so switching language never
+         reflows type or falls back silently. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 

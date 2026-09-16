@@ -9,8 +9,19 @@
 /*     register, one warm signal accent used sparingly.                 */
 /* ------------------------------------------------------------------ */
 @theme {
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Latin first, Arabic second: a mixed string ("FEL DRONE" inside an Arabic
+     sentence, or a wilaya name inside a French one) resolves per glyph run, so
+     no text is ever set in a fallback face. Arabic keeps fatāḥa/tanwīn and
+     digits upright — no synthetic ligatures, no letter-spacing on Arabic. */
+  --font-sans:
+    "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display:
+    "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* The wordmark is the brand's own voice: Lexend 700 (approved final typeface),
+     self-hosted via @fontsource so the lockup renders offline as well. The rest
+     of the site's type stays on the frozen IBM Plex superfamily. */
+  --font-wordmark:
+    "Lexend", "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Neutrals */
   --color-paper: #fbfaf8;
@@ -94,10 +105,43 @@ footer a:active {
   opacity: 0.8;
 }
 
-/* Display type: optical sizing keeps large serif cuts tight and editorial */
+/* Display type: optical sizing keeps large cuts tight and editorial */
 .font-display {
   font-optical-sizing: auto;
   text-wrap: balance;
+}
+
+/* ── Arabic (العربية) — real RTL typography, not a mirrored LTR page ────────
+   The layout direction itself comes from `dir="rtl"` (see src/i18n): logical
+   utilities (ps/pe/ms/me/start/end, text-start) mirror by themselves, so only
+   writing-system details are corrected here — never the geometry.
+   · tracking: letter-spacing breaks Arabic joining — it is neutralised inside
+     Arabic text, while the uppercase Latin eyebrows keep their spacing.
+   · numerals: the RC number, phone and Plus Code stay Latin (dir="ltr" + <bdi>)
+     so they read left-to-right inside an RTL line.
+   · Arabic glyphs carry more vertical extent — headings get a touch more line
+     height and slightly smaller optical sizes instead of tightening. */
+html[lang="ar"] body {
+  font-synthesis-weight: none;
+}
+html[lang="ar"] :is(p, li, dd, dt, h1, h2, h3, a, button, label, input, select, textarea, span) {
+  letter-spacing: normal;
+}
+html[dir="rtl"] .font-display {
+  line-height: 1.28;
+}
+html[dir="rtl"] :is(h1, h2) {
+  text-wrap: balance;
+}
+/* Numbers, e-mails, phone numbers and identifiers are always LTR runs. */
+html[dir="rtl"] .tabular-nums,
+html[dir="rtl"] .font-mono {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+/* Figcaption sits over imagery: keep the padding logical in RTL too. */
+html[dir="rtl"] figcaption {
+  text-align: start;
 }
 
 ::selection {

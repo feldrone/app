@@ -1,13 +1,17 @@
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
-import { equipmentCapabilities } from "../data/content";
+import { useDict } from "../i18n";
 
 /**
- * V10 Equipment / Capabilities — truthful, no invented specs
- * Unknown specifications clearly marked "À compléter"
- * Never invent drone models, sensors, flight times, accuracy, payloads, certifications
+ * Equipment / Capabilities — truthful, no invented specs.
+ * Unknown specifications stay clearly marked (FR "À compléter" / EN "To be
+ * completed" / AR "قيد الاستكمال"); no drone model, sensor, flight time,
+ * accuracy, payload or certification is ever invented.
  */
 export default function Equipment() {
+  const dict = useDict();
+  const t = dict.equipment;
+
   return (
     <section
       id="equipement"
@@ -19,21 +23,18 @@ export default function Equipment() {
           <div className="lg:col-span-4">
             <SectionHeading
               id="equipement-heading"
-              eyebrow="Équipement"
-              title="Capacités vérifiées, pas de catalogue inventé"
-              lede="Seules les capacités vérifiées sont listées. Le reste est marqué À compléter — nous ne spéculons pas sur modèles, capteurs, autonomie ou précision."
+              eyebrow={t.eyebrow}
+              title={t.title}
+              lede={t.lede}
             />
             <Reveal delay={120}>
-              <p className="mt-8 max-w-md text-[13.5px] leading-relaxed text-mute">
-                Aucun modèle de drone, aucun capteur, aucune autonomie, aucune précision ou
-                certification n&apos;est inventé. Sur devis, étude selon le besoin.
-              </p>
+              <p className="mt-8 max-w-md text-[13.5px] leading-relaxed text-mute">{t.note}</p>
             </Reveal>
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
             <div className="space-y-12">
-              {equipmentCapabilities.map((group, gi) => (
+              {t.groups.map((group, gi) => (
                 <Reveal key={group.category} delay={gi * 80}>
                   <div className="border-t border-line pt-8">
                     <h3 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-navy-900">
@@ -58,11 +59,8 @@ export default function Equipment() {
 
             <Reveal delay={200}>
               <div className="mt-12 bg-paper p-6 text-[13px] leading-relaxed text-ink-soft">
-                <p className="font-medium text-navy-900">Média à fournir</p>
-                <p className="mt-2">
-                  Photos d&apos;atelier, fiches techniques vérifiées, certificats — À compléter.
-                  Aucune image de drone jouet, aucun rendu 3D, aucune aviation habitée.
-                </p>
+                <p className="font-medium text-navy-900">{t.mediaPending}</p>
+                <p className="mt-2">{t.mediaNote}</p>
               </div>
             </Reveal>
           </div>
