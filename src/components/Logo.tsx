@@ -2,29 +2,30 @@ import { cn } from "../utils/cn";
 import { BRAND, type BrandLockup } from "../brand/brandmark";
 
 /**
- * FEL DRONE — V12 "QUAD FD" lockups (reference-derived symbol).
+ * FEL DRONE — V12 "C2 STADIUM-D" lockups (approved final symbol + wordmark).
  *
- * The emblem is one drawing, generated from a single geometry source
- * (scripts/brand-gen.mjs → src/brand/brandmark.ts). A front-view quadcopter —
- * two rotor blades over two round motor hubs, joined by two arms to a small
- * central body — is seated on a heavy geometric F+D monogram. The rotor hubs
- * are the monogram's own mount points (the left hub is concentric with the F
- * stem axis, the right one rides the D stem axis) and the airframe overlaps the
- * letterforms, so the emblem reads as ONE engineered symbol: FEL, DRONE,
- * aviation, technology — recognisable as a mark at 26 px, legible as a lockup
- * in the header.
+ * The symbol is ONE drawing from a single geometry source
+ * (scripts/brand-gen.mjs → src/brand/brandmark.ts): a D plate — straight left
+ * wall, r30 right shoulder, 45° sheared tail — whose own structure is the F.
+ * The stem is the plate's left wall (28u), the top band is the F's upper bar
+ * and the mid band ends in an exact r14 semicircle: the rotor pod. The F and
+ * the D share the same geometry and the same negative space — the D is never
+ * drawn beside the F, and the F is never placed inside a letter. One connected
+ * ink mass, ink box x12..148 / y4..144 on the 160 canvas, 2u grid, and a 28u
+ * stem — the wordmark's own stroke weight (within 1.3u), so symbol and type
+ * share one material logic.
  *
- * The wordmark is typeset in the project's real typeface, IBM Plex Sans 700 —
- * a technical grotesque with squared terminals that matches the reference's
- * geometric, engineering character. It is never distorted: each word is set at
- * the measured advance for a 104u cap height and the 48u word space is the
- * brand's own, so the name can never fuse into "FELDRONE". The exported SVG
- * assets keep the vector construction of the same letterforms for print
- * (see public/brand/ and docs/BRAND.md).
+ * The wordmark is typeset in LEXEND 700 — the approved final typeface, loaded
+ * self-hosted from @fontsource/lexend (latin subset) in src/main.tsx. It is
+ * never distorted: each word is set at the measured Lexend advance for a 110u
+ * cap height (FEL 294, DRONE 587) and the 50u word space is Lexend's own, so
+ * the name can never fuse into "FELDRONE" and no glyph is ever scaled. The
+ * exported SVG assets carry the real Lexend outlines for print (see
+ * public/brand/ and docs/BRAND.md).
  *
- * Tiers: MASTER (these lockups, ≥ 40 px), COMPACT (the emblem alone),
- * MICRO (16–32 px favicon: the 8u blades are deleted — sub-pixel at that size —
- * and the drawing falls back to hubs, body and monogram).
+ * Tiers: MASTER (these lockups, >= 40 px), COMPACT (the symbol alone),
+ * MICRO (16–32 px favicon: the same C2 drawing — it has no sub-pixel detail to
+ * simplify, so the small-size asset is the master geometry).
  */
 const { type } = BRAND;
 
@@ -42,7 +43,7 @@ function Wordmark({
   const common = {
     y: baseline,
     fill: ink,
-    fontFamily: "var(--font-wordmark, 'IBM Plex Sans')",
+    fontFamily: "var(--font-wordmark, 'Lexend', 'IBM Plex Sans')",
     fontWeight: 700,
     fontSize: type.size,
     lengthAdjust: "spacing" as const,
@@ -73,7 +74,7 @@ function Lockup({ spec, ink, className }: { spec: BrandLockup; ink: string; clas
       style={{ direction: "ltr" }}
       className={cn("w-auto shrink-0", className)}
     >
-      <g fill={ink} fillRule="nonzero">
+      <g fill={ink} fillRule="evenodd">
         <g transform={`translate(${spec.markX} ${spec.markY})`}>
           <path d={BRAND.mark} />
         </g>

@@ -17,9 +17,11 @@
     "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display:
     "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  /* The wordmark is the brand's own voice: one superfamily, weight 700. */
+  /* The wordmark is the brand's own voice: Lexend 700 (approved final typeface),
+     self-hosted via @fontsource so the lockup renders offline as well. The rest
+     of the site's type stays on the frozen IBM Plex superfamily. */
   --font-wordmark:
-    "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    "Lexend", "IBM Plex Sans", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Neutrals */
   --color-paper: #fbfaf8;
