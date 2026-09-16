@@ -95,6 +95,36 @@ export const safetyImage: Img = photo({
 /* ------------------------------------------------------------------ */
 
 export const serviceImages: Record<string, Img> = {
+  topographie: photo({
+    id: 1087180,
+    alt: "Vue aérienne topographique — relevé photogrammétrique, exemple de démonstration",
+    ratio: [16, 10],
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
+  }),
+  inspection: photo({
+    id: 6165166,
+    alt: "Drone professionnel en vol à proximité d'un chantier urbain, structures et engins dans le cadre",
+    ratio: [16, 10],
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
+  }),
+  maintenance: photo({
+    id: 32208773,
+    alt: "Technicien réparant un drone à l'établi, outils de précision en atelier",
+    ratio: [16, 10],
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
+  }),
+  thermographie: photo({
+    id: 442150,
+    alt: "Inspection thermographique par drone — exemple de démonstration",
+    ratio: [16, 10],
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
+  }),
+  agriculture: photo({
+    id: 34182367,
+    alt: "Drone agricole en vol au-dessus d'une parcelle — imagerie NDVI, exemple de démonstration",
+    ratio: [16, 10],
+    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
+  }),
   vente: photo({
     id: 9182739,
     alt: "Drone professionnel et sa radiocommande présentés en lumière rasante, matériel prêt à la livraison",
@@ -107,21 +137,10 @@ export const serviceImages: Record<string, Img> = {
     ratio: [16, 10],
     sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
   }),
-  maintenance: photo({
-    id: 32208773,
-    alt: "Technicien réparant un drone à l'établi, outils de précision en atelier",
-    ratio: [16, 10],
-    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
-  }),
+  // Legacy keys for V8 compatibility (kept, not used in V10 primary)
   prestations: photo({
     id: 34182367,
     alt: "Drone agricole de traitement en vol au-dessus d'une parcelle cultivée, reliefs en arrière-plan",
-    ratio: [16, 10],
-    sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
-  }),
-  inspection: photo({
-    id: 6165166,
-    alt: "Drone professionnel en vol à proximité d'un chantier urbain, structures et engins dans le cadre",
     ratio: [16, 10],
     sizes: "(max-width: 767px) 92vw, (max-width: 1279px) 45vw, 29vw",
   }),

@@ -3,14 +3,14 @@
 /* ------------------------------------------------------------------ */
 /* Design tokens — White-first premium corporate art direction          */
 /*                                                                      */
-/* Type: Newsreader (editorial serif display, restrained optical use)   */
-/*     + Inter (text/UI). Two families, no more.                        */
+/* Type: IBM Plex Sans — single superfamily (V10 direction). One family */
+/*     for UI and display, weights 400–700, no second family.           */
 /* Color: paper/off-white dominant, deep aviation navy as the dark      */
 /*     register, one warm signal accent used sparingly.                 */
 /* ------------------------------------------------------------------ */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Neutrals */
   --color-paper: #fbfaf8;

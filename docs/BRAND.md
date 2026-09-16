@@ -1,104 +1,84 @@
 # FEL DRONE — Identity system
 
-**v8 “ROTOR F”** — production integration of 2026-09-14. Client authorized the
-drone+F identity of the reference board and required it re-engineered as a
-superior vector system — not a trace, not a paste. The mark is ONE symbol: the
-F letterform built as a machine. The stem is the spar; the top and mid arms run
-to their hub centers and drive two rotors; **the rotors are the counters of
-the letter**. It reads without the wordmark because it is the wordmark's first
-letter. One geometry source — `scripts/brand-gen.mjs` — emits every brand
-file and the React lockup data; nothing downstream is hand-drawn.
+**v10 "FLIGHT ARC"** — reconstruction from Golden V8 (f5b29cc). Professional F+D "FLIGHT ARC" direction: the F letterform and the D bowl share baseline and cap height, connected by a single flight arc that arches above. The arc is the drone's trajectory: take-off, cruise, landing — huit étapes, zéro improvisation. One geometry source — `scripts/brand-gen.mjs` — emits every brand file and React lockup data; nothing downstream is hand-drawn.
+
+**v8 "ROTOR F"** remains as recovery point f5b29cc — drone+F identity, engineered and integrated — but v10 evolves to FD initials + flight arc for business website.
 
 ---
 
-## Why v8 exists (problems closed)
+## Why v10 exists
 
-| # | Problem in the reference / old builds | Resolution |
-|---|----------------------------------------|------------|
-| 1 | traced board mark: point-tangencies and 4u slivers at arm↔ring junctions | arms terminate **at the hub centers**; the apertures open exactly where a spar crosses (nonzero winding, computed) — zero accidental tangency, zero sliver |
-| 2 | one drawing for all sizes → blob below 24 px | real tiers: **MICRO deletes the voids** (solid rotors), a different correct drawing, never a shrunken MASTER |
-| 3 | equal stacked rotors tangent each other | unequal rotors (⌀ 64u / 48u) on the same radial law; clearance 12.4u ≥ 8u floor |
-| 4 | “FELDRONE” one-word lockups | **FEL DRONE, two words**: a controlled 48u word-space (2× the 24u track) — the name is never fused, the type never renamed |
-| 5 | generic wordmark type in the reference | the engineered v7.2 glyph table is kept: cap 104u, stem 24u, circular counters — bowls now true stadiums (24u walls everywhere) |
-| 6 | old logo files still shipping | all v7.2-era asset names (`fel-drone-symbol*`, `fel-drone-horizontal*`, `fel-drone-icon-64*`, `fel-drone-stacked-mono-*`) are **deleted**; `public/brand/` holds only the 15 v8 files below |
-| 7 | hand-edited SVGs drift | `npm run brand:check` (CI gate) fails on any byte of drift between generator and files |
+| # | Direction | Resolution |
+|---|-----------|------------|
+| 1 | Typography | IBM Plex Sans single superfamily (V10) — one family for UI and display, 400-700, no second family |
+| 2 | Services | 7 poles: Topographie & photogrammétrie, Suivi & inspection de chantier, Maintenance & diagnostic drone (primary), Thermographie, Agriculture, Vente, Location (secondary, quieter) |
+| 3 | Method | "Huit étapes, zéro improvisation" — eight-step methodology, no guarantees |
+| 4 | Demonstration | Orthophoto, MNT, NDVI, Rapport — each "Exemple de démonstration — non issu d'une mission client" |
+| 5 | Projects | "Premières réalisations à venir" — truthful, no invented clients/results |
+| 6 | Equipment | Capabilities verified only, unknown = "À compléter", never invent models/sensors |
+| 7 | Contact | Adds Société, Wilaya du besoin, Service demandé, Précisions utiles — preserves POST /api/quote contract |
+| 8 | Brand | FLIGHT ARC: FD + flight arc, preserves wordmark "FEL DRONE", never fused "FELDRONE" |
 
-## The mark — construction (canvas 128×128, grid g = 4u, module M = 32u)
+## The mark — construction v10 (canvas 128×128, grid 4u, module M=32u)
 
 | Part | Geometry |
 |------|----------|
-| Stem (spar) | `x 0..32, y 0..128` — M wide, full height |
-| Top arm | `y 16..48, x 0..96` — M tall, ends at hub A center |
-| Mid arm | `y 80..112, x 0..72` — M tall, ends at hub B center |
-| Rotor A (primary) | disc ⌀ 64u at (96, 32); **grounded**: tangent to top and right canvas edges |
-| Rotor B (secondary) | disc ⌀ 48u at (72, 96); floats 8u off the floor |
-| Radial law | both rotors: **band 12u · aperture 8u** · A adds hub bore r 12u (ink again) |
-| Accent (brand assets only) | gold jewel r 6u concentric with hub A — one dot, never on the web UI |
+| F stem | `x 0..32, y 0..128` — M wide, full height |
+| F top arm | `x 0..80, y 16..48` — M tall, ends at D stem |
+| F mid arm | `x 0..56, y 80..112` — M tall, shorter, 24u clearance to D |
+| D | `M80 0H104A24 64 0 0 1 104 128H80Z` — vertical stem 80..104 (24u) + bowl arc rx24 ry64 via x=128, full height |
+| Flight arc | `M32 4Q64 -12 96 4L96 8Q64 -8 32 8Z` — thin curved bar 4u thick, apex -12u above cap, Q bezier |
 
-**The rotor law is the critical control.** Each rotor is three concentric
-circles wound for nonzero fill: disc CW (+1), aperture CCW (−1), hub bore CW
-(+1). Consequences, all verified numerically: the aperture becomes a “C” that
-opens exactly where the spar passes through it; the hub reads as a bolt head
-inside the M-tall arm band; no Boolean can produce a tangent or a sliver,
-because none is geometrically reachable. Ink = 1 connected component at every
-size 16–512px; four background enclosures by law (two aperture halves per
-split rotor… A×2, B×1, corner pocket ×1 from the engagement tangent).
+**FLIGHT ARC law:** The arc is the only non-rectilinear element. It starts at x32 (F stem) and ends at x96 (D stem), apex -12u above canvas — the drone's take-off trajectory. The D bowl is a stadium half with 24u wall, 48u counter radius conceptually, but implemented as elliptical arc rx24 ry64 to fit 128 box exactly (rightmost x=128). Ink = 1 connected component for FD (F and D touch at top), flight arc is separate ink island above — two components total, still premium.
 
-The F is readable in three ways at once — letterform, quadrotor silhouette,
-corner-locked mark block — and in no way does it read as an airplane, a wing,
-a cockpit or a badge. Flat vector, monochrome by construction: no gradients,
-no 3D, no glow, no shields, no hexagons, no circuitry.
+MICRO tier (16–32px): flight arc deleted — solid FD only, three rects + D bowl, all coords ×8u so 64-box favicon chip is integer transform (`scale(0.375)`). At 16px every stroke = 4 device px.
 
-## Wordmark — “FEL DRONE”
+## Wordmark — "FEL DRONE"
 
-Custom-drawn geometric caps: **cap 104u (26g), stem 24u (3/4·M)** — the v7.2
-type weight, kept. All-CAPS: `F E L ␣ D R O N E` (widths 56·56·48 · 72·72·72·72·56).
-The D/O/R bowls are **stadium constructions**: outer radius 36u with straight
-midsection, counters offset exactly 24u inward (counter radius 12u) — walls
-uniform 24u on all four sides of every bowl, the mark's own module family.
-R carries a true half-disc bowl (to y 72) and a **detached diagonal leg** —
-the 8u+ channel between bowl and leg is chosen, not accidental. Tracking 24u
-everywhere with two controls: **R-O optical closure 16u** (flat leg facing O's
-curve) and the **48u word-space** between FEL and DRONE. Total width 688u,
-every advance on the grid. Kerning is arithmetic, not keyboard.
+Custom-drawn geometric caps: **cap 104u, stem 24u** — v7.2/v8 type weight kept. All-CAPS: `F E L ␣ D R O N E` (widths 56·56·48 ·72·72·72·72·56). D/O/R bowls are stadium constructions: outer radius 36u, counters offset 24u inward (counter radius 12u) — walls uniform 24u. R carries detached diagonal leg, channel ≥8u. Tracking 24u everywhere with two controls: **R-O optical closure 16u** and **48u word-space** between FEL and DRONE. Total width 688u, every advance on grid. Name is never fused — never "FELDRONE".
 
 ## Lockups
 
 | Lockup | Canvas | Law |
 |--------|--------|-----|
-| HORIZONTAL | 880×160 | mark 128u at inset 16 (tangent top/right), word baseline = mark ink bottom +12u optical; clearance mark→word = 32u |
-| STACKED | 720×296 | mark centered above word, 32u air both ways, margins 16u — mobile header/footer render this automatically |
-| WEBSIZE UI | 30–34px header | `Logo.tsx` renders BRAND data inline (single path, `fillRule="nonzero"` — the site twin of the SVG files, byte-derived from the same table) |
+| HORIZONTAL | 880×160 | mark 128u at inset 16, word baseline = mark ink bottom +12u optical; clearance mark→word = 32u |
+| STACKED | 720×296 (now 632×296 due to narrower WORD_W calc, but W_TOTAL remains 880) | mark centered above word, 32u air, margins 16u — mobile header/footer |
+| WEBSITE UI | 30–34px header | `Logo.tsx` renders BRAND data inline (single path, `fillRule="nonzero"`) |
 
-## Responsive tiers
+## Responsive tiers v10
 
-- **MASTER** ≥ 64px — full rotors, apertures, hub. Horizontal lockup.
-- **COMPACT** 40–64px — the symbol alone; the M-weight bars keep it open.
-- **MICRO** 16–32px — **a different drawing**: voids deleted, solid rotor
-  discs, stem and arms 32u → 4 device px at 16px. All coordinates ×8u so the
-  64-box favicon chip is an integer transform (`scale(0.375)`).
-- The wordmark is never rendered below COMPACT. 16px = symbol only.
+- **MASTER** ≥64px — full FD + flight arc, horizontal lockup
+- **COMPACT** 40–64px — symbol alone, M-weight bars
+- **MICRO** 16–32px — **different drawing**: flight arc deleted, solid FD, all coords ×8u
+
+## Typography v10
+
+- **Single superfamily:** IBM Plex Sans — 400,500,600,700 — loaded via Google Fonts
+- `--font-sans` and `--font-display` both IBM Plex Sans — one family
+- Future AR: IBM Plex Sans Arabic exists, same superfamily, can be swapped when AR validated
 
 ## Color
 
-Ink `#0e1f30` · paper `#fbfaf8` · mono black/white for print, decals, plates.
-Gold `#b4722c` is the site accent token; in brand assets it appears **once** —
-the hub jewel on the two `*-accent` files. Monochrome first was the design
-process, and every file above renders correctly with the color layer deleted.
+Ink `#0e1f30` · paper `#fbfaf8` · mono black/white · accent `#b4722c` (site token, brand assets monochrome first)
 
-## Files
+## Files v10
 
-`public/brand/`: `fel-drone-{mark, mark-mono, mark-accent, lockup,
-lockup-inverse, lockup-accent, stacked, stacked-inverse, wordmark,
-favicon, favicon-mono, favicon-inverse, favicon-32, favicon-32-mono,
-geo}.svg` + `public/favicon.svg` (root `favicon.svg` synced at build).
-Generated by `npm run brand:gen`; CI enforces `npm run brand:check`.
+`public/brand/`: `fel-drone-{mark, mark-mono, mark-accent, lockup, lockup-inverse, lockup-accent, stacked, stacked-inverse, wordmark, favicon, favicon-mono, favicon-inverse, favicon-32, favicon-32-mono, mark-micro, geo}.svg` + `public/favicon.svg`
 
-## Usage rules
+Generated by `npm run brand:gen`; CI enforces `npm run brand:check` (gates both GitHub Pages workflow and Vercel buildCommand).
+
+## Usage rules v10
 
 1. Never redraw, never outline, never add effects. Scale the file.
-2. Clearspace = 16u (= the canvas margin) on all sides; minimum sizes per tier.
-3. Vehicle/plate/embroidery: `mark-mono` (black or white). Never the jewel.
-4. The name is FEL DRONE (two words). Never “FELDRONE”, never a new name.
-5. Amine Fellah's roster line is approved copy: his telecontrol certification
-   sentence ships as written, never rewritten for layout.
+2. Clearspace = 16u on all sides; minimum sizes per tier.
+3. Vehicle/plate/embroidery: `mark-mono` (black or white). Never add jewel (v8) — v10 has no jewel, only flight arc.
+4. Name is FEL DRONE (two words). Never "FELDRONE".
+5. Team: Amine Fellah note exactly "Étudiant en informatique." — per V10 spec, not the longer V8 sentence.
+6. Services: 7 poles, 3 primary (topographie, suivi, maintenance) visually prioritized, vente/location quieter, no prices, wording "Sur devis", "Tarification selon la mission", "Étude selon le besoin".
+7. Demonstration: every placeholder "Exemple de démonstration — non issu d'une mission client", media slots "Média à fournir".
+8. Equipment: unknown = "À compléter", never invent drone models/sensors/flight times/accuracy/payloads/certifications.
+9. Contact: preserves POST /api/quote, adds Société, Wilaya du besoin, Service demandé, Précisions utiles, keeps validation, honeypot, rate limiting, CORS, honest email status — UI never claims email sent if not confirmed.
+10. WhatsApp: only if real verified number exists (+213 6 61 61 33 99) — no floating intrusive bubble, only inline CTA.
+11. Bilingual: FR only now, architecture prepared for FR/AR per `docs/I18N.md`, no half-translation.
+12. SEO: truthful title/meta/canonical/sitemap/robots/OG/structured data, real implantation El Tarf only, no invented ratings/hours/coverage/clients/certifications/awards.
+13. Legal: truthful identifiers, unknown = "À compléter", no invented regulatory refs.

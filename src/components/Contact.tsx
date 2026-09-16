@@ -8,35 +8,23 @@ import {
   Mail,
   MapPin,
   Phone,
+  MessageCircle,
 } from "lucide-react";
 import { company } from "../data/content";
 import { PREFILL_EVENT } from "../utils/quote";
 import Reveal from "./Reveal";
 import { cn } from "../utils/cn";
 
-/**
- * Contact & quote requests.
- *
- * The form posts to the FEL DRONE request API (`POST /api/quote`) — a real
- * serverless endpoint (validation, rate limiting, persistent records, email
- * notification to the company). Nothing is claimed beyond what the backend
- * actually does: requests are recorded for the team and a notification email
- * is sent when an email provider is configured server-side.
- *
- * If the API is unreachable (static hosting, offline, or the endpoint not
- * yet deployed), the form does NOT fake success: it keeps the composed
- * message and offers the honest fallbacks — a prefilled mailto and the
- * direct phone line.
- */
-
 const API_ENDPOINT = "/api/quote";
 
 const SERVICE_OPTIONS = [
+  "Topographie & photogrammétrie",
+  "Suivi & inspection de chantier",
+  "Maintenance & diagnostic drone",
+  "Thermographie",
+  "Agriculture",
   "Vente",
   "Location",
-  "Maintenance",
-  "Prestations de services",
-  "Inspection sur chantier",
   "Autre",
 ] as const;
 
@@ -44,22 +32,31 @@ type FormValues = {
   name: string;
   phone: string;
   email: string;
+  company: string;
+  wilaya: string;
   service: string;
   message: string;
-  /** Honeypot — must stay empty; bots fill it, humans never see it. */
   website: string;
 };
 
 type FieldErrors = Partial<Record<keyof FormValues, string>>;
 type Status = "idle" | "submitting" | "success" | "error" | "offline";
 
-const EMPTY: FormValues = { name: "", phone: "", email: "", service: "", message: "", website: "" };
+const EMPTY: FormValues = {
+  name: "",
+  phone: "",
+  email: "",
+  company: "",
+  wilaya: "",
+  service: "",
+  message: "",
+  website: "",
+};
 
 function digits(v: string) {
   return (v.match(/\d/g) ?? []).length;
 }
 
-/** Client-side mirror of the server validation — same rules, friendlier UX. */
 function validate(values: FormValues): FieldErrors {
   const errors: FieldErrors = {};
   const name = values.name.trim();
@@ -72,13 +69,20 @@ function validate(values: FormValues): FieldErrors {
     errors.phone = "Numéro invalide — ex. +213 6 61 61 33 99.";
 
   const email = values.email.trim();
-  if ((email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) || email.length > 120)
+  if ((email && !/^[^\\s@]+@[^\\s@]+\.[^\\s@]{2,}$/.test(email)) || email.length > 120)
     errors.email = "Format d'email invalide.";
+
+  const companyVal = values.company.trim();
+  if (companyVal && companyVal.length > 120) errors.company = "120 caractères maximum.";
+
+  const wilaya = values.wilaya.trim();
+  if (!wilaya) errors.wilaya = "Indiquez la wilaya du besoin.";
+  else if (wilaya.length < 2 || wilaya.length > 80) errors.wilaya = "Entre 2 et 80 caractères.";
 
   if (!values.service) errors.service = "Sélectionnez un service.";
 
   const message = values.message.trim();
-  if (!message) errors.message = "Décrivez brièvement votre besoin.";
+  if (!message) errors.message = "Précisez votre besoin — quelques détails utiles.";
   else if (message.length < 15) errors.message = "Quelques mots de plus (15 caractères minimum).";
   else if (message.length > 3000) errors.message = "3 000 caractères maximum.";
 
@@ -103,7 +107,6 @@ export default function Contact() {
     setErrors((er) => ({ ...er, [field]: validate(values)[field] }));
   };
 
-  // Prefill handshake from service cards / hero / FAQ.
   useEffect(() => {
     const onPrefill = (e: Event) => {
       const service = (e as CustomEvent<string>).detail;
@@ -117,7 +120,7 @@ export default function Contact() {
 
   const showErrors = (next: FieldErrors) => {
     setErrors(next);
-    const first = (["name", "phone", "email", "service", "message"] as const).find((f) => next[f]);
+    const first = (["name", "phone", "wilaya", "email", "company", "service", "message"] as const).find((f) => next[f]);
     if (first) document.getElementById(idOf(first))?.focus();
   };
 
@@ -128,9 +131,12 @@ export default function Contact() {
     const body = [
       `Nom : ${values.name}`,
       `Téléphone : ${values.phone}`,
+      values.company ? `Société : ${values.company}` : null,
+      `Wilaya du besoin : ${values.wilaya}`,
       values.email ? `Email : ${values.email}` : null,
-      `Service : ${values.service}`,
+      `Service demandé : ${values.service}`,
       "",
+      `Précisions utiles :`,
       values.message,
     ]
       .filter(Boolean)
@@ -142,7 +148,7 @@ export default function Contact() {
     e.preventDefault();
     const validation = validate(values);
     if (Object.keys(validation).length > 0) {
-      setTouched({ name: true, phone: true, email: true, service: true, message: true });
+      setTouched({ name: true, phone: true, wilaya: true, email: true, company: true, service: true, message: true });
       showErrors(validation);
       return;
     }
@@ -157,6 +163,8 @@ export default function Contact() {
           name: values.name.trim(),
           phone: values.phone.trim(),
           email: values.email.trim() || null,
+          company: values.company.trim() || null,
+          wilaya: values.wilaya.trim(),
           service: values.service,
           message: values.message.trim(),
           website: values.website,
@@ -176,7 +184,6 @@ export default function Contact() {
         setStatus("error");
         setErrors({ message: "Trop d'envois récents — réessayez dans une minute." });
       } else if (res.status === 404 || res.status === 405) {
-        // No API on this host (e.g. static Pages deployment) — honest fallback.
         setStatus("offline");
       } else {
         const data = (await res.json().catch(() => null)) as { fields?: FieldErrors } | null;
@@ -188,7 +195,6 @@ export default function Contact() {
         }
       }
     } catch {
-      // Network failure or endpoint absent — keep the text, offer mailto.
       setStatus("offline");
     }
     statusRef.current?.scrollIntoView({ block: "nearest" });
@@ -203,11 +209,14 @@ export default function Contact() {
     "aria-describedby": errors[name] && touched[name] ? `${idOf(name)}-error` : undefined,
   });
 
+  const whatsappHref = `https://wa.me/${company.phoneHref.replace(/\+/g, "")}?text=${encodeURIComponent(
+    `Bonjour FEL DRONE — ${values.service ? `demande ${values.service}` : "demande d'informations"} — ${values.wilaya ? `wilaya ${values.wilaya}` : ""}`,
+  )}`;
+
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="bg-paper py-32 lg:py-44">
+    <section id="contact" aria-labelledby="contact-heading" className="bg-paper py-28 lg:py-36">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
-          {/* Contact information */}
           <div className="lg:col-span-4">
             <Reveal>
               <p className="mb-5 flex flex-wrap items-center gap-3 text-[11px] font-medium uppercase tracking-[0.24em] text-mute sm:text-[12px]">
@@ -217,34 +226,39 @@ export default function Contact() {
               <h2 id="contact-heading" className="font-display text-[1.9rem] leading-[1.12] font-medium tracking-tight text-navy-900 sm:text-[2.4rem]">
                 Parlons de votre projet.
               </h2>
-              <p className="mt-6 text-[15.5px] leading-relaxed text-ink-soft">
-                Un devis, une mise à disposition de flotte, une mission à planifier&nbsp;?
-                Écrivez-nous via le formulaire — la demande part directement dans le
-                système de FEL DRONE et l'équipe vous rappelle.
+              <p className="mt-6 text-[15px] leading-relaxed text-ink-soft">
+                Devis sur étude, tarification selon la mission. Formulaire avec nom, téléphone,
+                société, wilaya du besoin, service demandé, précisions utiles — la demande part
+                dans le système FEL DRONE.
               </p>
             </Reveal>
 
             <ul className="mt-10 space-y-6">
               <li className="flex items-start gap-4">
                 <MapPin size={18} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
-                <span className="text-[14.5px] leading-relaxed text-ink">
+                <span className="text-[14px] leading-relaxed text-ink">
                   {company.addressLine1}, {company.addressLine2}, {company.country}
-                  <span className="block text-[12px] text-mute">
-                    Plus Code {company.plusCode} — Aïn El Assel
-                  </span>
+                  <span className="block text-[12px] text-mute">Plus Code {company.plusCode} — Aïn El Assel</span>
                 </span>
               </li>
               <li className="flex items-start gap-4">
                 <Phone size={18} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
-                <a href={`tel:${company.phoneHref}`} className="group text-[14.5px] text-ink transition-colors hover:text-navy-900">
+                <a href={`tel:${company.phoneHref}`} className="group text-[14px] text-ink transition-colors hover:text-navy-900">
                   {company.phone}
-                  <span className="block text-[12px] text-mute transition-colors group-hover:text-ink-soft">ligne directe — horaires ouvrés</span>
+                  <span className="block text-[12px] text-mute group-hover:text-ink-soft">ligne directe — horaires ouvrés — À compléter</span>
                 </a>
               </li>
               <li className="flex items-start gap-4">
                 <Mail size={18} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
-                <a href={`mailto:${company.email}`} className="text-[14.5px] break-all text-ink transition-colors hover:text-navy-900">
+                <a href={`mailto:${company.email}`} className="text-[14px] break-all text-ink transition-colors hover:text-navy-900">
                   {company.email}
+                </a>
+              </li>
+              <li className="flex items-start gap-4">
+                <MessageCircle size={18} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
+                <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="text-[14px] text-ink transition-colors hover:text-navy-900">
+                  WhatsApp — {company.phone}
+                  <span className="block text-[12px] text-mute">Message pré-rempli selon le service et la wilaya</span>
                 </a>
               </li>
             </ul>
@@ -262,7 +276,6 @@ export default function Contact() {
             </Reveal>
           </div>
 
-          {/* Request form */}
           <div className="lg:col-span-7 lg:col-start-6">
             <Reveal>
               <div ref={statusRef} id="quote-form" className="border border-line bg-white p-7 shadow-[0_32px_64px_-48px_rgba(14,31,48,0.35)] sm:p-10">
@@ -272,9 +285,10 @@ export default function Contact() {
                     <h3 className="font-display text-[1.5rem] font-medium tracking-tight text-navy-900">
                       Demande enregistrée{reference ? <> — réf. <span className="font-mono text-[1.05em]">{reference}</span></> : ""}.
                     </h3>
-                    <p className="max-w-md text-[14.5px] leading-relaxed text-ink-soft">
-                      Votre demande est consignée dans le système de FEL DRONE et transmise à
-                      l'équipe, qui vous recontacte directement. Une urgence&nbsp;? Appelez le{" "}
+                    <p className="max-w-md text-[14px] leading-relaxed text-ink-soft">
+                      Votre demande est consignée et transmise à l&apos;équipe. Aucun email
+                      n&apos;est prétendu envoyé tant que la livraison n&apos;est pas confirmée
+                      côté serveur. Besoin urgent ? Appelez le{" "}
                       <a className="font-medium text-navy-900 underline decoration-signal-600 decoration-2 underline-offset-4" href={`tel:${company.phoneHref}`}>
                         {company.phone}
                       </a>
@@ -291,21 +305,22 @@ export default function Contact() {
                   </div>
                 ) : (
                   <>
-                    <form noValidate onSubmit={handleSubmit} className="grid grid-cols-1 gap-x-7 gap-y-8 sm:grid-cols-2">
-                      <TextField label="Nom complet" required {...field("name")} error={touched.name ? errors.name : undefined} autoComplete="name" placeholder="Prénom et nom" />
-                      <TextField label="Numéro de téléphone" required {...field("phone")} error={touched.phone ? errors.phone : undefined} type="tel" inputMode="tel" autoComplete="tel" placeholder="+213 …" hint="Indicatif +213 si vous écrivez depuis l'étranger." />
+                    <form noValidate onSubmit={handleSubmit} className="grid grid-cols-1 gap-x-7 gap-y-7 sm:grid-cols-2">
+                      <TextField label="Nom" required {...field("name")} error={touched.name ? errors.name : undefined} autoComplete="name" placeholder="Prénom et nom" />
+                      <TextField label="Téléphone" required {...field("phone")} error={touched.phone ? errors.phone : undefined} type="tel" inputMode="tel" autoComplete="tel" placeholder="+213 …" hint="Indicatif +213." />
+                      <TextField label="Société" {...field("company")} error={touched.company ? errors.company : undefined} autoComplete="organization" placeholder="Société (facultatif)" />
+                      <TextField label="Wilaya du besoin" required {...field("wilaya")} error={touched.wilaya ? errors.wilaya : undefined} autoComplete="address-level1" placeholder="Ex. El Tarf, Annaba…" />
                       <TextField label="Email (facultatif)" {...field("email")} error={touched.email ? errors.email : undefined} type="email" inputMode="email" autoComplete="email" placeholder="vous@exemple.dz" />
-
                       <div>
                         <label htmlFor={idOf("service")} className="mb-2 block text-[13px] font-medium text-navy-900">
-                          Type de service <span className="text-signal-600" aria-hidden="true">*</span>
+                          Service demandé <span className="text-signal-600" aria-hidden="true">*</span>
                         </label>
                         <div className="relative">
                           <select
                             {...field("service")}
                             value={values.service}
                             className={cn(
-                              "w-full appearance-none border-0 border-b bg-transparent px-0.5 py-3 pr-8 text-[15px] text-ink outline-none transition-colors focus:border-navy-900",
+                              "w-full appearance-none border-0 border-b bg-transparent px-0.5 py-3 pr-8 text-[14px] text-ink outline-none transition-colors focus:border-navy-900",
                               touched.service && errors.service ? "border-error" : "border-line-strong",
                               !values.service && "text-mute",
                             )}
@@ -326,31 +341,26 @@ export default function Contact() {
 
                       <div className="sm:col-span-2">
                         <label htmlFor={idOf("message")} className="mb-2 block text-[13px] font-medium text-navy-900">
-                          Message <span className="text-signal-600" aria-hidden="true">*</span>
+                          Précisions utiles <span className="text-signal-600" aria-hidden="true">*</span>
                         </label>
                         <textarea
                           {...field("message")}
                           rows={5}
                           maxLength={3000}
-                          placeholder="Lieu de la mission, période souhaitée, contexte — ce qui nous permet de répondre précisément."
+                          placeholder="Lieu précis, période souhaitée, surface, livrables attendus — ce qui permet de chiffrer juste. Sur devis."
                           className={cn(
-                            "w-full resize-y border-0 border-b bg-transparent px-0.5 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-mute focus:border-navy-900",
+                            "w-full resize-y border-0 border-b bg-transparent px-0.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-mute focus:border-navy-900",
                             touched.message && errors.message ? "border-error" : "border-line-strong",
                           )}
                         />
                         <div className="mt-2 flex items-start justify-between gap-4">
-                          {touched.message && errors.message ? (
-                            <FieldError id={`${idOf("message")}-error`}>{errors.message}</FieldError>
-                          ) : (
-                            <span />
-                          )}
+                          {touched.message && errors.message ? <FieldError id={`${idOf("message")}-error`}>{errors.message}</FieldError> : <span />}
                           <span className="text-[11.5px] text-mute tabular-nums" aria-hidden="true">
                             {values.message.length}/3000
                           </span>
                         </div>
                       </div>
 
-                      {/* Honeypot — invisible for humans, irresistible to bots. */}
                       <div className="sr-only" aria-hidden="true">
                         <label htmlFor={idOf("website")}>Ne pas remplir</label>
                         <input id={idOf("website")} name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={set("website")} />
@@ -374,43 +384,33 @@ export default function Contact() {
                             </>
                           )}
                         </button>
-                        <p className="mt-4 max-w-xl text-[12.5px] leading-relaxed text-mute">
-                          Les champs marqués <span className="text-signal-600">*</span> sont
-                          requis. Votre demande est enregistrée dans le système FEL DRONE et
-                          transmise à l'équipe ; elle n'est utilisée que pour vous répondre.
+                        <p className="mt-4 max-w-xl text-[12px] leading-relaxed text-mute">
+                          Champs <span className="text-signal-600">*</span> requis. Demande enregistrée dans le système FEL DRONE, transmise à l&apos;équipe — utilisée uniquement pour vous répondre. Aucune allégation d&apos;email envoyé sans confirmation serveur.
                         </p>
 
                         {status === "error" && !Object.values(errors).some(Boolean) && (
-                          <p role="alert" className="mt-4 flex items-start gap-2 border border-error/30 bg-error/5 px-4 py-3 text-[13.5px] leading-relaxed text-ink">
+                          <p role="alert" className="mt-4 flex items-start gap-2 border border-error/30 bg-error/5 px-4 py-3 text-[13px] leading-relaxed text-ink">
                             <AlertCircle size={15} className="mt-0.5 shrink-0 text-error" aria-hidden="true" />
-                            L'envoi a échoué — le serveur n'a pas confirmé. Réessayez dans un
-                            instant, ou appelez-nous directement au{" "}
-                            <a className="font-medium underline decoration-signal-600 decoration-2 underline-offset-4" href={`tel:${company.phoneHref}`}>{company.phone}</a>.
+                            L&apos;envoi a échoué — serveur non confirmé. Réessayez ou appelez{" "}
+                            <a className="font-medium underline decoration-signal-600 decoration-2 underline-offset-4" href={`tel:${company.phoneHref}`}>
+                              {company.phone}
+                            </a>
+                            .
                           </p>
                         )}
                         {status === "offline" && (
-                          <div role="alert" className="mt-4 border border-line-strong bg-paper px-4 py-4 text-[13.5px] leading-relaxed text-ink">
+                          <div role="alert" className="mt-4 border border-line-strong bg-paper px-4 py-4 text-[13px] leading-relaxed text-ink">
                             <p className="flex items-start gap-2 font-medium text-navy-900">
                               <AlertCircle size={15} className="mt-0.5 shrink-0 text-signal-600" aria-hidden="true" />
-                              Le formulaire en ligne est momentanément indisponible — rien n'a été envoyé.
+                              Formulaire momentanément indisponible — rien n&apos;a été envoyé.
                             </p>
-                            <p className="mt-2 text-ink-soft">
-                              Votre message est prêt&nbsp;: envoyez-le par email (pré-rempli en
-                              un clic) ou appelez le {company.phone}.
-                            </p>
+                            <p className="mt-2 text-ink-soft">Votre message est prêt : envoyez-le par email pré-rempli ou appelez le {company.phone}.</p>
                             <div className="mt-3 flex flex-wrap gap-3">
-                              <a
-                                href={mailtoHref()}
-                                className="inline-flex items-center gap-2 bg-navy-900 px-5 py-2.5 text-[13px] font-medium tracking-wide text-white transition-colors hover:bg-navy-800"
-                              >
+                              <a href={mailtoHref()} className="inline-flex items-center gap-2 bg-navy-900 px-5 py-2.5 text-[13px] font-medium tracking-wide text-white transition-colors hover:bg-navy-800">
                                 <Mail size={14} aria-hidden="true" />
                                 Envoyer par email
                               </a>
-                              <button
-                                type="button"
-                                onClick={() => setStatus("idle")}
-                                className="inline-flex items-center px-2 py-2.5 text-[13px] font-medium text-navy-700 underline decoration-signal-600 decoration-2 underline-offset-4 transition-colors hover:text-navy-900"
-                              >
+                              <button type="button" onClick={() => setStatus("idle")} className="inline-flex items-center px-2 py-2.5 text-[13px] font-medium text-navy-700 underline decoration-signal-600 decoration-2 underline-offset-4 transition-colors hover:text-navy-900">
                                 Réessayer
                               </button>
                             </div>
@@ -431,7 +431,7 @@ export default function Contact() {
 
 function FieldError({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <p id={id} role="alert" className="mt-2 flex items-center gap-1.5 text-[13px] text-error">
+    <p id={id} role="alert" className="mt-2 flex items-center gap-1.5 text-[12.5px] text-error">
       <AlertCircle size={14} aria-hidden="true" /> {children}
     </p>
   );
@@ -458,8 +458,7 @@ function TextField({
   return (
     <div>
       <label htmlFor={id} className="mb-2 block text-[13px] font-medium text-navy-900">
-        {label}{" "}
-        {required && <span className="text-signal-600" aria-hidden="true">*</span>}
+        {label} {required && <span className="text-signal-600" aria-hidden="true">*</span>}
       </label>
       <input
         id={id}
@@ -468,15 +467,11 @@ function TextField({
         aria-required={required || undefined}
         {...rest}
         className={cn(
-          "w-full border-0 border-b bg-transparent px-0.5 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-mute focus:border-navy-900",
+          "w-full border-0 border-b bg-transparent px-0.5 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-mute focus:border-navy-900",
           error ? "border-error" : "border-line-strong",
         )}
       />
-      {error ? (
-        <FieldError id={`${id}-error`}>{error}</FieldError>
-      ) : hint ? (
-        <p className="mt-2 text-[12px] text-mute">{hint}</p>
-      ) : null}
+      {error ? <FieldError id={`${id}-error`}>{error}</FieldError> : hint ? <p className="mt-2 text-[11.5px] text-mute">{hint}</p> : null}
     </div>
   );
 }
