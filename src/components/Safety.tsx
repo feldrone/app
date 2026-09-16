@@ -1,36 +1,19 @@
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
+import { useDict } from "../i18n";
 import { safetyImage } from "../lib/images";
 
 /**
- * Operational standards — the single intentional dark band on the page,
- * used as a register change, not as an aesthetic. Claims here are kept
- * strictly at the level the company's own positioning supports: certified
- * remote pilots, plan-before-fly, structured supervision. Imagery is UAV
- * ground operations; no manned-aircraft visuals anywhere.
+ * Operational standards — the single intentional dark band on the page, used
+ * as a register change, not as an aesthetic. Claims stay strictly at the level
+ * the company's own positioning supports: certified remote pilots,
+ * plan-before-fly, structured supervision. Imagery is UAV ground operations.
+ * V11: standards and captions come from the active dictionary.
  */
-const standards = [
-  {
-    n: "S.1",
-    label: "Compétence certifiée",
-    detail:
-      "Chaque mission est opérée par un télépilote titulaire d'une certification professionnelle.",
-  },
-  {
-    n: "S.2",
-    label: "Plan de vol systématique",
-    detail:
-      "Aucun vol n'est engagé sans plan formalisé et validation préalable des conditions d'opération.",
-  },
-  {
-    n: "S.3",
-    label: "Supervision aéronautique",
-    detail:
-      "La flotte est exploitée sous supervision aéronautique : protocoles, check-lists et traçabilité à chaque sortie.",
-  },
-];
-
 export default function Safety() {
+  const dict = useDict();
+  const t = dict.safety;
+
   return (
     <section
       id="securite"
@@ -42,18 +25,18 @@ export default function Safety() {
           <div className="lg:col-span-6">
             <SectionHeading
               id="safety-heading"
-              eyebrow="Sécurité & normes d'exploitation"
+              eyebrow={t.eyebrow}
               tone="navy"
-              title="La sécurité aérienne n'est pas une option. C'est le socle."
-              lede="Notre direction des opérations applique à chaque mission une rigueur égale à celle des opérations aériennes : planification, vérification, supervision. Aucun vol n'est improvisé."
+              title={t.title}
+              lede={t.lede}
             />
 
             <dl className="mt-12">
-              {standards.map((item, i) => (
+              {t.standards.map((item, i) => (
                 <Reveal key={item.n} delay={i * 90}>
                   <div className="grid grid-cols-[4.25rem_1fr] gap-x-6 border-t border-white/15 py-6">
                     <dt className="font-display text-[15px] font-medium tracking-wide text-signal-500">
-                      {item.n}
+                      <span dir="ltr">{item.n}</span>
                     </dt>
                     <dd>
                       <p className="text-[15.5px] font-semibold tracking-tight text-white">{item.label}</p>
@@ -75,7 +58,7 @@ export default function Safety() {
                     sizes={safetyImage.sizes}
                     width={safetyImage.width}
                     height={safetyImage.height}
-                    alt={safetyImage.alt}
+                    alt={dict.media.safety}
                     className="h-full w-full object-cover"
                     loading="lazy"
                     decoding="async"
@@ -85,9 +68,8 @@ export default function Safety() {
                     aria-hidden="true"
                   />
                 </div>
-                <figcaption className="absolute bottom-5 left-5 right-5 text-[12.5px] leading-snug text-white/80">
-                  Contrôle pré-vol au sol : le geste le plus important est celui qui précède
-                  le décollage.
+                <figcaption className="absolute bottom-5 start-5 end-5 text-[12.5px] leading-snug text-white/80">
+                  {t.figcaption}
                 </figcaption>
               </figure>
             </Reveal>

@@ -1,53 +1,59 @@
 import { ArrowUp } from "lucide-react";
-import { company, navLinks } from "../data/content";
+import { company } from "../data/company";
+import { Link } from "../router";
+import { PATHS } from "../router/routes";
+import { useDict } from "../i18n";
 import Logo from "./Logo";
 
 /**
- * Corporate footer — quiet, dense with the useful facts only:
- * identity, navigation, legal register line, contact. No newsletter mock,
- * no social icons we cannot back, no filler.
+ * Corporate footer — quiet, dense with the useful facts only: identity,
+ * navigation, contact. No newsletter mock, no social icons we cannot back,
+ * no filler.
+ *
+ * V11: the sitemap, the legal link, the tagline and the copyright line follow
+ * the active language; the address comes from the dictionary (place names are
+ * translated, the registry values are not) and the logo switches to the
+ * inverse lockup on the navy ground.
  */
 export default function Footer() {
+  const dict = useDict();
+  const t = dict.footer;
+
   return (
     <footer className="bg-navy-950 text-white/90">
       <div className="mx-auto max-w-[1400px] px-6 pt-16 pb-10 lg:px-12">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <Logo dark />
+            <Link to={PATHS.home} aria-label={dict.nav.logoHome}>
+              <Logo dark />
+            </Link>
             <p className="mt-6 max-w-xs text-[13.5px] leading-relaxed text-white/85">
-              Vente, location, maintenance et prestations de services par drone. Rigueur
-              aéronautique, précision technologique.
+              {t.tagline}
             </p>
           </div>
 
-          <nav aria-label="Navigation de pied de page" className="lg:col-span-3 lg:col-start-6">
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">Plan du site</p>
+          <nav aria-label={t.sitemap} className="lg:col-span-3 lg:col-start-6">
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">{t.sitemap}</p>
             <ul className="mt-5 space-y-3">
-              {navLinks.map((link) => (
+              {dict.nav.links.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-[13.5px]">
+                  <Link to={link.href} className="text-[13.5px] transition-colors hover:text-white">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
                 <a href="#mentions-legales" className="text-[13.5px]">
-                  Mentions légales
+                  {t.legalLink}
                 </a>
               </li>
             </ul>
           </nav>
 
           <div className="lg:col-span-4 lg:col-start-9">
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">Coordonnées</p>
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/85">{t.contactTitle}</p>
             <address className="mt-5 space-y-2.5 text-[13.5px] leading-relaxed not-italic text-white/90">
-              <p>
-                {company.addressLine1}
-                <br />
-                {company.addressLine2}
-                <br />
-                {company.country}
-              </p>
+              <p>{dict.place.seatLine}</p>
               <p>
                 <a href={`mailto:${company.email}`}>
                   {company.email}
@@ -55,7 +61,7 @@ export default function Footer() {
               </p>
               <p>
                 <a href={`tel:${company.phoneHref}`}>
-                  {company.phone}
+                  <span dir="ltr" className="inline-block">{company.phone}</span>
                 </a>
               </p>
             </address>
@@ -64,13 +70,13 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-[12.5px] text-white/85 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {company.legalName}. Tous droits réservés.
+            © {new Date().getFullYear()} {company.legalName}. {t.rights}
           </p>
           <a
             href="#main"
             className="inline-flex items-center gap-2 self-start sm:self-auto"
           >
-            Haut de page
+            {t.backToTop}
             <ArrowUp size={13} aria-hidden="true" />
           </a>
         </div>

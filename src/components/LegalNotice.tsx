@@ -1,13 +1,17 @@
-import { company, activities } from "../data/content";
+import { company } from "../data/company";
+import { useDict } from "../i18n";
 
 /**
  * Legal notices — the single, deliberate place where company registry
- * information appears. It is NOT part of the marketing flow: no section
- * hero treatment, no cards, no data printed as decoration. It exists
- * because a French-locale corporate site is expected to identify its
- * legal entity, and it is reachable from the footer.
+ * information appears. It is NOT part of the marketing flow: no section hero
+ * treatment, no cards, no data printed as decoration. It exists because a
+ * corporate site is expected to identify its legal entity, and it is reachable
+ * from the footer.
  *
- * Share capital is intentionally absent: financial data is internal.
+ * V11: the entity values come from `data/company.ts` (never duplicated), and
+ * only the field labels and the declared activities are translated. The
+ * Registre de Commerce number is printed exactly as registered, in every
+ * language, wrapped in <bdi> so an RTL paragraph cannot reorder its digits.
  */
 function Term({ term, children }: { term: string; children: React.ReactNode }) {
   return (
@@ -21,6 +25,10 @@ function Term({ term, children }: { term: string; children: React.ReactNode }) {
 }
 
 export default function LegalNotice() {
+  const dict = useDict();
+  const t = dict.legal;
+  const activities = t.activitiesList;
+
   return (
     <section
       id="mentions-legales"
@@ -32,33 +40,35 @@ export default function LegalNotice() {
           id="legal-heading"
           className="text-[12px] font-semibold uppercase tracking-[0.2em] text-navy-900"
         >
-          Mentions légales
+          {t.heading}
         </h2>
 
         <dl className="mt-7 grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-          <Term term="Dénomination">{company.legalName}</Term>
-          <Term term="Forme juridique">Société à Responsabilité Limitée (SARL)</Term>
-          <Term term="Registre de commerce">N° {company.rc}</Term>
-          <Term term="Siège social">
-            {company.addressLine1}, {company.addressLine2}, {company.country}
+          <Term term={t.denomination}>{company.legalName}</Term>
+          <Term term={t.legalForm}>{t.legalFormValue}</Term>
+          <Term term={t.rc}>
+            <span dir="ltr">
+              {t.rcPrefix} <bdi>{company.rc}</bdi>
+            </span>
           </Term>
-          {company.gerant && <Term term="Gérant">{company.gerant}</Term>}
-          <Term term="Contact">
+          <Term term={t.seat}>{dict.place.seatLine}</Term>
+          {company.gerant && <Term term={t.gerant}>{company.gerant}</Term>}
+          <Term term={t.contact}>
             <a href={`mailto:${company.email}`} className="transition-colors hover:text-navy-900">
               {company.email}
             </a>
             <br />
             <a href={`tel:${company.phoneHref}`} className="transition-colors hover:text-navy-900">
-              {company.phone}
+              <span dir="ltr" className="inline-block">{company.phone}</span>
             </a>
           </Term>
           <div className="sm:col-span-2 lg:col-span-3">
             <dt className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-mute">
-              Activités déclarées
+              {t.activities}
             </dt>
             <dd className="mt-1.5 text-[13.5px] leading-relaxed text-ink-soft">
               {activities.length > 1
-                ? `${activities.slice(0, -1).join(", ")} et ${activities[activities.length - 1]}`
+                ? `${activities.slice(0, -1).join(", ")} ${t.activitiesJoin} ${activities[activities.length - 1]}`
                 : activities[0]}
             </dd>
           </div>

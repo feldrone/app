@@ -20,6 +20,11 @@ npm run build     # production build → dist/
 npm run preview   # serve dist/ (host allowlist: *.e2b.app, see vite.config.ts)
 npm run pages:sync # after build: write the single-file bundle to ./index.html
                    # (the entry GitHub Pages' branch source serves under /app/)
+
+npm run typecheck   # TypeScript, strict
+npm run brand:check # brand assets are in sync with the generator
+npm run check:i18n  # FR/EN/AR completeness, RTL, no placeholders, RC number
+npm run test:api    # quote API end-to-end suite
 ```
 
 ## GitHub Pages deployment
@@ -39,23 +44,29 @@ npm run pages:sync # after build: write the single-file bundle to ./index.html
 
 | What to change                  | Where                          |
 | ------------------------------- | ------------------------------ |
-| Legal identity, contacts         | `src/data/content.ts`          |
-| Leadership entries (1..N)       | `src/data/content.ts → team`   |
-| Services (cards, workflows, CTAs) | `src/data/content.ts → services` |
-| FAQ entries                       | `src/data/content.ts → faq`      |
+| Legal identity, contacts, RC number | `src/data/company.ts`       |
+| Page copy — French (reference)  | `src/data/content.fr.ts`       |
+| Page copy — English             | `src/data/content.en.ts`       |
+| Page copy — Arabic (العربية)    | `src/data/content.ar.ts`       |
+| Leadership entries (1..N)       | every dictionary → `leadership.members` (names also in `data/company.ts → teamMembers`) |
+| Services (cards, workflows, CTAs) | every dictionary → `services.list` |
+| FAQ entries                       | every dictionary → `faq.items`    |
 | Quote API (backend)               | `api/` + `lib/quote-core.mjs` (see `docs/BACKEND.md`) |
 | Photography (source & crops)    | `src/lib/images.ts`            |
-| Logo mark & wordmark            | `src/components/Logo.tsx` + `public/favicon.svg` |
+| Logo mark & wordmark            | `scripts/brand-gen.mjs` (generator) → `src/brand/brandmark.ts` + `public/brand/*.svg` + `public/favicon.svg` |
 | Identity rules, lockups, palette  | `docs/BRAND.md` + `public/brand/`    |
 | Image licensing inventory       | `docs/IMAGES.md`               |
 
-The identity is the engineered "Gantry F" system (mark, wordmark, lockups)
-introduced in the 2026 brand redesign — geometry, usage rules and the full
+The current identity is **v11 "QUAD FD"**: one emblem that combines a
+simplified front-view quadcopter (two rotor blades over two motor hubs on a
+central body) with a heavy geometric F+D monogram, plus the "FEL DRONE"
+wordmark typeset in the project typeface. Geometry, usage rules and the full
 asset manifest live in **[`docs/BRAND.md`](docs/BRAND.md)**; ready-to-use SVGs
-in `public/brand/`. `src/components/Logo.tsx` embeds the primary horizontal
-lockup as pure vector paths, and `public/favicon.svg` is the symbol on a navy
-chip. If the brand supplies a newer master, replace the path data in those
-two files (plus `public/brand/`) — no layout changes are needed.
+in `public/brand/`. Nothing is hand-drawn: `scripts/brand-gen.mjs` is the one
+geometry source — it emits every brand SVG, `src/brand/brandmark.ts` (which
+`src/components/Logo.tsx` renders) and the favicon chip. Change geometry
+there, then run `npm run brand:gen`. `npm run brand:check` (CI + the Vercel
+build command) fails if the committed assets drift from the generator.
 
 
 Factual rules for this site:
@@ -63,10 +74,10 @@ Factual rules for this site:
 - **Only company-supplied data is published.** No testimonials, no client
   logos, no statistics, no awards unless the company provides them.
 - **No administrative or financial data in the marketing UI.** Share
-  capital, registry dates and similar fields live in `content.ts` as
-  internal records and are never rendered; the RC number appears solely in
-  the discreet "Mentions légales" block (footer link), outside the
-  marketing flow.
+  capital, registry dates and similar fields live in `src/data/company.ts`
+  as internal records and are never rendered; the Registre de Commerce
+  number appears solely in the discreet "Mentions légales" block (footer
+  link), outside the marketing flow, and is stated exactly as registered.
 - **Drone imagery only.** Every aviation visual must show real professional
   UAVs, operators or workshops — never manned aircraft, cockpits, airports
   or military hardware (see `docs/IMAGES.md`).
@@ -85,6 +96,31 @@ Factual rules for this site:
 - SEO head (title, OG, canonical, JSON-LD Organization) lives in
   `index.html`; adjust the domain there and in `public/robots.txt` +
   `public/sitemap.xml` when the final hostname is decided.
+
+## Languages — Français · English · العربية
+
+The site is trilingual, with no framework migration and no i18n dependency:
+three typed dictionaries (`src/data/content.{fr,en,ar}.ts`) share one contract
+(`src/i18n/types.ts`), and a small React context (`src/i18n/index.tsx`) applies
+the choice to `<html lang>` / `<html dir>` and remembers it in localStorage.
+The header (and the mobile sheet) carries the FR · EN · AR selector.
+
+- French stays the default and the reference language; the static `<title>`,
+  meta and structured data in `template.html` remain French for SEO.
+- Arabic ships a real RTL layout: the shell carries `dir="rtl"` and the
+  components use logical properties (`ps-*`, `me-*`, `start-*`, `text-start`),
+  so navigation, cards, forms and the footer mirror by themselves. Latin locks
+  (the brand lockup, the Registre de Commerce number, phone numbers) stay
+  left-to-right inside Arabic text.
+- The quote form posts the same payload in every language: the service value
+  handed to `POST /api/quote` is always the canonical French identifier, so the
+  API contract, validation, honeypot, rate limiting and email flow are
+  untouched.
+- `npm run check:i18n` fails the build if a language is incomplete, if a
+  placeholder string appears, if French leaks into another language, or if the
+  Registre de Commerce number drifts.
+
+Details, conventions and the reviewer checklist: **[`docs/I18N.md`](docs/I18N.md)**.
 
 ## Quote-request API (backend)
 

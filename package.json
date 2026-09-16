@@ -11,6 +11,7 @@
     "pages:sync": "node scripts/sync-pages.mjs",
     "brand:gen": "node scripts/brand-gen.mjs",
     "brand:check": "node scripts/brand-gen.mjs --check",
+    "check:i18n": "node scripts/check-i18n.mjs",
     "dev:api": "node scripts/dev-api.mjs",
     "test:api": "node scripts/test-api.mjs"
   },

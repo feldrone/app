@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
+import { useDict } from "../i18n";
 import { controlImage } from "../lib/images";
 
 /**
@@ -7,34 +8,21 @@ import { controlImage } from "../lib/images";
  * Numbered editorial rows instead of icon cards; the grayscale shot of a
  * ground station in the field anchors the discipline claim visually — the
  * operator's hands, not an aircraft type, carry the credibility.
+ * V11: copy and alternative text come from the active dictionary.
  */
-const principles = [
-  {
-    n: "01",
-    title: "Discipline aéronautique",
-    text: "Chaque mission est planifiée, briefée et supervisée selon les standards d'exigence de l'aviation — la nôtre et celle de nos clients.",
-  },
-  {
-    n: "02",
-    title: "Ingénierie embarquée",
-    text: "Automatisation, systèmes embarqués et outils numériques développés en interne pour fiabiliser chaque opération de bout en bout.",
-  },
-  {
-    n: "03",
-    title: "Précision de terrain",
-    text: "Du diagnostic à la restitution des données, une exécution rigoureuse, quel que soit le secteur d'application.",
-  },
-];
-
 export default function Expertise() {
+  const dict = useDict();
+  const t = dict.expertise;
+  const principles = t.principles;
+
   return (
     <section id="expertise" aria-labelledby="expertise-heading" className="bg-white py-32 lg:py-44">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
-          {/* Image — offset, editorial framing with a drawn border */}
+          {/* Image — offset, editorial framing */}
           <div className="lg:col-span-5 lg:col-start-1">
             <Reveal>
-              <figure className="lg:mr-10">
+              <figure className="lg:me-10">
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-navy-900">
                   <img
                     src={controlImage.src}
@@ -42,15 +30,14 @@ export default function Expertise() {
                     sizes={controlImage.sizes}
                     width={controlImage.width}
                     height={controlImage.height}
-                    alt={controlImage.alt}
+                    alt={dict.media.control}
                     className="h-full w-full object-cover grayscale"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
                 <figcaption className="mt-4 max-w-xs text-[13px] leading-relaxed text-mute">
-                  La station de contrôle avant chaque mission : check-list, briefing,
-                  collégialité, refus de l'improvisation.
+                  {t.figcaption}
                 </figcaption>
               </figure>
             </Reveal>
@@ -60,13 +47,9 @@ export default function Expertise() {
           <div className="lg:col-span-6 lg:col-start-7 lg:pt-4">
             <SectionHeading
               id="expertise-heading"
-              eyebrow="L'expertise"
-              title={
-                <>
-                  Deux disciplines réunies : la sécurité aérienne et l'ingénierie moderne.
-                </>
-              }
-              lede="FEL DRONE réunit une discipline opérationnelle héritée des standards de l'aviation et une maîtrise fine des systèmes embarqués. Cette double culture structure notre manière de vendre, d'exploiter et de maintenir chaque drone : rien n'est laissé à l'approximation."
+              eyebrow={t.eyebrow}
+              title={t.title}
+              lede={t.lede}
             />
 
             <dl className="mt-12">

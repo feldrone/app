@@ -1,22 +1,29 @@
 import { ArrowRight, PhoneCall, MessageCircle } from "lucide-react";
 import Reveal from "./Reveal";
-import { company, sectors } from "../data/content";
+import { company } from "../data/company";
+import { Link } from "../router";
+import { PATHS } from "../router/routes";
+import { useDict } from "../i18n";
 import { heroImage } from "../lib/images";
 
 /**
- * V10 Hero — first viewport, white-first premium aviation
- * Updated for V10 service architecture: topographie, suivi, maintenance prioritized
- * Includes verified phone + WhatsApp CTA (real number, not invented, no floating bubble)
+ * Hero — first viewport, white-first premium aviation.
+ * V11: every string, the WhatsApp prefill and the image alternative text come
+ * from the active dictionary; the phone number and the company identity stay
+ * language-independent values from `data/company.ts`.
  */
 export default function Hero() {
+  const dict = useDict();
+  const { hero } = dict;
+
   const whatsappHref = `https://wa.me/${company.phoneHref.replace(/\+/g, "")}?text=${encodeURIComponent(
-    "Bonjour FEL DRONE — demande d'informations",
+    hero.whatsappMessage,
   )}`;
 
   return (
     <section
       id="accueil"
-      aria-label="Présentation de FEL DRONE"
+      aria-label={hero.aria}
       className="relative overflow-hidden bg-paper pb-20 pt-[calc(var(--header-h)+4.5rem)] lg:pb-24 lg:pt-[calc(var(--header-h)+7rem)]"
     >
       <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-x-10 gap-y-16 px-6 lg:grid-cols-12 lg:px-12">
@@ -25,42 +32,39 @@ export default function Hero() {
             <div className="mb-7 flex items-start gap-3">
               <span className="mt-2 h-px w-8 shrink-0 bg-signal-600" aria-hidden="true" />
               <p className="max-w-md text-[13px] leading-relaxed text-ink-soft sm:text-[14px]">
-                Topographie &amp; photogrammétrie, suivi &amp; inspection de chantier, maintenance &amp;
-                diagnostic drone — huit étapes, zéro improvisation.
+                {hero.eyebrow}
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={80}>
             <h1 className="font-display text-[2.4rem] leading-[1.05] font-semibold tracking-[-0.02em] text-navy-900 sm:text-[3rem] lg:text-[3.5rem]">
-              Des relevés aériens
-              <br className="hidden sm:block" /> exploités comme des aéronefs.
+              {hero.titleTop}
+              <br className="hidden sm:block" /> {hero.titleBottom}
             </h1>
           </Reveal>
 
           <Reveal delay={160}>
             <p className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-ink-soft">
-              {company.legalName} à {company.city} : topographie &amp; photogrammétrie par drone,
-              suivi de chantier, maintenance &amp; diagnostic, thermographie, agriculture, vente
-              et location. Méthode en huit étapes — sur devis, tarification selon la mission.
+              {hero.body(company)}
             </p>
           </Reveal>
 
           <Reveal delay={240}>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <a
-                href="#contact"
+              <Link
+                to={PATHS.devis}
                 className="group inline-flex w-full items-center justify-center gap-2.5 bg-navy-900 px-8 py-4 text-[14px] font-medium tracking-wide text-white shadow-[0_18px_36px_-18px_rgba(14,31,48,0.7)] transition-[background-color,transform,box-shadow] duration-200 hover:bg-navy-800 hover:shadow-[0_22px_40px_-18px_rgba(14,31,48,0.75)] active:translate-y-px sm:w-auto"
               >
-                Demander un devis
-                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-              </a>
-              <a
-                href="#services"
+                {hero.ctaPrimary}
+                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" aria-hidden="true" />
+              </Link>
+              <Link
+                to={PATHS.services}
                 className="inline-flex w-full items-center justify-center border border-line-strong bg-white px-8 py-4 text-[14px] font-medium tracking-wide text-navy-900 transition-[border-color,background-color] duration-200 hover:border-navy-900 hover:bg-paper active:translate-y-px sm:w-auto"
               >
-                Découvrir nos services
-              </a>
+                {hero.ctaSecondary}
+              </Link>
             </div>
           </Reveal>
 
@@ -71,7 +75,7 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 text-[14px] font-medium text-ink-soft transition-colors hover:text-navy-900"
               >
                 <PhoneCall size={15} className="text-signal-600" aria-hidden="true" />
-                {company.phone} — ligne directe
+                <span dir="ltr">{company.phone}</span> — {hero.phoneLabel}
               </a>
               <a
                 href={whatsappHref}
@@ -80,12 +84,10 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 text-[14px] font-medium text-ink-soft transition-colors hover:text-navy-900"
               >
                 <MessageCircle size={15} className="text-signal-600" aria-hidden="true" />
-                WhatsApp
+                {hero.whatsapp}
               </a>
             </div>
-            <p className="mt-3 text-[11.5px] leading-relaxed text-mute">
-              Numéro vérifié existant — pas de bulle intrusive. Sur devis.
-            </p>
+            <p className="mt-3 text-[11.5px] leading-relaxed text-mute">{hero.verifiedNote}</p>
           </Reveal>
         </div>
 
@@ -99,7 +101,7 @@ export default function Hero() {
                   sizes={heroImage.sizes}
                   width={heroImage.width}
                   height={heroImage.height}
-                  alt={heroImage.alt}
+                  alt={dict.media.hero}
                   className="h-full w-full object-cover"
                   loading="eager"
                   fetchPriority="high"
@@ -108,7 +110,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" aria-hidden="true" />
               </div>
               <figcaption className="mt-3 text-[11.5px] leading-snug text-mute">
-                Méthode en huit étapes, zéro improvisation — contrôle pré-vol au sol.
+                {hero.figcaption}
               </figcaption>
             </figure>
           </Reveal>
@@ -118,8 +120,8 @@ export default function Hero() {
       <Reveal delay={200}>
         <div className="mx-auto mt-20 max-w-[1400px] border-t border-line px-6 lg:px-12">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-4">
-            {sectors.map((sector) => (
-              <div key={sector.label} className="border-l border-line pl-5">
+            {dict.sectors.map((sector) => (
+              <div key={sector.label} className="border-s border-line ps-5">
                 <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-mute">
                   {sector.label}
                 </dt>
