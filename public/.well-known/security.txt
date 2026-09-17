@@ -1,0 +1,3 @@
+Contact: mail:contact.feldrone@gmail.com
+Expires: 2026-12-31T00:00:00Z
+Canonical: https://www.feldrone.dz/.well-known/security.txt
