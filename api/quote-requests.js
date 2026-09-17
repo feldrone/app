@@ -3,8 +3,11 @@
  * Private management surface (foundation for a future admin dashboard):
  *   GET   ?status=new&limit=100  — list requests
  *   PATCH { id, status }         — update a request's workflow status
- * Requires `Authorization: Bearer <ADMIN_TOKEN>` (or ?token= for email
- * links). Never reachable without it: every response is 401.
+ *
+ * Authentication is Bearer-only: `Authorization: Bearer <ADMIN_TOKEN>`.
+ * Query-string tokens (e.g. `?token=`) are NOT an authentication method.
+ * The surface stays closed (401) when ADMIN_TOKEN is missing or weaker than
+ * 32 characters, and repeated auth failures per IP are rate-limited (429).
  *
  * Persistence integrity (baseline R8): when the store cannot be read or
  * written (non-2xx Upstash), this route answers 503 — never a false 200.

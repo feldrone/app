@@ -5,20 +5,24 @@ request API (`api/*.js` + `lib/quote-core.mjs`). The baseline is
 **additive and non-invasive**: no UI, branding, fonts, routes or product
 logic changes, no new dependencies, services, database or auth system.
 
+Revision 2 (corrective commit on `security/hardening`): R1–R7 and R10
+implemented exactly per the approved definitions; R8, R9 and R14 keep their
+previously verified behaviour.
+
 ## In-scope items
 
-| ID | Item | Where | Notes |
-| -- | ---- | ----- | ----- |
-| R1 | RFC 9116 security contact | `public/.well-known/security.txt` | `Contact: mail:`, `Expires`, `Canonical`. Served at `/.well-known/security.txt`. |
-| R2 | Content-Security-Policy — **REPORT-ONLY** | `vercel.json` → headers | `Content-Security-Policy-Report-Only` only. **Invariant: there is no enforcing `Content-Security-Policy` header anywhere.** The single-file build needs `unsafe-inline` (script/style); fonts from Google Fonts, photos from Pexels, the contact map embed from `www.google.com` are allow-listed. |
-| R3 | HSTS | `vercel.json` → headers | `Strict-Transport-Security: max-age=31536000; includeSubDomains`. |
-| R4 | MIME sniffing disabled | `vercel.json` + `lib/quote-core.mjs` `json()` | `X-Content-Type-Options: nosniff` on the site and on every API response (pre-existing on the API). |
-| R5 | Clickjacking protection | `vercel.json` + CSP | `X-Frame-Options: DENY` and `frame-ancestors 'none'` (report-only). |
-| R6 | Referrer leakage | `vercel.json` + `lib/quote-core.mjs` `json()` | `Referrer-Policy: no-referrer` on the site and on every API response (pre-existing on the API). |
-| R7 | Browser feature lockdown | `vercel.json` → headers | `Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=()`. |
-| R8 | Persistence integrity | `lib/quote-core.mjs` | `redisStore.save()`, `setStatus()` (and `list()`) **reject every non-2xx Upstash REST response**. A persistence failure returns **503** — intake never answers a false 201, the admin route never a false 200/404. Regression tests in `scripts/test-api.mjs` (mock Upstash answering 500). |
-| R9 | API hardening (enforced, pre-existing) | `lib/quote-core.mjs` | Strict `SITE_ORIGIN` CORS allow-list, `Cache-Control: no-store`, 32 KB body cap (413), control-char/`<>` sanitisation, honeypot, rate limits. Now enforced in CI (R10). |
-| R10 | CI security gate | `.github/workflows/deploy.yml` | The build job runs the full validation suite (typecheck, brand, API tests, i18n, build) and a security-gate step asserting: security.txt present with a mail contact, report-only CSP present, **no enforcing CSP**, R3–R7 headers present, R8 reject marker present. |
+| ID | Item | Where | Contract |
+| -- | ---- | ----- | -------- |
+| R1 | Input hygiene + client identity | `lib/quote-core.mjs` | All intake text is NFC-normalized; bidi controls and zero-width characters are stripped. `clientIp()` never trusts the first caller-supplied `X-Forwarded-For` value — it selects the LAST syntactically valid forwarded IP (bounded IPv4/IPv6 check), then the socket address. Forged/invalid values cannot pick an arbitrary rate-limit bucket or inflate key space. |
+| R2 | Strict JSON Content-Type | `lib/quote-core.mjs` (intake + admin PATCH) | `application/json` required (charset parameter allowed); missing or any other type → **415**. Payload-size protections preserved. |
+| R3 | ADMIN_TOKEN hardening | `lib/quote-core.mjs` | Comparison via `crypto.timingSafeEqual` (uniform timing). **Bearer-only**. Missing, <32-char or known-default tokens refuse service — the private surface stays closed (401), no oracle, no fallback. |
+| R4 | No query-string authentication | `lib/quote-core.mjs`, `api/quote-requests.js` | `?token=` removed completely — it MUST never authenticate. Documentation updated accordingly. |
+| R5 | Admin auth-failure budget | `lib/quote-core.mjs` | Bounded per-IP budget: 10 failures / 15 minutes → **429**. Successful authentication clears the IP's counter. Failure map is pruned/bounded. |
+| R6 | Rate-limit resilience | `lib/quote-core.mjs` | Upstash calls used by rate limiting carry a bounded 5 s timeout. Redis/rate-limit errors do NOT fail open as unrestricted `true` — they fall back to a bounded per-instance limiter. |
+| R7 | Body-size protection | `lib/quote-core.mjs` | Oversized requests → **413** on all three paths: `Content-Length` (checked before reading), pre-parsed Vercel bodies (serialized size), and streamed bodies. The 4 KB admin PATCH cap is preserved. |
+| R8 | Persistence integrity | `lib/quote-core.mjs` | `redisStore.save()`, `setStatus()` and `list()` reject every non-2xx Upstash REST response. A persistence failure returns **503** — intake never answers a false 201, the admin route never a false 200. Regression tests: mock Upstash answering 500 → intake 503, admin PATCH 503. |
+| R9 | Security headers | `vercel.json` + `lib/quote-core.mjs` `json()` | `Content-Security-Policy-Report-Only` **only — there is no enforcing `Content-Security-Policy` header anywhere, and there must never be one** — plus HSTS, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`, `Permissions-Policy`. |
+| R10 | CI hardening | `.github/workflows/deploy.yml` | **SHA-pinned** GitHub Actions (full 40-char commit SHAs, tag in comment), least-privilege workflow permissions, full validation suite (typecheck, brand, API, i18n, build) and a security-gate step asserting: security.txt present with a mail contact, report-only CSP present, **no enforcing CSP**, R3–R7 headers present, R8 reject marker present, and every `uses:` SHA-pinned. |
 
 ## Out of scope (explicitly excluded)
 
@@ -33,9 +37,10 @@ be smuggled into this change set.
 
 - This file (`SECURITY_BASELINE.md`) — what the baseline is and why.
 - `SECURITY_HARDENING_GATE_B.md` — how the baseline is verified before it may be published.
-- `docs/BACKEND.md` — API-side behaviour documented (R8 503 contract).
+- `docs/BACKEND.md` — API-side behaviour documented (R8 503 contract, R2 415, R3–R5 auth, R6/R7).
+- `public/.well-known/security.txt` — valid RFC 9116 security contact.
 
-## Changed files (complete list — nothing else)
+## Changed files (complete list vs `main` — nothing else)
 
 ```
 M .github/workflows/deploy.yml
