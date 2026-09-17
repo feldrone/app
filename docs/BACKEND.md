@@ -63,6 +63,12 @@ Statuses for the future dashboard: `new → in_review → scheduled → done →
 exist solely to answer the request. Redis values are JSON per request; the
 admin route is the only reader.
 
+**Persistence integrity (baseline R8):** any non-2xx response from the
+Upstash REST proxy is a persistence failure — the store rejects it and the
+API answers **503**, never a false 201 (intake) or 200 (admin). A visitor
+whose request could not be persisted is told to retry or call us instead of
+being handed a reference number for a record that does not exist.
+
 ## Email notifications
 
 Set `RESEND_API_KEY`, `EMAIL_FROM`, `NOTIFY_TO` and intake immediately also
@@ -91,7 +97,8 @@ fakes a successful send.
 ```bash
 npm run dev          # site (vite proxies /api → :8787)
 npm run dev:api      # the same handlers over node:http
-npm run test:api     # 10-case end-to-end suite (validation, bots, limits, auth)
+npm run test:api     # 12-case end-to-end suite (validation, bots, limits, auth,
+                     # non-2xx persistence failure → 503 [R8])
 ```
 
 ## Security notes
@@ -108,6 +115,11 @@ npm run test:api     # 10-case end-to-end suite (validation, bots, limits, auth)
   API response, `X-Content-Type-Options: nosniff`.
 - **Error handling**: 400 (with per-field map), 401, 404, 405, 413, 429, 503
   — all French-readable, never stack traces, never echo raw input.
+- **Security baseline (R1–R10 + R14)**: see `SECURITY_BASELINE.md` and
+  `SECURITY_HARDENING_GATE_B.md` — report-only CSP, HSTS, nosniff,
+  X-Frame-Options, Referrer-Policy, Permissions-Policy, RFC 9116
+  security.txt, persistence-integrity 503s (R8) and the CI security gate.
+  R11–R13 are explicitly out of scope for this baseline.
 
 ## Admin dashboard (ready, not built)
 

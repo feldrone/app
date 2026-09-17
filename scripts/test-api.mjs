@@ -1,8 +1,10 @@
 /**
  * End-to-end smoke test for the quote API — boots the local dev server and
  * exercises: valid intake, validation errors, honeypot, rate limiting,
- * admin auth, status updates. Run with `npm run test:api`.
+ * admin auth, status updates, and (baseline R8) non-2xx persistence failure
+ * → 503, never a false 201/200. Run with `npm run test:api`.
  */
+import http from "node:http";
 import { spawn } from "node:child_process";
 
 const PORT = 8791;
@@ -93,6 +95,45 @@ try {
   // 9. oversized body rejected
   const huge = await post("/api/quote", { name: "A".repeat(9000), phone: "0600000000", service: "Vente", message: "B".repeat(40000) });
   check("oversized payload → 400/413", huge.status === 400 || huge.status === 413, "got " + huge.status);
+
+  // 10. R8 regression: non-2xx persistence (Upstash failure) → 503, never a
+  // false 201/200. A mock Upstash REST proxy answers 500 to everything; a
+  // second API instance is pointed at it.
+  const MOCK_PORT = 8792;
+  const FAIL_PORT = 8793;
+  const mock = http.createServer((req, res) => {
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "simulated upstash failure" }));
+  });
+  await new Promise((resolve) => mock.listen(MOCK_PORT, "127.0.0.1", resolve));
+  const failingServer = spawn("node", ["scripts/dev-api.mjs"], {
+    env: {
+      ...process.env,
+      PORT: String(FAIL_PORT),
+      ADMIN_TOKEN: "test-admin-token",
+      UPSTASH_REDIS_REST_URL: `http://127.0.0.1:${MOCK_PORT}`,
+      UPSTASH_REDIS_REST_TOKEN: "mock-token",
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  await wait(700);
+  const failBase = `http://127.0.0.1:${FAIL_PORT}`;
+  const failedIntake = await fetch(failBase + "/api/quote", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Test R8", phone: "0661223344", service: "Vente", message: "Régression R8 : persistance en échec, 503 attendu." }),
+  });
+  const failedIntakeJson = await failedIntake.json();
+  check("R8: non-2xx persistence → 503, never false 201", failedIntake.status === 503 && failedIntakeJson.ok === false, `got ${failedIntake.status} ${JSON.stringify(failedIntakeJson)}`);
+  const failedPatch = await fetch(failBase + "/api/quote-requests", {
+    method: "PATCH",
+    headers: { Authorization: "Bearer test-admin-token", "Content-Type": "application/json" },
+    body: JSON.stringify({ id: "any-id", status: "in_review" }),
+  });
+  const failedPatchJson = await failedPatch.json();
+  check("R8: admin PATCH on failing store → 503, never false 200", failedPatch.status === 503 && failedPatchJson.ok === false, `got ${failedPatch.status} ${JSON.stringify(failedPatchJson)}`);
+  failingServer.kill("SIGTERM");
+  mock.close();
 } catch (err) {
   check("suite ran without exception", false, String(err));
 } finally {

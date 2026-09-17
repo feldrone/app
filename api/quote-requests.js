@@ -5,6 +5,9 @@
  *   PATCH { id, status }         — update a request's workflow status
  * Requires `Authorization: Bearer <ADMIN_TOKEN>` (or ?token= for email
  * links). Never reachable without it: every response is 401.
+ *
+ * Persistence integrity (baseline R8): when the store cannot be read or
+ * written (non-2xx Upstash), this route answers 503 — never a false 200.
  */
 import { allowedOrigin, json } from "../lib/quote-core.mjs";
 import { adminRequests } from "../lib/quote-core.mjs";

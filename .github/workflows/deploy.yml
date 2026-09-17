@@ -24,12 +24,31 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Verify (typecheck · brand sync · API)
+      - name: Verify (typecheck · brand sync · API · i18n)
         run: |
           npm run typecheck
           npm run brand:check
           npm run test:api
+          npm run check:i18n
       - run: npm run build
+      - name: Security gate (R1–R10)
+        run: |
+          test -f public/.well-known/security.txt
+          grep -q '^Contact: mail:' public/.well-known/security.txt
+          node -e "
+            const fs = require('node:fs');
+            const cfg = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+            const headers = (cfg.headers ?? []).flatMap((h) => h.headers);
+            const csp = headers.find((h) => h.key === 'Content-Security-Policy-Report-Only');
+            const enforcing = headers.find((h) => h.key === 'Content-Security-Policy');
+            if (!csp) throw new Error('report-only CSP missing (R2)');
+            if (enforcing) throw new Error('enforcing CSP found — CSP must stay REPORT-ONLY (R2)');
+            for (const key of ['Strict-Transport-Security', 'X-Content-Type-Options', 'X-Frame-Options', 'Referrer-Policy', 'Permissions-Policy']) {
+              if (!headers.some((h) => h.key === key)) throw new Error(key + ' missing (R3–R7)');
+            }
+          "
+          grep -q 'upstash:' lib/quote-core.mjs
+          echo 'security gate passed'
       - name: Sync built entry to repo root (legacy Pages branch mode)
         if: github.ref == 'refs/heads/main'
         run: |
