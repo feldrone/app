@@ -1,0 +1,50 @@
+{
+  "generatedBy": "scripts/identity-stamp.mjs",
+  "status": "DRAFT — human review required",
+  "mark": "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, unchanged)",
+  "company": {
+    "legalName": "SARL FEL DRONE",
+    "shortName": "FEL DRONE",
+    "rc": "36/00-0683602B26",
+    "city": "El Tarf",
+    "address": "Commune de Aïn El Assel, Wilaya d'El Tarf"
+  },
+  "dataRequiredFromCompany": [
+    "NIF (DGI)",
+    "NIS (ONS)",
+    "AI (inspection des impôts)",
+    "Arabic company name (no verified transliteration in repo)"
+  ],
+  "files": {
+    "concept-a-classic.svg": {
+      "sha256": "9732bbba2870303f67ef7eac11b50962e466e182466bd6c3cf78f4bb279c371e"
+    },
+    "concept-a-classic-inked.svg": {
+      "sha256": "841849495f8bcf898c74d90f995bbfa7ff81d73ae51125093978dd99af68f2a0"
+    },
+    "concept-a-classic-navy.svg": {
+      "sha256": "df2ede4074198b2c2a0c4a439b93c9b27f5db419d62dccc0aaaf0d9d080b50bd"
+    },
+    "concept-a-classic-rsvd.svg": {
+      "sha256": "de9c65dbeca416ee4e6ebf0f4e99c1c744e6be04275b2ca24ac3e99497d2c130"
+    },
+    "concept-a-classic-rsvd-inked.svg": {
+      "sha256": "c6ee525f39433ab1ab1d7a93a1438b05a6eea512eb130e87e33a27bf4af51e35"
+    },
+    "concept-b-modern.svg": {
+      "sha256": "50839908ee947486d490a81667b616084be15c8680a0c19974e8eceedcbc1bfd"
+    },
+    "concept-b-modern-inked.svg": {
+      "sha256": "9ee9642670f7603ba0fe0448820c96bf79aa31a47be00e337f47dab6c006e0dd"
+    },
+    "concept-b-modern-navy.svg": {
+      "sha256": "e3666ec396b27cc38ae4c2374d449375c45183c334e5e99f8e678f5eb4f28a4d"
+    },
+    "concept-c-compact.svg": {
+      "sha256": "6eb3e7b0382827725e6dd07c50f19a0cbe4c9861999a859869ff56809976f061"
+    },
+    "concept-c-compact-inked.svg": {
+      "sha256": "e7bae3c703484d6d0d60560e00ecebd4374cfd0c11ce0dc080a057fe356ae9f5"
+    }
+  }
+}
