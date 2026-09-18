@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
@@ -34,6 +35,31 @@ export default defineConfig({
           delete bundle[key];
           bundle["index.html"] = file;
         }
+      },
+    },
+    {
+      // Corporate-identity review pages (static, public/brand-review/…).
+      // Dev-only: Vite's SPA fallback rewrites extensionless directory URLs
+      // to the app shell, so serve the public file directly for the review
+      // routes. The production build serves the public/ directories
+      // natively — zero build impact, not part of production navigation.
+      name: "serve-brand-review",
+      apply: "serve",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = (req.url ?? "").split("?")[0];
+          if (url === "/brand-review/stamp" || url === "/brand-review/stamp/") {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            fs
+              .createReadStream(
+                path.resolve(__dirname, "public/brand-review/stamp/index.html"),
+              )
+              .pipe(res);
+            return;
+          }
+          next();
+        });
       },
     },
   ],
