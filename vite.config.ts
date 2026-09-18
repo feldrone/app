@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
@@ -34,6 +35,67 @@ export default defineConfig({
           delete bundle[key];
           bundle["index.html"] = file;
         }
+      },
+    },
+    {
+      // Corporate-identity review pages (static, public/brand-review/…).
+      // Dev-only: Vite's SPA fallback rewrites extensionless directory URLs
+      // to the app shell, so serve the public file directly for the review
+      // routes. The production build serves the public/ directories
+      // natively — zero build impact, not part of production navigation.
+      name: "serve-brand-review",
+      apply: "serve",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = (req.url ?? "").split("?")[0];
+          // Isolated review branch entry: the preview pane opens the port
+          // root, which is the SPA. On THIS branch only (dev-only, never in
+          // build/preview/production), redirect the bare root to the stamp
+          // review page. A redirect (not a rewrite) so the page's relative
+          // asset paths keep resolving. All app routes remain internally
+          // reachable via their own paths.
+          if (url === "/" || url === "/index.html") {
+            res.statusCode = 302;
+            res.setHeader("Location", "/brand-review/stamp/");
+            res.end();
+            return;
+          }
+          if (url === "/brand-review/stamp" || url === "/brand-review/stamp/") {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            // Review pages must never be served stale (cache hard-reset 2026-09-18):
+            // the live preview must always show the current branch HEAD artwork.
+            res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
+            fs
+              .createReadStream(
+                path.resolve(__dirname, "public/brand-review/stamp/index.html"),
+              )
+              .pipe(res);
+            return;
+          }
+          if (url === "/brand-review/invoice" || url === "/brand-review/invoice/") {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
+            fs
+              .createReadStream(
+                path.resolve(__dirname, "public/brand-review/invoice/index.html"),
+              )
+              .pipe(res);
+            return;
+          }
+          if (url.startsWith("/brand-review/")) {
+            // All review assets (SVGs, PDF, manifest) — same no-stale guarantee.
+            res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
+          }
+          next();
+        });
       },
     },
   ],

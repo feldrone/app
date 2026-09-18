@@ -1,0 +1,61 @@
+{
+  "generatedBy": "scripts/identity-stamp.mjs",
+  "status": "DRAFT — human review required",
+  "mark": "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, geometry unchanged)",
+  "markScales": {
+    "conceptA": 0.93,
+    "conceptB": 1,
+    "conceptC": 0.5
+  },
+  "markFillRule": "evenodd — required to preserve the C2 counters (same rule as the approved website rendering, src/components/Logo.tsx)",
+  "typography": {
+    "wordmark": "Lexend 700 — approved FEL DRONE wordmark face (brandmark.ts type.capRatio 0.7)",
+    "legalLines": "IBM Plex Sans 500 — approved body face"
+  },
+  "company": {
+    "legalName": "SARL FEL DRONE",
+    "shortName": "FEL DRONE",
+    "rc": "36/00-0683602B26",
+    "city": "El Tarf",
+    "address": "150 LOGEMENTS, COMMUNE AÏN EL ASSEL, WILAYA D'EL TARF",
+    "nameArcA": "SARL FEL DRONE"
+  },
+  "dataRequiredFromCompany": [
+    "NIF (DGI)",
+    "NIS (ONS)",
+    "AI (inspection des impôts)",
+    "Arabic company name (no verified transliteration in repo)"
+  ],
+  "files": {
+    "concept-a-classic.svg": {
+      "sha256": "334f65bc9d4d413973ad210443eb82d1b2feab9dd6b0127184cd7bb52eaa0582"
+    },
+    "concept-a-classic-inked.svg": {
+      "sha256": "b32f48581a728d82aad7b8730f6d5d49767aec099d30b2ceb47ccb43c73733a3"
+    },
+    "concept-a-classic-navy.svg": {
+      "sha256": "a7917cbe0372b40b87a4e08f34d0f3c116020b2b1110760d79ce47c578237451"
+    },
+    "concept-a-classic-rsvd.svg": {
+      "sha256": "8251d687924ee4c02861c985a260230c958afb59df91af7ecf234976014f6e05"
+    },
+    "concept-a-classic-rsvd-inked.svg": {
+      "sha256": "fcd801f64de41aec39d7a86fcea9033acdec1c86c9109472551b7e292885669e"
+    },
+    "concept-b-modern.svg": {
+      "sha256": "2172696d6a8637f8f2993fcb03360a4d4a8e39b0c2020ca5f0fe98657b54b9f4"
+    },
+    "concept-b-modern-inked.svg": {
+      "sha256": "16116e39b4cbc5debf01676185a22a192a24aca016b6e0ed107272db0a813ace"
+    },
+    "concept-b-modern-navy.svg": {
+      "sha256": "d8582c393f3bdcfb6c792bc6f9102e1b3649769e75d506ba3de3a2df194d2204"
+    },
+    "concept-c-compact.svg": {
+      "sha256": "ca18d3bc05266e01052dc36da172e78f6a6dfa71a644ae7da846913aaee0c156"
+    },
+    "concept-c-compact-inked.svg": {
+      "sha256": "fe5f4ba869e759810b145980db20042942ccc3c4059cca7c3f78cef686efb42a"
+    }
+  }
+}

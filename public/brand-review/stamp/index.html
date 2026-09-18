@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FEL DRONE — Identity Phase 2 · Corporate Stamp / Cachet · DRAFT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf8; --ink:#12151a; --navy:#0e1f30; --line:#e4e2dd; --line2:#d5d2ca;
+    --mute:#6b7280; --sig:#b4823c; --sigbg:#f4ead9; --ok:#1d6b3f; --warn:#a13b2c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 "IBM Plex Sans","IBM Plex Sans Arabic",ui-sans-serif,system-ui,sans-serif}
+  .wrap{max-width:1160px;margin:0 auto;padding:44px 26px 90px}
+  header{border-bottom:3px solid var(--ink);padding-bottom:18px;margin-bottom:26px}
+  .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 8px}
+  h1{font-size:27px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+  .sub{color:var(--mute);margin:0;font-size:13.5px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;word-break:break-all}
+  
+  .invoice-banner{margin:14px 0 4px;padding:10px 14px;background:#f2f6f9;border:1px solid #cfe0ea;border-left:3px solid #0e1f30;font-size:13px;line-height:1.5}
+  .invoice-banner a{color:#0e1f30;font-weight:700;text-decoration:none}
+  .invoice-banner a:hover{text-decoration:underline}
+  .invoice-banner .hint{display:block;font-size:11.5px;color:var(--mute);margin-top:2px}
+  .badge{display:inline-block;margin-top:14px;padding:7px 13px;border:1.5px solid var(--warn);
+    background:#fdf1ee;color:var(--warn);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  section{margin:0 0 54px}
+  .sec-head{display:flex;align-items:baseline;gap:13px;border-bottom:1px solid var(--line2);padding-bottom:10px;margin-bottom:18px}
+  .sec-num{font-size:21px;font-weight:700}
+  .sec-head h2{font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;margin:0;font-weight:700}
+  .sec-head .tag{margin-left:auto;font-size:10.5px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;text-align:right}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);padding:16px}
+  .card h3{margin:0 0 4px;font-size:15px}
+  .card .use{font-size:12.5px;color:var(--mute);margin:0 0 12px}
+  .stampbox{background:
+    linear-gradient(0deg, rgba(18,21,26,.025) 1px, transparent 1px) 0 0/100% 20px,
+    linear-gradient(90deg, rgba(18,21,26,.025) 1px, transparent 1px) 0 0/20px 100%, #fff;
+    display:flex;align-items:center;justify-content:center;padding:22px;min-height:220px}
+  .stampbox svg{width:100%;height:auto;display:block}
+  .cap{font-size:12px;color:var(--mute);padding:10px 12px;border-top:1px solid var(--line);background:#faf9f6}
+  .cap b{color:var(--ink);font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  thead th{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);background:#faf9f6}
+  .pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:2.5px 8px;border-radius:2px;white-space:nowrap}
+  .pill.legal{background:#e8f2ec;color:var(--ok);border:1px solid #bcd9c6}
+  .pill.rec{background:var(--sigbg);color:#7a4d12;border:1px solid #e3cda4}
+  .pill.opt{background:#eef0f2;color:#4b5563;border:1px solid #d7dbe0}
+  .pill.miss{background:#fdf1ee;color:var(--warn);border:1px solid #eac4bb}
+  .note{font-size:13px;color:var(--ink-soft,#3a3f47);background:#fff;border:1px solid var(--line);padding:13px 15px;margin-top:14px}
+  .note.warn{border-left:3px solid var(--warn)}
+  .note.ok{border-left:3px solid var(--ok)}
+  .note b{color:var(--ink)}
+  ul.dl{margin:10px 0 0;padding:0;list-style:none;font-size:13px}
+  ul.dl li{padding:6px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:170px 1fr;gap:10px}
+  ul.dl li:first-child{border-top:0}
+  ul.dl .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);padding-top:2px}
+  .sizes{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end}
+  .size-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .size-item .chip{background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .size-item .chip img{display:block}
+  .size-item .px{font-size:11px;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .doc{background:#fff;border:1px solid var(--line);box-shadow:0 1px 4px rgba(18,21,26,.06);
+    aspect-ratio:210/297;max-width:430px;margin:0 auto;position:relative;padding:6% 7%;overflow:hidden}
+  .doc .dh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--navy);padding-bottom:6px;margin-bottom:8px}
+  .doc .dh img.lockup{height:20px}
+  .doc .dh .co{font-size:8px;color:var(--mute);text-align:right;line-height:1.5}
+  .doc h4{margin:4px 0 8px;font-size:12px;letter-spacing:.06em}
+  .bar{height:6px;background:#eceae5;border-radius:1px;margin:5px 0}
+  .bar.s{width:55%}.bar.m{width:80%}.bar.l{width:95%}
+  .doc .table{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);margin:10px 0}
+  .doc .totals{display:flex;justify-content:flex-end;gap:8px;font-size:8.5px;margin-top:8px}
+  .doc .stampzone{position:absolute;right:7%;bottom:9%;width:27%;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .doc .stampzone img.stamp{width:100%;transform:rotate(-8deg);opacity:.92}
+  .doc .stampzone .sig{width:70%;border-top:1px solid var(--line2);font-size:7.5px;color:var(--mute);text-align:center;padding-top:3px}
+  .doc .wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-24deg);
+    font-size:34px;font-weight:700;letter-spacing:.3em;color:rgba(18,21,26,.05);white-space:nowrap;pointer-events:none}
+  .docsim-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:center;margin-top:8px}
+  footer{border-top:3px solid var(--ink);margin-top:64px;padding-top:16px;font-size:12px;color:var(--mute)}
+  footer b{color:var(--ink)}
+  .ar{font-family:"IBM Plex Sans Arabic","IBM Plex Sans",sans-serif}
+  .src{font-size:11.5px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">FEL DRONE — Corporate Visual Identity System · Phase 2</p>
+  <h1>Official Corporate Stamp / Cachet — Design Family</h1>
+  <p class="sub">Branch <span class="mono">brand/corporate-stamp</span> · base <span class="mono">main 59fbd8f</span> · prepared 2026-09-18 · production website untouched · <b>rendered build <span class="mono">9571478</span></b> (company name: SARL FEL DRONE, Lexend 700 gras — no other name text on any stamp)</p>
+  <span class="badge">Draft — Human Review Required</span>
+</header>
+
+<div class="invoice-banner">
+  <b>Phase 2 · document :</b> modèle de facture (FACTURE) en français —
+  <a href="/brand-review/invoice/">ouvrir le modèle de facture →</a>
+  <span class="hint">(aperçu A4 + export PDF — le cachet ci-dessus est référencé dans la zone « Cachet et signature »)</span>
+</div>
+
+<!-- ══ 01 · APPROVED LOGO ═══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>Approved Logo — unchanged source</h2><span class="tag">V12 “C2 STADIUM-D”</span></div>
+  <div class="grid g3">
+    <div class="card">
+      <div class="stampbox" style="min-height:180px"><img src="/brand/fel-drone-mark.svg" alt="FEL DRONE mark V12" style="width:150px"></div>
+      <div class="cap"><b>Symbol</b> — V12 C2 STADIUM-D. 160×160, 2u grid, D-plate whose structure is the F, r14 rotor pod. The <b>approved final</b> mark (docs/BRAND.md, human-approved).</div>
+    </div>
+    <div class="card">
+      <div class="stampbox" style="min-height:180px"><img src="/brand/fel-drone-lockup.svg" alt="FEL DRONE horizontal lockup" style="width:230px"></div>
+      <div class="cap"><b>Horizontal lockup</b> 1157×176 — mark + Lexend 700 wordmark. Production rendering: src/components/Logo.tsx from generated data (src/brand/brandmark.ts).</div>
+    </div>
+    <div class="card">
+      <div class="stampbox" style="min-height:180px"><img src="/brand/fel-drone-mark-mono.svg" alt="FEL DRONE mono mark" style="width:150px"></div>
+      <div class="cap"><b>Mono build</b> — the material language of a stamp: one flat ink, no strokes, gradients or effects. All three concepts below embed the approved mark <b>unchanged</b> (extracted from brandmark.ts by the generator — never redrawn).</div>
+    </div>
+  </div>
+  <div class="note ok"><b>Integrity:</b> the mark path in every stamp SVG is byte-identical to the production <span class="mono">BRAND.mark</span>
+  (extracted by <span class="mono">scripts/identity-stamp.mjs</span> at generation time; the production asset remains gated by
+  <span class="mono">npm run brand:check</span>). No redesign, no reinterpretation, no new geometry added to the mark.
+  Rendered with <span class="mono">fill-rule:evenodd</span> — exactly the rule the approved website rendering uses
+  (<span class="mono">src/components/Logo.tsx</span>) — which is what preserves the C2 counters (the F structure) as
+  negative space in the stamp reproduction.</div>
+</section>
+
+<!-- ══ 02 · LEGAL INFORMATION ANALYSIS ══════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>Legal-Information Analysis — Algeria</h2><span class="tag">read-only research · 2026-09-18</span></div>
+  <div class="note warn"><b>Headline finding [VERIFIED]: no Algerian legal text prescribes the content of a physical
+  company stamp (tampon / cachet).</b> The obligation to carry company-identification mentions attaches to the
+  <b>document</b> (the invoice), not to the stamp. The stamp is professional practice: Algerian business usage treats it as
+  the expected authentication element on invoices and letters, and administrative procedures (e.g. the NIF/NIS dossiers)
+  ask for the “cachet de l’entreprise”. Consequently, <b>no field below is legally mandatory on the physical stamp itself</b> —
+  the classes A/B/C reflect (A) legally established identifiers on documents, (B) professional stamp practice, (C) brand value-add.</div>
+
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:20px 0 8px">Authoritative sources checked</h3>
+  <table>
+    <thead><tr><th style="width:34%">Source</th><th>Establishes</th></tr></thead>
+    <tbody>
+      <tr><td><b>[LEGAL SOURCE]</b> Décret exécutif n° 05-468 du 10 décembre 2005 (JO N°80 du 11/12/2005) — official page: <span class="src">commerce.gov.dz/fr/reglementation/decret-executif-n05-468</span></td>
+        <td>Mentions obligatoires sur la <b>facture</b>, le bon de livraison et la facture récapitulative — vendeur : raison sociale, adresse, <b>NIF, NIS, RC, AI</b>, n° de facture, date, client, désignation, HT/TVA/TTC. (Secondary interpretation: the devis carries the same mentions.)</td></tr>
+      <tr><td><b>[LEGAL SOURCE]</b> CNRC / Sidjilcom — <span class="src">sidjilcom.cnrc.dz</span></td>
+        <td>Registre de commerce = official commercial registration (legal existence of the company). The extract records dénomination, <b>forme juridique</b>, adresse, capital, activité, gérance.</td></tr>
+      <tr><td><b>[LEGAL SOURCE]</b> DGI (Ministère des Finances) — <span class="src">mf.gov.dz / nifenligne.mf.gov.dz</span></td>
+        <td><b>NIF</b> = tax identification number (15/20 digits), issued by DGI, mandatory on invoices and fiscal declarations.</td></tr>
+      <tr><td><b>[LEGAL SOURCE]</b> ONS (Office National des Statistiques)</td>
+        <td><b>NIS</b> = statistical identification number, issued after NIF, mandatory on invoices for legal entities.</td></tr>
+      <tr><td>Algerian professional practice (e-invoicing platforms, company-formation guides)</td>
+        <td>Physical/digital company stamp (“cachet”) is the standard authentication element on invoices &amp; letters; “une facture sans cachet ne passe pas”. Practice — <b>not</b> a legal text.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:24px 0 8px">Field classification (values verified in repo <span class="mono">src/data/company.ts</span> — single source of company identity)</h3>
+  <table>
+    <thead><tr><th style="width:22%">Field</th><th style="width:30%">Verified value</th><th style="width:14%">Class</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Company name</td><td><span class="mono">SARL FEL DRONE</span> (legal name) · <span class="mono">FEL DRONE</span> (short) · Concept A top arc renders <b><span class="mono">SARL FEL DRONE</span></b> in gras/bold (Lexend 700 — company clarification 2026-09-18: "gras" = bold weight, not text content; B/C keep FEL DRONE)</td><td><span class="pill rec">B — Recommended</span></td><td>Legally required on the invoice (D.E. 05-468) [LEGAL SOURCE]; on the stamp: professional practice. Concept A shows the real company name in bold — no abbreviation or substitute text.</td></tr>
+      <tr><td>RC</td><td><span class="mono">36/00-0683602B26</span> (character-for-character, as issued)</td><td><span class="pill rec">B — Recommended</span></td><td>Primary legal identifier (CNRC); mandatory on the invoice [LEGAL SOURCE]; on the stamp: practice.</td></tr>
+      <tr><td>Address</td><td><span class="mono">Cité 150 Logements B, Aïn El Assel, El Tarf</span> (repo) — <b>headquarters form approved by the company 2026-09-18:</b> <span class="mono">150 LOGEMENTS, COMMUNE D'AÏN EL ASSEL, WILAYA D'EL TARF</span> <span class="ar">(حي 150 مسكن، بلدية عين العسل، ولاية الطارف)</span></td><td><span class="pill rec">B — Recommended</span></td><td>Required on the invoice [LEGAL SOURCE]; on the stamp: practice. Concept A arc form (review correction 2026-09-18): outer arc <span class="mono">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</span> · inner arc <span class="mono">RC … · WILAYA D'EL TARF</span>. The district is typeset as “150 Logements” — no additional address information.</td></tr>
+      <tr><td>NIF</td><td>— not in repo —</td><td><span class="pill miss">Data required</span></td><td>Legally required on invoices [LEGAL SOURCE]. Stamp slot reserved (Concept A “rsvd” variants). <b>Must be provided by the company — never fabricated.</b></td></tr>
+      <tr><td>NIS</td><td>— not in repo —</td><td><span class="pill miss">Data required</span></td><td>As NIF (ONS). Stamp slot reserved. <b>DATA REQUIRED FROM COMPANY.</b></td></tr>
+      <tr><td>AI (article d'imposition)</td><td>— not in repo —</td><td><span class="pill miss">Data required</span> <span class="pill opt">Optional on stamp</span></td><td>Invoice mention (local tax office). Not needed on the stamp; only if the company wants it.</td></tr>
+      <tr><td>Phone</td><td><span class="mono">+213 6 61 61 33 99</span></td><td><span class="pill opt">C — Optional</span></td><td>Verified in repo. Excluded from the stamp by design (legibility at 30–45 mm).</td></tr>
+      <tr><td>Email / website</td><td><span class="mono">contact.feldrone@gmail.com</span> · <span class="mono">feldrone.dz</span></td><td><span class="pill opt">C — Optional</span></td><td>Verified in repo. Excluded from the stamp by design.</td></tr>
+      <tr><td>Capital</td><td><span class="mono">1 000 000 DA</span> (repo: “internal record only”)</td><td><span class="pill opt">C — Optional</span></td><td>Verified but flagged internal-only in <span class="mono">company.ts</span>. Not placed on the stamp by default — <b>human decision</b> if it should appear.</td></tr>
+      <tr><td>Arabic company name</td><td>— not verified —</td><td><span class="pill miss">Data required</span></td><td>The site's Arabic UI uses the Latin name “FEL DRONE” inside Arabic copy. No verified Arabic denomination exists in the repo — <b>not invented</b>. A bilingual variant can be cut once the verified Arabic name is provided (top-arc slot geometry is ready).</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:24px 0 8px">Language decision (for review)</h3>
+  <div class="note"><b>Primary: French.</b> All verified legal identifiers are French-form (RC, SARL, French address); the
+  company's documents and invoice mentions are French per the regulatory regime. <b>Arabic:</b> official language of Algeria —
+  a bilingual stamp is professionally justified, but the verified Arabic company name is <b>not in the repo</b>
+  <span class="ar">(الاسم العربي للشركة غير متوفر في المشروع)</span> — transliterating it would be fabrication.
+  The concepts therefore ship <b>French</b>; the top-arc geometry of Concepts A/B accepts the Arabic name as a
+  drop-in replacement (same arc, RTL set) once provided. Full duplication of every field in two languages was rejected:
+  it halves the legible text budget and is not required by any source found.</div>
+</section>
+
+<!-- ══ 03 · CONCEPTS ════════════════════════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Stamp Concepts — rendered</h2><span class="tag">3 concepts · DRAFT</span></div>
+  <div class="grid g2">
+
+    <div class="card">
+      <h3>Concept A — Classic Corporate</h3>
+      <p class="use">Intended use: invoices, official letters, administrative dossiers · Recommended size: <b>45 mm</b></p>
+      <div class="stampbox"><!-- STAMP:concept-a-classic.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" role="img" aria-label="FEL DRONE cachet — Concept A Classic Corporate, 45 mm">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept A Classic Corporate, 45 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<title>FEL DRONE cachet — Concept A Classic Corporate, 45 mm</title>
+<circle cx="225" cy="225" r="222" fill="none" stroke="#000000" stroke-width="6"/>
+<circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
+<circle cx="38" cy="225" r="5" fill="#000000"/>
+<circle cx="412" cy="225" r="5" fill="#000000"/>
+<path id="a1-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a1-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a1-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a1-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a1-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a1-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(150.60 156.18) scale(0.93)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+</svg>
+<!-- STAMP:concept-a-classic.svg:END --></div>
+      <div class="cap"><b>A1 — manufacturing master.</b> Black on white. Double ring (0.6 / 0.4 mm), company name <b>SARL FEL DRONE</b> (Lexend 700, gras/bold — company clarification 2026-09-18) on the top arc, address — district + commune — on the outer bottom arc, RC + wilaya on the inner bottom arc (IBM Plex Sans), separator dots, approved mark centred (final scale 0.93, review 2026-09-18).</div>
+    </div>
+
+    <div class="card">
+      <h3>Concept A — reserved NIF / NIS slot</h3>
+      <p class="use">Same geometry, capacity demonstrated · Dotted placeholders are <b>not values</b></p>
+      <div class="stampbox"><!-- STAMP:concept-a-classic-rsvd.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" role="img" aria-label="FEL DRONE cachet — Concept A Classic Corporate, 45 mm, NIF/NIS slot reserved">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept A Classic Corporate, 45 mm, NIF/NIS slot reserved — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<title>FEL DRONE cachet — Concept A Classic Corporate, 45 mm, NIF/NIS slot reserved</title>
+<circle cx="225" cy="225" r="222" fill="none" stroke="#000000" stroke-width="6"/>
+<circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
+<circle cx="38" cy="225" r="5" fill="#000000"/>
+<circle cx="412" cy="225" r="5" fill="#000000"/>
+<path id="a4-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a4-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a4-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a4-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a4-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a4-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(150.60 156.18) scale(0.93)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<text x="225" y="316" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIF ··········</text>
+<text x="225" y="340" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIS ··········</text>
+</svg>
+<!-- STAMP:concept-a-classic-rsvd.svg:END --></div>
+      <div class="cap"><b>A2 — when NIF &amp; NIS are provided</b> (DATA REQUIRED FROM COMPANY), the two dotted lines are cut as real values without any geometry change. This is the recommended final content structure for invoice use.</div>
+    </div>
+
+    <div class="card">
+      <h3>Concept B — Modern Corporate</h3>
+      <p class="use">Intended use: quotes, reports, commercial correspondence · Recommended size: <b>50 mm</b></p>
+      <div class="stampbox"><!-- STAMP:concept-b-modern.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="FEL DRONE cachet — Concept B Modern Corporate, 50 mm">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept B Modern Corporate, 50 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<title>FEL DRONE cachet — Concept B Modern Corporate, 50 mm</title>
+<circle cx="250" cy="250" r="240" fill="none" stroke="#000000" stroke-width="5"/>
+<path id="b1-top" d="M 60.92 216.67 A 192 192 0 0 1 439.08 216.67" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="57.14" font-weight="700" letter-spacing="10" fill="#000000"><textPath href="#b1-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
+<path id="b1-bot" d="M 27.44 289.23 A 226 226 0 0 0 472.56 289.23" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="33.85" font-weight="600" letter-spacing="4" fill="#000000"><textPath href="#b1-bot" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(170.00 176.00) scale(1)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<text x="250" y="352" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="24.62" font-weight="500" letter-spacing="5" fill="#000000">EL TARF — ALGÉRIE</text>
+</svg>
+<!-- STAMP:concept-b-modern.svg:END --></div>
+      <div class="cap"><b>B1 — manufacturing master.</b> Single ring (0.5 mm), short name with wide tracking, RC on the bottom arc, larger mark, city line under the mark. More air, no secondary ring — contemporary but administratively credible.</div>
+    </div>
+
+    <div class="card">
+      <h3>Concept C — Compact Official</h3>
+      <p class="use">Intended use: daily documents, small forms, frequent use · Recommended size: <b>30 mm</b></p>
+      <div class="stampbox" style="min-height:190px"><!-- STAMP:concept-c-compact.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="FEL DRONE cachet — Concept C Compact Official, 30 mm">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept C Compact Official, 30 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<title>FEL DRONE cachet — Concept C Compact Official, 30 mm</title>
+<circle cx="150" cy="150" r="143" fill="none" stroke="#000000" stroke-width="5"/>
+<path id="c1-top" d="M 39.70 130.56 A 112 112 0 0 1 260.30 130.56" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="37.14" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#c1-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
+<path id="c1-bot" d="M 20.99 172.74 A 131 131 0 0 0 279.01 172.74" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="24.62" font-weight="600" letter-spacing="1.5" fill="#000000"><textPath href="#c1-bot" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(110.00 113.00) scale(0.5)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+</svg>
+<!-- STAMP:concept-c-compact.svg:END --></div>
+      <div class="cap"><b>C1 — manufacturing master.</b> Single ring (0.5 mm), name + RC only, mark 6.8 mm. Every stroke stays ≥ 0.5 mm at 30 mm. Address excluded — below the legible minimum at this size.</div>
+    </div>
+
+  </div>
+
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:26px 0 10px">Per-concept review sheet</h3>
+  <div class="grid g3">
+    <div class="card">
+      <h3 style="font-size:13.5px">A — Classic Corporate</h3>
+      <ul class="dl">
+        <li><span class="k">Structure</span><span>Company name SARL FEL DRONE (top, Lexend 700, gras/bold) · address district + commune (bottom arc 1) · RC + wilaya (bottom arc 2) · dots · mark. Reserved: NIF/NIS lines under mark.</span></li>
+        <li><span class="k">Size</span><span>45 mm master (also cut at 40/50 mm).</span></li>
+        <li><span class="k">Typography</span><span>Name in <b>Lexend 700</b> (approved FEL DRONE wordmark face, cap 2.8 mm). Legal lines in IBM Plex Sans 500 — address 1.5 mm, RC·wilaya 1.2 mm.</span></li>
+        <li><span class="k">Manufacturing</span><span>Rings 0.6/0.4 mm · name cap 2.8 mm · address 1.5 mm · RC·wilaya 1.2 mm · dots Ø1.0 mm · mark 12.6 mm ink, scale 0.93 (fill-rule:evenodd). Mono black.</span></li>
+        <li><span class="k">Advantages</span><span>Most complete identification; reads as an established Algerian company stamp; reserved NIF/NIS slot = no re-cut when data arrives.</span></li>
+        <li><span class="k">Risks</span><span>RC·wilaya arc at 1.2 mm cap is the finest text — at 30 mm it is below the minimum (hence 45 mm recommended); do not scale A below 40 mm.</span></li>
+        <li><span class="k">Status</span><span><span class="pill miss">Draft — human review required</span></span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13.5px">B — Modern Corporate</h3>
+      <ul class="dl">
+        <li><span class="k">Structure</span><span>Short name (top, Lexend 700) · RC (bottom) · city line under mark.</span></li>
+        <li><span class="k">Size</span><span>50 mm master (also cut at 45 mm).</span></li>
+        <li><span class="k">Typography</span><span>Name in <b>Lexend 700</b> (approved wordmark face, cap 4.0 mm, wide tracking). RC + city in IBM Plex Sans (2.2 / 1.6 mm).</span></li>
+        <li><span class="k">Manufacturing</span><span>Ring 0.5 mm · name cap 4.0 mm · RC 2.2 mm · city 1.6 mm · mark 13.6 mm ink, scale 1.00 (fill-rule:evenodd). Mono black.</span></li>
+        <li><span class="k">Advantages</span><span>Cleanest at a distance; largest mark of the family; strong on modern document layouts (reports, quotes).</span></li>
+        <li><span class="k">Risks</span><span>Carries less identification data than A — address absent; if the counterparty expects address on the stamp, choose A.</span></li>
+        <li><span class="k">Status</span><span><span class="pill miss">Draft — human review required</span></span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13.5px">C — Compact Official</h3>
+      <ul class="dl">
+        <li><span class="k">Structure</span><span>Short name (top, Lexend 700) · RC (bottom) · mark only.</span></li>
+        <li><span class="k">Size</span><span>30 mm master (up to 40 mm max).</span></li>
+        <li><span class="k">Typography</span><span>Name in <b>Lexend 700</b> (approved wordmark face, cap 2.6 mm). RC in IBM Plex Sans (1.6 mm).</span></li>
+        <li><span class="k">Manufacturing</span><span>Ring 0.5 mm · name cap 2.6 mm · RC 1.6 mm · mark 6.8 mm ink, scale 0.50 (fill-rule:evenodd). All strokes ≥ 0.5 mm at 30 mm.</span></li>
+        <li><span class="k">Advantages</span><span>Best for frequent stamping and narrow document margins; cheapest to produce; survives photocopy at 30 mm.</span></li>
+        <li><span class="k">Risks</span><span>Least information — fine for internal/quick use, not the primary invoice stamp if A/B is chosen for that role.</span></li>
+        <li><span class="k">Status</span><span><span class="pill miss">Draft — human review required</span></span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="note warn"><b>No concept is legally approved or final.</b> “Draft — human review required” until explicitly
+  approved. The manufacturing master is <b>monochrome black</b> for all concepts (ink stamp); navy exists for presentation only.</div>
+</section>
+
+<!-- ══ 04 · PHYSICAL SIZE SIMULATION ════════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Physical-Size Simulation</h2><span class="tag">true scale · CSS mm</span></div>
+  <p style="font-size:13px;color:var(--mute);margin:-6px 0 16px">Rendered at true physical size (CSS millimetres — 1 unit = 1 mm on the page, independent of screen DPI).
+  Each concept at 30 / 40 / 45 / 50 mm. Note where text begins to compress: A's address arc is the first element to fall below a comfortable minimum at 30 mm.</p>
+
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:18px 0 10px">Concept A — Classic (master 45 mm)</h3>
+  <div class="sizes">
+    <div class="size-item"><div class="chip" style="width:30mm;height:30mm"><img src="assets/concept-a-classic.svg?v=9571478" style="width:30mm;height:30mm" alt="A at 30mm"></div><span class="px">30 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:40mm;height:40mm"><img src="assets/concept-a-classic.svg?v=9571478" style="width:40mm;height:40mm" alt="A at 40mm"></div><span class="px">40 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:45mm;height:45mm"><img src="assets/concept-a-classic.svg?v=9571478" style="width:45mm;height:45mm" alt="A at 45mm"></div><span class="px">45 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:50mm;height:50mm"><img src="assets/concept-a-classic.svg?v=9571478" style="width:50mm;height:50mm" alt="A at 50mm"></div><span class="px">50 mm</span></div>
+  </div>
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:26px 0 10px">Concept B — Modern (master 50 mm)</h3>
+  <div class="sizes">
+    <div class="size-item"><div class="chip" style="width:30mm;height:30mm"><img src="assets/concept-b-modern.svg?v=9571478" style="width:30mm;height:30mm" alt="B at 30mm"></div><span class="px">30 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:40mm;height:40mm"><img src="assets/concept-b-modern.svg?v=9571478" style="width:40mm;height:40mm" alt="B at 40mm"></div><span class="px">40 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:45mm;height:45mm"><img src="assets/concept-b-modern.svg?v=9571478" style="width:45mm;height:45mm" alt="B at 45mm"></div><span class="px">45 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:50mm;height:50mm"><img src="assets/concept-b-modern.svg?v=9571478" style="width:50mm;height:50mm" alt="B at 50mm"></div><span class="px">50 mm</span></div>
+  </div>
+  <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:26px 0 10px">Concept C — Compact (master 30 mm)</h3>
+  <div class="sizes">
+    <div class="size-item"><div class="chip" style="width:30mm;height:30mm"><img src="assets/concept-c-compact.svg?v=9571478" style="width:30mm;height:30mm" alt="C at 30mm"></div><span class="px">30 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:40mm;height:40mm"><img src="assets/concept-c-compact.svg?v=9571478" style="width:40mm;height:40mm" alt="C at 40mm"></div><span class="px">40 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:45mm;height:45mm"><img src="assets/concept-c-compact.svg?v=9571478" style="width:45mm;height:45mm" alt="C at 45mm"></div><span class="px">45 mm</span></div>
+    <div class="size-item"><div class="chip" style="width:50mm;height:50mm"><img src="assets/concept-c-compact.svg?v=9571478" style="width:50mm;height:50mm" alt="C at 50mm"></div><span class="px">50 mm</span></div>
+  </div>
+</section>
+
+<!-- ══ 05 · INK SIMULATION ══════════════════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Ink Simulation</h2><span class="tag">black master · navy presentation</span></div>
+  <div class="grid g3">
+    <div class="card">
+      <div class="stampbox" style="min-height:200px">{{STAMP:concept-a-classic.svg}}</div>
+      <div class="cap"><b>5.1 — Digital master.</b> Solid black #000 on white. This is what the stamp maker receives. No gradients, no effects.</div>
+    </div>
+    <div class="card">
+      <div class="stampbox" style="min-height:200px"><!-- STAMP:concept-a-classic-inked.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" role="img" aria-label="FEL DRONE cachet — Concept A Classic Corporate, 45 mm">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept A Classic Corporate, 45 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<defs><filter id="ink-a2" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="457" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter></defs><title>FEL DRONE cachet — Concept A Classic Corporate, 45 mm</title>
+<g filter="url(#ink-a2)" opacity="0.93"><circle cx="225" cy="225" r="222" fill="none" stroke="#000000" stroke-width="6"/>
+<circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
+<circle cx="38" cy="225" r="5" fill="#000000"/>
+<circle cx="412" cy="225" r="5" fill="#000000"/>
+<path id="a2-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a2-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a2-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a2-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a2-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a2-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(150.60 156.18) scale(0.93)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g></g>
+</svg>
+<!-- STAMP:concept-a-classic-inked.svg:END --></div>
+      <div class="cap"><b>5.2 — Inked impression (simulated).</b> Subtle displacement + 93 % ink coverage simulating rubber-stamp spread on paper. Expect real impressions to vary ±10 % in density — the geometry was kept above 0.4 mm so legibility survives.</div>
+    </div>
+    <div class="card">
+      <div class="stampbox" style="min-height:200px"><!-- STAMP:concept-a-classic-navy.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" role="img" aria-label="FEL DRONE cachet — Concept A Classic Corporate, 45 mm">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept A Classic Corporate, 45 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<title>FEL DRONE cachet — Concept A Classic Corporate, 45 mm</title>
+<circle cx="225" cy="225" r="222" fill="none" stroke="#0e1f30" stroke-width="6"/>
+<circle cx="225" cy="225" r="152" fill="none" stroke="#0e1f30" stroke-width="4"/>
+<circle cx="38" cy="225" r="5" fill="#0e1f30"/>
+<circle cx="412" cy="225" r="5" fill="#0e1f30"/>
+<path id="a3-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#0e1f30"><textPath href="#a3-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a3-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#0e1f30"><textPath href="#a3-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a3-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#0e1f30"><textPath href="#a3-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#0e1f30" fill-rule="evenodd" transform="translate(150.60 156.18) scale(0.93)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+</svg>
+<!-- STAMP:concept-a-classic-navy.svg:END --></div>
+      <div class="cap"><b>5.3 — Navy presentation (brand ink #0e1f30).</b> For identity documents and brand collateral only. <b>The physical stamp remains monochrome black</b> (standard ink pad; navy pads fade unevenly).</div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <div class="stampbox" style="min-height:200px"><!-- STAMP:concept-a-classic-rsvd-inked.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 450" role="img" aria-label="FEL DRONE cachet — Concept A Classic Corporate, 45 mm, NIF/NIS slot reserved">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept A Classic Corporate, 45 mm, NIF/NIS slot reserved — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<defs><filter id="ink-a5" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="457" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter></defs><title>FEL DRONE cachet — Concept A Classic Corporate, 45 mm, NIF/NIS slot reserved</title>
+<g filter="url(#ink-a5)" opacity="0.93"><circle cx="225" cy="225" r="222" fill="none" stroke="#000000" stroke-width="6"/>
+<circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
+<circle cx="38" cy="225" r="5" fill="#000000"/>
+<circle cx="412" cy="225" r="5" fill="#000000"/>
+<path id="a5-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a5-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a5-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a5-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a5-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a5-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(150.60 156.18) scale(0.93)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<text x="225" y="316" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIF ··········</text>
+<text x="225" y="340" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIS ··········</text></g>
+</svg>
+<!-- STAMP:concept-a-classic-rsvd-inked.svg:END --></div>
+      <div class="cap"><b>5.4 — A2 inked (with NIF/NIS slot).</b> Placeholder state, simulated impression.</div>
+    </div>
+    <div class="card">
+      <div class="stampbox" style="min-height:200px"><!-- STAMP:concept-b-modern-inked.svg:BEGIN -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-label="FEL DRONE cachet — Concept B Modern Corporate, 50 mm">
+<!-- GENERATED by scripts/identity-stamp.mjs — do not hand-edit. -->
+<!-- FEL DRONE cachet — Concept B Modern Corporate, 50 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
+<defs><filter id="ink-b2" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="507" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter></defs><title>FEL DRONE cachet — Concept B Modern Corporate, 50 mm</title>
+<g filter="url(#ink-b2)" opacity="0.93"><circle cx="250" cy="250" r="240" fill="none" stroke="#000000" stroke-width="5"/>
+<path id="b2-top" d="M 60.92 216.67 A 192 192 0 0 1 439.08 216.67" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="57.14" font-weight="700" letter-spacing="10" fill="#000000"><textPath href="#b2-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
+<path id="b2-bot" d="M 27.44 289.23 A 226 226 0 0 0 472.56 289.23" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="33.85" font-weight="600" letter-spacing="4" fill="#000000"><textPath href="#b2-bot" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(170.00 176.00) scale(1)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<text x="250" y="352" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="24.62" font-weight="500" letter-spacing="5" fill="#000000">EL TARF — ALGÉRIE</text></g>
+</svg>
+<!-- STAMP:concept-b-modern-inked.svg:END --></div>
+      <div class="cap"><b>5.5 — B inked.</b> Simulated impression, 50 mm.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 06 · DOCUMENT SIMULATION ═════════════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2>Document Simulation</h2><span class="tag">visual simulation only</span></div>
+  <div class="note warn"><b>Visual simulations only.</b> The documents below are mock layouts for review. They are <b>not</b>
+  legally approved documents, carry no real client data, and no value or legal force. Grey bars stand in for body copy.</div>
+  <div class="grid g2">
+    <div>
+      <div class="doc">
+        <div class="dh"><img class="lockup" src="/brand/fel-drone-lockup.svg" alt=""><div class="co">FACTURE N° —<br>DATE : —<br>RC 36/00-0683602B26<br>NIF : [à compléter]<br>NIS : [à compléter]</div></div>
+        <h4>FACTURE</h4>
+        <div class="bar l"></div><div class="bar m"></div>
+        <div class="table"><div class="bar l" style="margin:8px 6px"></div><div class="bar m" style="margin:5px 6px 0"></div><div class="bar s" style="margin:5px 6px 8px"></div></div>
+        <div class="totals"><span>Total HT : —</span><span>TVA : —</span><span>Total TTC : —</span></div>
+        <div class="wm">SIMULATION</div>
+        <div class="stampzone"><img class="stamp" src="assets/concept-a-classic-inked.svg?v=9571478" alt=""><div class="sig">Cachet &amp; signature</div></div>
+      </div>
+      <div class="docsim-label">Invoice — Concept A (45 mm)</div>
+    </div>
+    <div>
+      <div class="doc">
+        <div class="dh"><img class="lockup" src="/brand/fel-drone-lockup.svg" alt=""><div class="co">DEVIS N° —<br>DATE : —<br>RC 36/00-0683602B26<br>NIF : [à compléter]<br>NIS : [à compléter]</div></div>
+        <h4>DEVIS — PROPOSITION D'INTERVENTION</h4>
+        <div class="bar l"></div><div class="bar l"></div><div class="bar m"></div>
+        <div class="table"><div class="bar m" style="margin:8px 6px"></div><div class="bar l" style="margin:5px 6px 0"></div><div class="bar s" style="margin:5px 6px 8px"></div></div>
+        <div class="bar m"></div><div class="bar s"></div>
+        <div class="wm">SIMULATION</div>
+        <div class="stampzone"><img class="stamp" src="assets/concept-b-modern-inked.svg?v=9571478" alt=""><div class="sig">Cachet &amp; signature</div></div>
+      </div>
+      <div class="docsim-label">Quotation — Concept B (50 mm)</div>
+    </div>
+    <div>
+      <div class="doc">
+        <div class="dh"><img class="lockup" src="/brand/fel-drone-lockup.svg" alt=""><div class="co">Cité 150 Logements B<br>Aïn El Assel, El Tarf<br>Tél : +213 6 61 61 33 99</div></div>
+        <h4>LETTRE — CORRESPONDANCE OFFICIELLE</h4>
+        <div class="bar s"></div><div class="bar l"></div><div class="bar l"></div><div class="bar m"></div>
+        <div style="height:10px"></div>
+        <div class="bar l"></div><div class="bar l"></div><div class="bar m"></div><div class="bar s"></div>
+        <div class="wm">SIMULATION</div>
+        <div class="stampzone"><img class="stamp" src="assets/concept-a-classic-inked.svg?v=9571478" alt=""><div class="sig">Le gérant</div></div>
+      </div>
+      <div class="docsim-label">Official letter — Concept A (45 mm)</div>
+    </div>
+    <div>
+      <div class="doc">
+        <div class="dh"><img class="lockup" src="/brand/fel-drone-lockup.svg" alt=""><div class="co">RAPPORT TECHNIQUE N° —<br>Mission : —<br>RC 36/00-0683602B26</div></div>
+        <h4>RAPPORT TECHNIQUE — INSPECTION DRONE</h4>
+        <div class="bar m"></div><div class="bar l"></div><div class="bar l"></div>
+        <div class="table"><div class="bar l" style="margin:8px 6px"></div><div class="bar m" style="margin:5px 6px 8px"></div></div>
+        <div class="bar l"></div><div class="bar s"></div>
+        <div class="wm">SIMULATION</div>
+        <div class="stampzone"><img class="stamp" src="assets/concept-c-compact-inked.svg?v=9571478" alt=""><div class="sig">Cachet &amp; signature</div></div>
+      </div>
+      <div class="docsim-label">Technical report — Concept C (30 mm, compact use)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 · MANUFACTURING SPEC ══════════════════════════════════════════════ -->
+<section>
+  <div class="sec-head"><span class="sec-num">07</span><h2>Manufacturing Constraints</h2><span class="tag">for the cutter / stamp maker</span></div>
+  <table>
+    <thead><tr><th style="width:30%">Constraint</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Master files</td><td><span class="mono">public/brand-review/stamp/assets/*.svg</span> (vector, mono black, 10 viewBox units = 1 mm). Regenerate with <span class="mono">node scripts/identity-stamp.mjs</span>. MANIFEST.json carries SHA-256 of every file.</td></tr>
+      <tr><td>Minimum stroke</td><td>≥ 0.4 mm (Concepts A/B/C all comply; C is designed at 30 mm so its 0.5 mm ring holds).</td></tr>
+      <tr><td>Typography</td><td>Company <b>name/wordmark in Lexend 700</b> (the approved FEL DRONE wordmark face — never IBM Plex for the name). Legal/data lines (address, RC, wilaya, city) in <b>IBM Plex Sans</b>, the approved body face.</td></tr>
+      <tr><td>Minimum text</td><td>Cap height ≥ 1.2 mm (A's RC·wilaya line — only at 45 mm); name/address lines 1.5–4.0 mm. Never below 1.2 mm for any cut size.</td></tr>
+      <tr><td>Letter spacing</td><td>Baked into the vector (0.05–1.0 mm equivalent per concept); the cutter sets text as outlines, no kerning at cut time.</td></tr>
+      <tr><td>Negative space</td><td>Clearest gap in the family: A's ring-to-text ≥ 2 mm at 45 mm; no detail denser than the mark's own r12 counter.</td></tr>
+      <tr><td>Ink spread</td><td>Simulated at ~0.15 mm (section 05). Keep ring ≥ 0.4 mm so a 0.2 mm spread never closes the ring-to-text gap.</td></tr>
+      <tr><td>Photocopy / scan</td><td>All concepts use solid ≥ 0.4 mm ink at 100 % density → survive A4 photocopy and scanning at 300 dpi (verified by geometry: no element &lt; 0.4 mm).</td></tr>
+      <tr><td>Reproduction</td><td>Black mono only for the physical stamp. Navy variant = presentation. No gradients, no shadows, no hairlines — by construction.</td></tr>
+      <tr><td>Material</td><td>Suggested (not specified): self-inking round stamp (45/50 mm) for office use; classic rubber + acrylic handle for the 30 mm daily stamp.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p><b>Not touched:</b> production website, routes, content, API, security, Vercel, GHA, main branch, existing brand
+  assets — this phase adds isolated review files only (<span class="mono">scripts/identity-stamp.mjs</span>,
+  <span class="mono">public/brand-review/stamp/…</span>, one dev-only Vite middleware). <b>Not part of production navigation.</b></p>
+  <p><b>Review protocol:</b> inspect 01–07 → choose the direction (A / B / C / combination / redirect) → provide the
+  DATA REQUIRED FROM COMPANY (NIF, NIS, optionally AI, Arabic name, decision on capital) → only then does the stamp
+  become final. Nothing here is legally approved or final. PR is the review boundary — not merged.</p>
+</footer>
+
+</div>
+</body>
+</html>
