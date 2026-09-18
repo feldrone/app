@@ -63,6 +63,11 @@ export default defineConfig({
           if (url === "/brand-review/stamp" || url === "/brand-review/stamp/") {
             res.statusCode = 200;
             res.setHeader("Content-Type", "text/html; charset=utf-8");
+            // Review pages must never be served stale (cache hard-reset 2026-09-18):
+            // the live preview must always show the current branch HEAD artwork.
+            res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
             fs
               .createReadStream(
                 path.resolve(__dirname, "public/brand-review/stamp/index.html"),
@@ -73,12 +78,21 @@ export default defineConfig({
           if (url === "/brand-review/invoice" || url === "/brand-review/invoice/") {
             res.statusCode = 200;
             res.setHeader("Content-Type", "text/html; charset=utf-8");
+            res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
             fs
               .createReadStream(
                 path.resolve(__dirname, "public/brand-review/invoice/index.html"),
               )
               .pipe(res);
             return;
+          }
+          if (url.startsWith("/brand-review/")) {
+            // All review assets (SVGs, PDF, manifest) — same no-stale guarantee.
+            res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
           }
           next();
         });
