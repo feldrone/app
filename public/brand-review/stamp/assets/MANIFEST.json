@@ -1,13 +1,18 @@
 {
   "generatedBy": "scripts/identity-stamp.mjs",
   "status": "DRAFT — human review required",
-  "mark": "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, unchanged)",
+  "mark": "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, geometry unchanged)",
+  "markFillRule": "evenodd — required to preserve the C2 counters (same rule as the approved website rendering, src/components/Logo.tsx)",
+  "typography": {
+    "wordmark": "Lexend 700 — approved FEL DRONE wordmark face (brandmark.ts type.capRatio 0.7)",
+    "legalLines": "IBM Plex Sans 500 — approved body face"
+  },
   "company": {
     "legalName": "SARL FEL DRONE",
     "shortName": "FEL DRONE",
     "rc": "36/00-0683602B26",
     "city": "El Tarf",
-    "address": "Commune de Aïn El Assel, Wilaya d'El Tarf"
+    "address": "150 LOGEMENTS, COMMUNE AÏN EL ASSEL, WILAYA D'EL TARF"
   },
   "dataRequiredFromCompany": [
     "NIF (DGI)",
@@ -17,34 +22,34 @@
   ],
   "files": {
     "concept-a-classic.svg": {
-      "sha256": "9732bbba2870303f67ef7eac11b50962e466e182466bd6c3cf78f4bb279c371e"
+      "sha256": "6fc742e07ef5e6dffa1d662226362d1e2b2e1a93d12a836192b10cf28a625d6f"
     },
     "concept-a-classic-inked.svg": {
-      "sha256": "841849495f8bcf898c74d90f995bbfa7ff81d73ae51125093978dd99af68f2a0"
+      "sha256": "c06652ba79ced47a7c11c48c5a97c3799bec0f508e5c0542f3a237d54176d2cf"
     },
     "concept-a-classic-navy.svg": {
-      "sha256": "df2ede4074198b2c2a0c4a439b93c9b27f5db419d62dccc0aaaf0d9d080b50bd"
+      "sha256": "afa9e944a0e6e4182f0bcfb0299e83f052f3b1f0265a6c6710cb96c819dcd6a1"
     },
     "concept-a-classic-rsvd.svg": {
-      "sha256": "de9c65dbeca416ee4e6ebf0f4e99c1c744e6be04275b2ca24ac3e99497d2c130"
+      "sha256": "2e5ee9e18616bed48d0d40fba551c326a26baabb729605db013433de4c1b8b16"
     },
     "concept-a-classic-rsvd-inked.svg": {
-      "sha256": "c6ee525f39433ab1ab1d7a93a1438b05a6eea512eb130e87e33a27bf4af51e35"
+      "sha256": "1f57e5929f47d2f97cc0855d6b586d1caf00653f2d70e10c45b476ce7c470502"
     },
     "concept-b-modern.svg": {
-      "sha256": "50839908ee947486d490a81667b616084be15c8680a0c19974e8eceedcbc1bfd"
+      "sha256": "fb7af1e08e4ad6ca2efb2486bcdac873fd8ac0c0146f24b9dc0c44a4ad08107e"
     },
     "concept-b-modern-inked.svg": {
-      "sha256": "9ee9642670f7603ba0fe0448820c96bf79aa31a47be00e337f47dab6c006e0dd"
+      "sha256": "fa4810673d6ff2fade2d918884f0bf31829dac8668812acf04d76cb351319210"
     },
     "concept-b-modern-navy.svg": {
-      "sha256": "e3666ec396b27cc38ae4c2374d449375c45183c334e5e99f8e678f5eb4f28a4d"
+      "sha256": "48c2ecafd49efeeab3ea448e718de3bf68d9a2675f9348b648377bccb897e8dd"
     },
     "concept-c-compact.svg": {
-      "sha256": "6eb3e7b0382827725e6dd07c50f19a0cbe4c9861999a859869ff56809976f061"
+      "sha256": "1b13edb573b6a369cfa32f1e4fd47590e94e1bed420459fe341334530da56f0e"
     },
     "concept-c-compact-inked.svg": {
-      "sha256": "e7bae3c703484d6d0d60560e00ecebd4374cfd0c11ce0dc080a057fe356ae9f5"
+      "sha256": "6f133b9f490b1ce6a9c7c3f9e2fd9a22259c3a07ff4313db379714ec52bc6b5a"
     }
   }
 }

@@ -48,10 +48,19 @@ const C = {
   city: pick("city"), // "El Tarf"
   addressLine2: pick("addressLine2"), // "Commune de Aïn El Assel, Wilaya d'El Tarf"
 };
-const ADDRESS_ARC = C.addressLine2
-  .replace(/^Commune de\s+/i, "")
-  .replace(/\s*,\s*/g, " · ")
-  .toUpperCase(); // "AÏN EL ASSEL · WILAYA D'EL TARF" — verified values, typeset uppercase
+/* Headquarters address (approved by the company, human review 2026-09-18):
+   "150 LOGEMENTS, COMMUNE D'AÏN EL ASSEL, WILAYA D'EL TARF"
+   (Arabic source: حي 150 مسكن، بلدية عين العسل، ولاية الطارف).
+   The street segment "150 Logements" is intentionally narrower than
+   company.ts addressLine1 ("Cité 150 Logements B"): the stamp carries
+   district + commune + wilaya only — no additional address information.
+   Commune/wilaya remain extracted from company.ts, typeset uppercase. */
+const AW = C.addressLine2.replace(/^Commune de\s+/i, "").toUpperCase(); // "AÏN EL ASSEL, WILAYA D'EL TARF"
+const [COMMUNE, WILAYA] = AW.split(", ");
+const STREET = "150 LOGEMENTS"; // human-approved 2026-09-18 (حي 150 مسكن)
+const ADDRESS_ARC_1 = `${STREET}, COMMUNE ${COMMUNE}`; // "150 LOGEMENTS, COMMUNE AÏN EL ASSEL"
+const ADDRESS_ARC_2 = WILAYA; // "WILAYA D'EL TARF"
+const STAMP_ADDRESS = `${STREET}, COMMUNE ${COMMUNE}, ${WILAYA}`;
 const CITY_ARC = `${C.city} — ALGÉRIE`.toUpperCase();
 const RC_LINE = `RC ${C.rc}`;
 
@@ -61,7 +70,14 @@ const RC_LINE = `RC ${C.rc}`;
    "-rsvd" variants render dotted placeholders, clearly not values.      */
 
 /* ── SVG helpers ──────────────────────────────────────────────────────────── */
+/* Typography: the company NAME (wordmark) is set in LEXEND — the approved
+   FEL DRONE wordmark face (see src/brand/brandmark.ts, capRatio 0.7),
+   weight 700 where the wordmark requires it. Legal/data lines (RC, address,
+   city) stay in the approved body face IBM Plex Sans. */
+const LEXEND = "'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif";
 const PLEX = "'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif";
+const LEX_CAP = 0.7; // Lexend cap ratio (brandmark.ts type.capRatio)
+const PLEX_CAP = 0.65; // Plex Sans cap ratio
 const INK = "#000000";
 const NAVY = "#0e1f30"; // brand ink (brandmark.ts colors.light) — presentation only
 
@@ -72,21 +88,26 @@ const topArc = (c, r) =>
 const bottomArc = (c, r) =>
   `M ${(c - 0.9848 * r).toFixed(2)} ${(c + 0.1736 * r).toFixed(2)} A ${r} ${r} 0 0 0 ${(c + 0.9848 * r).toFixed(2)} ${(c + 0.1736 * r).toFixed(2)}`;
 
-/** Plex Sans cap ratio ≈ 0.65 → font-size from desired cap height (mm units /10). */
-const fs = (cap) => (cap / 0.65).toFixed(2);
+/** font-size from desired cap height (mm units /10) for a given cap ratio. */
+const fs = (cap, ratio = PLEX_CAP) => (cap / ratio).toFixed(2);
 
-/** The approved mark centred on (c, cy) at the given scale of its 160 box. */
+/** The approved mark centred on (c, cy) at the given scale of its 160 box.
+    fill-rule:evenodd is REQUIRED — the C2 STADIUM-D outline's counters
+    (the F structure) are expressed by crossing subpaths, exactly as the
+    approved website rendering does (src/components/Logo.tsx uses
+    fillRule="evenodd"). With the SVG default (nonzero) the counters fill
+    and the mark collapses to a solid black block. */
 const markAt = (c, cy, s) =>
-  `<g fill="{ink}" transform="translate(${(c - 80 * s).toFixed(2)} ${(cy - 74 * s).toFixed(2)}) scale(${s})"><path d="${MARK}"/></g>`;
+  `<g fill="{ink}" fill-rule="evenodd" transform="translate(${(c - 80 * s).toFixed(2)} ${(cy - 74 * s).toFixed(2)}) scale(${s})"><path d="${MARK}"/></g>`;
 
 const ring = (c, r, w) => `<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="{ink}" stroke-width="${w}"/>`;
 const dot = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="{ink}"/>`;
 
-const arcText = (id, path, str, size, weight, spacing) =>
-  `<path id="${id}" d="${path}" fill="none"/><text font-family="${PLEX}" font-size="${size}" font-weight="${weight}" letter-spacing="${spacing}" fill="{ink}"><textPath href="#${id}" startOffset="50%" text-anchor="middle">${str}</textPath></text>`;
+const arcText = (id, path, str, size, weight, spacing, fam = PLEX) =>
+  `<path id="${id}" d="${path}" fill="none"/><text font-family="${fam}" font-size="${size}" font-weight="${weight}" letter-spacing="${spacing}" fill="{ink}"><textPath href="#${id}" startOffset="50%" text-anchor="middle">${str}</textPath></text>`;
 
-const lineText = (x, y, str, size, weight, spacing) =>
-  `<text x="${x}" y="${y}" text-anchor="middle" font-family="${PLEX}" font-size="${size}" font-weight="${weight}" letter-spacing="${spacing}" fill="{ink}">${str}</text>`;
+const lineText = (x, y, str, size, weight, spacing, fam = PLEX) =>
+  `<text x="${x}" y="${y}" text-anchor="middle" font-family="${fam}" font-size="${size}" font-weight="${weight}" letter-spacing="${spacing}" fill="{ink}">${str}</text>`;
 
 /** Assemble a full SVG. opts: {size, c, ink, filter, title, body} */
 const svg = (size, c, ink, filter, k, title, body) => {
@@ -107,8 +128,12 @@ ${group}
 };
 
 /* ── Concept A — Classic Corporate (45 mm master) ───────────────────────────
-   Double ring · full legal name top arc · RC + address bottom arcs ·
-   separator dots · C2 mark centred · (reserved NIF/NIS lines in -rsvd).    */
+   Double ring · full legal name top arc (Lexend 700 wordmark) ·
+   address (district + commune) outer bottom arc, RC + wilaya inner bottom
+   arc (Plex Sans legal lines) · separator dots · C2 mark centred ·
+   (reserved NIF/NIS lines in -rsvd).
+   Arc fits verified against real font advances: name 82.8% of 160°,
+   address 84.6%, RC·wilaya 78.1% — all lines ≥ 1.2 mm cap.               */
 function conceptA(ink, filter, reserved, k) {
   const c = 225, s = 450;
   const body = [
@@ -116,9 +141,9 @@ function conceptA(ink, filter, reserved, k) {
     ring(c, 152, 4),
     dot(c - 187, c, 5),
     dot(c + 187, c, 5),
-    arcText(`${k}-top`, topArc(c, 178), C.legalName.toUpperCase(), fs(28), 600, 5),
-    arcText(`${k}-bot1`, bottomArc(c, 214), RC_LINE, fs(18), 600, 2),
-    arcText(`${k}-bot2`, bottomArc(c, 186), ADDRESS_ARC, fs(14), 500, 2.5),
+    arcText(`${k}-top`, topArc(c, 178), C.legalName.toUpperCase(), fs(28, LEX_CAP), 700, 4, LEXEND),
+    arcText(`${k}-bot1`, bottomArc(c, 214), ADDRESS_ARC_1, fs(15), 500, 0.5),
+    arcText(`${k}-bot2`, bottomArc(c, 186), `${RC_LINE} · ${ADDRESS_ARC_2}`, fs(12), 500, 0.5),
     markAt(c, c, 0.8),
     ...(reserved
       ? [
@@ -138,7 +163,7 @@ function conceptB(ink, filter, k) {
   const c = 250, s = 500;
   const body = [
     ring(c, 240, 5),
-    arcText(`${k}-top`, topArc(c, 192), C.shortName.toUpperCase(), fs(40), 600, 10),
+    arcText(`${k}-top`, topArc(c, 192), C.shortName.toUpperCase(), fs(40, LEX_CAP), 700, 10, LEXEND),
     arcText(`${k}-bot`, bottomArc(c, 226), RC_LINE, fs(22), 600, 4),
     markAt(c, c, 0.86),
     lineText(c, 352, CITY_ARC, fs(16), 500, 5),
@@ -153,7 +178,7 @@ function conceptC(ink, filter, k) {
   const c = 150, s = 300;
   const body = [
     ring(c, 143, 5),
-    arcText(`${k}-top`, topArc(c, 112), C.shortName.toUpperCase(), fs(26), 600, 4),
+    arcText(`${k}-top`, topArc(c, 112), C.shortName.toUpperCase(), fs(26, LEX_CAP), 700, 4, LEXEND),
     arcText(`${k}-bot`, bottomArc(c, 131), RC_LINE, fs(16), 600, 1.5),
     markAt(c, c, 0.42),
   ].join("\n");
@@ -212,13 +237,18 @@ mkdirSync(outDir, { recursive: true });
 const manifest = {
   generatedBy: "scripts/identity-stamp.mjs",
   status: "DRAFT — human review required",
-  mark: "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, unchanged)",
+  mark: "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, geometry unchanged)",
+  markFillRule: "evenodd — required to preserve the C2 counters (same rule as the approved website rendering, src/components/Logo.tsx)",
+  typography: {
+    wordmark: "Lexend 700 — approved FEL DRONE wordmark face (brandmark.ts type.capRatio 0.7)",
+    legalLines: "IBM Plex Sans 500 — approved body face",
+  },
   company: {
     legalName: C.legalName,
     shortName: C.shortName,
     rc: C.rc,
     city: C.city,
-    address: `${C.addressLine2}`,
+    address: STAMP_ADDRESS, // headquarters as shown on the stamp — approved by the company 2026-09-18 (Arabic: حي 150 مسكن، بلدية عين العسل، ولاية الطارف)
   },
   dataRequiredFromCompany: ["NIF (DGI)", "NIS (ONS)", "AI (inspection des impôts)", "Arabic company name (no verified transliteration in repo)"],
   files: {},

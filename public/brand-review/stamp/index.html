@@ -6,7 +6,7 @@
 <title>FEL DRONE — Identity Phase 2 · Corporate Stamp / Cachet · DRAFT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#fbfaf8; --ink:#12151a; --navy:#0e1f30; --line:#e4e2dd; --line2:#d5d2ca;
@@ -115,7 +115,10 @@
   </div>
   <div class="note ok"><b>Integrity:</b> the mark path in every stamp SVG is byte-identical to the production <span class="mono">BRAND.mark</span>
   (extracted by <span class="mono">scripts/identity-stamp.mjs</span> at generation time; the production asset remains gated by
-  <span class="mono">npm run brand:check</span>). No redesign, no reinterpretation, no new geometry added to the mark.</div>
+  <span class="mono">npm run brand:check</span>). No redesign, no reinterpretation, no new geometry added to the mark.
+  Rendered with <span class="mono">fill-rule:evenodd</span> — exactly the rule the approved website rendering uses
+  (<span class="mono">src/components/Logo.tsx</span>) — which is what preserves the C2 counters (the F structure) as
+  negative space in the stamp reproduction.</div>
 </section>
 
 <!-- ══ 02 · LEGAL INFORMATION ANALYSIS ══════════════════════════════════════ -->
@@ -151,7 +154,7 @@
     <tbody>
       <tr><td>Company name</td><td><span class="mono">SARL FEL DRONE</span> (legal name) · <span class="mono">FEL DRONE</span> (short)</td><td><span class="pill rec">B — Recommended</span></td><td>Legally required on the invoice (D.E. 05-468) [LEGAL SOURCE]; on the stamp: professional practice.</td></tr>
       <tr><td>RC</td><td><span class="mono">36/00-0683602B26</span> (character-for-character, as issued)</td><td><span class="pill rec">B — Recommended</span></td><td>Primary legal identifier (CNRC); mandatory on the invoice [LEGAL SOURCE]; on the stamp: practice.</td></tr>
-      <tr><td>Address</td><td><span class="mono">Cité 150 Logements B, Aïn El Assel, El Tarf</span> (+ Plus Code Q9JM+542)</td><td><span class="pill rec">B — Recommended</span></td><td>Required on the invoice [LEGAL SOURCE]; on the stamp: practice. Short arc form: AÏN EL ASSEL · WILAYA D'EL TARF.</td></tr>
+      <tr><td>Address</td><td><span class="mono">Cité 150 Logements B, Aïn El Assel, El Tarf</span> (repo) — <b>headquarters form approved by the company 2026-09-18:</b> <span class="mono">150 LOGEMENTS, COMMUNE D'AÏN EL ASSEL, WILAYA D'EL TARF</span> <span class="ar">(حي 150 مسكن، بلدية عين العسل، ولاية الطارف)</span></td><td><span class="pill rec">B — Recommended</span></td><td>Required on the invoice [LEGAL SOURCE]; on the stamp: practice. Concept A arc form (review correction 2026-09-18): outer arc <span class="mono">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</span> · inner arc <span class="mono">RC … · WILAYA D'EL TARF</span>. The district is typeset as “150 Logements” — no additional address information.</td></tr>
       <tr><td>NIF</td><td>— not in repo —</td><td><span class="pill miss">Data required</span></td><td>Legally required on invoices [LEGAL SOURCE]. Stamp slot reserved (Concept A “rsvd” variants). <b>Must be provided by the company — never fabricated.</b></td></tr>
       <tr><td>NIS</td><td>— not in repo —</td><td><span class="pill miss">Data required</span></td><td>As NIF (ONS). Stamp slot reserved. <b>DATA REQUIRED FROM COMPANY.</b></td></tr>
       <tr><td>AI (article d'imposition)</td><td>— not in repo —</td><td><span class="pill miss">Data required</span> <span class="pill opt">Optional on stamp</span></td><td>Invoice mention (local tax office). Not needed on the stamp; only if the company wants it.</td></tr>
@@ -189,13 +192,13 @@
 <circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
 <circle cx="38" cy="225" r="5" fill="#000000"/>
 <circle cx="412" cy="225" r="5" fill="#000000"/>
-<path id="a1-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="43.08" font-weight="600" letter-spacing="5" fill="#000000"><textPath href="#a1-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
-<path id="a1-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="27.69" font-weight="600" letter-spacing="2" fill="#000000"><textPath href="#a1-bot1" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<path id="a1-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="21.54" font-weight="500" letter-spacing="2.5" fill="#000000"><textPath href="#a1-bot2" startOffset="50%" text-anchor="middle">AÏN EL ASSEL · WILAYA D'EL TARF</textPath></text>
-<g fill="#000000" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<path id="a1-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a1-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a1-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a1-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a1-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a1-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 </svg>
 <!-- STAMP:concept-a-classic.svg:END --></div>
-      <div class="cap"><b>A1 — manufacturing master.</b> Black on white. Double ring (0.6 / 0.4 mm), full legal name on the top arc, RC + address on the bottom arcs, separator dots, approved mark centred.</div>
+      <div class="cap"><b>A1 — manufacturing master.</b> Black on white. Double ring (0.6 / 0.4 mm), full legal name (Lexend 700) on the top arc, address — district + commune — on the outer bottom arc, RC + wilaya on the inner bottom arc (IBM Plex Sans), separator dots, approved mark centred.</div>
     </div>
 
     <div class="card">
@@ -210,10 +213,10 @@
 <circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
 <circle cx="38" cy="225" r="5" fill="#000000"/>
 <circle cx="412" cy="225" r="5" fill="#000000"/>
-<path id="a4-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="43.08" font-weight="600" letter-spacing="5" fill="#000000"><textPath href="#a4-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
-<path id="a4-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="27.69" font-weight="600" letter-spacing="2" fill="#000000"><textPath href="#a4-bot1" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<path id="a4-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="21.54" font-weight="500" letter-spacing="2.5" fill="#000000"><textPath href="#a4-bot2" startOffset="50%" text-anchor="middle">AÏN EL ASSEL · WILAYA D'EL TARF</textPath></text>
-<g fill="#000000" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<path id="a4-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a4-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a4-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a4-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a4-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a4-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 <text x="225" y="300" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIF ··········</text>
 <text x="225" y="324" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIS ··········</text>
 </svg>
@@ -230,9 +233,9 @@
 <!-- FEL DRONE cachet — Concept B Modern Corporate, 50 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
 <title>FEL DRONE cachet — Concept B Modern Corporate, 50 mm</title>
 <circle cx="250" cy="250" r="240" fill="none" stroke="#000000" stroke-width="5"/>
-<path id="b1-top" d="M 60.92 216.67 A 192 192 0 0 1 439.08 216.67" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="61.54" font-weight="600" letter-spacing="10" fill="#000000"><textPath href="#b1-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
+<path id="b1-top" d="M 60.92 216.67 A 192 192 0 0 1 439.08 216.67" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="57.14" font-weight="700" letter-spacing="10" fill="#000000"><textPath href="#b1-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
 <path id="b1-bot" d="M 27.44 289.23 A 226 226 0 0 0 472.56 289.23" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="33.85" font-weight="600" letter-spacing="4" fill="#000000"><textPath href="#b1-bot" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<g fill="#000000" transform="translate(181.20 186.36) scale(0.86)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<g fill="#000000" fill-rule="evenodd" transform="translate(181.20 186.36) scale(0.86)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 <text x="250" y="352" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="24.62" font-weight="500" letter-spacing="5" fill="#000000">EL TARF — ALGÉRIE</text>
 </svg>
 <!-- STAMP:concept-b-modern.svg:END --></div>
@@ -248,9 +251,9 @@
 <!-- FEL DRONE cachet — Concept C Compact Official, 30 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
 <title>FEL DRONE cachet — Concept C Compact Official, 30 mm</title>
 <circle cx="150" cy="150" r="143" fill="none" stroke="#000000" stroke-width="5"/>
-<path id="c1-top" d="M 39.70 130.56 A 112 112 0 0 1 260.30 130.56" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="600" letter-spacing="4" fill="#000000"><textPath href="#c1-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
+<path id="c1-top" d="M 39.70 130.56 A 112 112 0 0 1 260.30 130.56" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="37.14" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#c1-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
 <path id="c1-bot" d="M 20.99 172.74 A 131 131 0 0 0 279.01 172.74" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="24.62" font-weight="600" letter-spacing="1.5" fill="#000000"><textPath href="#c1-bot" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<g fill="#000000" transform="translate(116.40 118.92) scale(0.42)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<g fill="#000000" fill-rule="evenodd" transform="translate(116.40 118.92) scale(0.42)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 </svg>
 <!-- STAMP:concept-c-compact.svg:END --></div>
       <div class="cap"><b>C1 — manufacturing master.</b> Single ring (0.5 mm), name + RC only, mark 6.4 mm. Every stroke stays ≥ 0.5 mm at 30 mm. Address excluded — below the legible minimum at this size.</div>
@@ -263,20 +266,22 @@
     <div class="card">
       <h3 style="font-size:13.5px">A — Classic Corporate</h3>
       <ul class="dl">
-        <li><span class="k">Structure</span><span>Legal name (top) · RC (bottom arc 1) · address (bottom arc 2) · dots · mark. Reserved: NIF/NIS lines under mark.</span></li>
+        <li><span class="k">Structure</span><span>Legal name (top, Lexend 700) · address district + commune (bottom arc 1) · RC + wilaya (bottom arc 2) · dots · mark. Reserved: NIF/NIS lines under mark.</span></li>
         <li><span class="k">Size</span><span>45 mm master (also cut at 40/50 mm).</span></li>
-        <li><span class="k">Manufacturing</span><span>Rings 0.6/0.4 mm · name cap 2.8 mm · RC 1.8 mm · address 1.4 mm · dots Ø1.0 mm · mark 10.8 mm ink. Mono black.</span></li>
+        <li><span class="k">Typography</span><span>Name in <b>Lexend 700</b> (approved FEL DRONE wordmark face, cap 2.8 mm). Legal lines in IBM Plex Sans 500 — address 1.5 mm, RC·wilaya 1.2 mm.</span></li>
+        <li><span class="k">Manufacturing</span><span>Rings 0.6/0.4 mm · name cap 2.8 mm · address 1.5 mm · RC·wilaya 1.2 mm · dots Ø1.0 mm · mark 10.8 mm ink (fill-rule:evenodd). Mono black.</span></li>
         <li><span class="k">Advantages</span><span>Most complete identification; reads as an established Algerian company stamp; reserved NIF/NIS slot = no re-cut when data arrives.</span></li>
-        <li><span class="k">Risks</span><span>Address arc at 1.4 mm cap is the finest text — at 30 mm it is below the minimum (hence 45 mm recommended); do not scale A below 40 mm.</span></li>
+        <li><span class="k">Risks</span><span>RC·wilaya arc at 1.2 mm cap is the finest text — at 30 mm it is below the minimum (hence 45 mm recommended); do not scale A below 40 mm.</span></li>
         <li><span class="k">Status</span><span><span class="pill miss">Draft — human review required</span></span></li>
       </ul>
     </div>
     <div class="card">
       <h3 style="font-size:13.5px">B — Modern Corporate</h3>
       <ul class="dl">
-        <li><span class="k">Structure</span><span>Short name (top) · RC (bottom) · city line under mark.</span></li>
+        <li><span class="k">Structure</span><span>Short name (top, Lexend 700) · RC (bottom) · city line under mark.</span></li>
         <li><span class="k">Size</span><span>50 mm master (also cut at 45 mm).</span></li>
-        <li><span class="k">Manufacturing</span><span>Ring 0.5 mm · name cap 4.0 mm · RC 2.2 mm · city 1.6 mm · mark 11.7 mm ink. Mono black.</span></li>
+        <li><span class="k">Typography</span><span>Name in <b>Lexend 700</b> (approved wordmark face, cap 4.0 mm, wide tracking). RC + city in IBM Plex Sans (2.2 / 1.6 mm).</span></li>
+        <li><span class="k">Manufacturing</span><span>Ring 0.5 mm · name cap 4.0 mm · RC 2.2 mm · city 1.6 mm · mark 11.7 mm ink (fill-rule:evenodd). Mono black.</span></li>
         <li><span class="k">Advantages</span><span>Cleanest at a distance; largest mark of the family; strong on modern document layouts (reports, quotes).</span></li>
         <li><span class="k">Risks</span><span>Carries less identification data than A — address absent; if the counterparty expects address on the stamp, choose A.</span></li>
         <li><span class="k">Status</span><span><span class="pill miss">Draft — human review required</span></span></li>
@@ -285,9 +290,10 @@
     <div class="card">
       <h3 style="font-size:13.5px">C — Compact Official</h3>
       <ul class="dl">
-        <li><span class="k">Structure</span><span>Short name (top) · RC (bottom) · mark only.</span></li>
+        <li><span class="k">Structure</span><span>Short name (top, Lexend 700) · RC (bottom) · mark only.</span></li>
         <li><span class="k">Size</span><span>30 mm master (up to 40 mm max).</span></li>
-        <li><span class="k">Manufacturing</span><span>Ring 0.5 mm · name cap 2.6 mm · RC 1.6 mm · mark 5.7 mm ink. All strokes ≥ 0.5 mm at 30 mm.</span></li>
+        <li><span class="k">Typography</span><span>Name in <b>Lexend 700</b> (approved wordmark face, cap 2.6 mm). RC in IBM Plex Sans (1.6 mm).</span></li>
+        <li><span class="k">Manufacturing</span><span>Ring 0.5 mm · name cap 2.6 mm · RC 1.6 mm · mark 5.7 mm ink (fill-rule:evenodd). All strokes ≥ 0.5 mm at 30 mm.</span></li>
         <li><span class="k">Advantages</span><span>Best for frequent stamping and narrow document margins; cheapest to produce; survives photocopy at 30 mm.</span></li>
         <li><span class="k">Risks</span><span>Least information — fine for internal/quick use, not the primary invoice stamp if A/B is chosen for that role.</span></li>
         <li><span class="k">Status</span><span><span class="pill miss">Draft — human review required</span></span></li>
@@ -345,10 +351,10 @@
 <circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
 <circle cx="38" cy="225" r="5" fill="#000000"/>
 <circle cx="412" cy="225" r="5" fill="#000000"/>
-<path id="a2-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="43.08" font-weight="600" letter-spacing="5" fill="#000000"><textPath href="#a2-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
-<path id="a2-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="27.69" font-weight="600" letter-spacing="2" fill="#000000"><textPath href="#a2-bot1" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<path id="a2-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="21.54" font-weight="500" letter-spacing="2.5" fill="#000000"><textPath href="#a2-bot2" startOffset="50%" text-anchor="middle">AÏN EL ASSEL · WILAYA D'EL TARF</textPath></text>
-<g fill="#000000" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g></g>
+<path id="a2-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a2-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a2-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a2-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a2-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a2-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g></g>
 </svg>
 <!-- STAMP:concept-a-classic-inked.svg:END --></div>
       <div class="cap"><b>5.2 — Inked impression (simulated).</b> Subtle displacement + 93 % ink coverage simulating rubber-stamp spread on paper. Expect real impressions to vary ±10 % in density — the geometry was kept above 0.4 mm so legibility survives.</div>
@@ -363,10 +369,10 @@
 <circle cx="225" cy="225" r="152" fill="none" stroke="#0e1f30" stroke-width="4"/>
 <circle cx="38" cy="225" r="5" fill="#0e1f30"/>
 <circle cx="412" cy="225" r="5" fill="#0e1f30"/>
-<path id="a3-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="43.08" font-weight="600" letter-spacing="5" fill="#0e1f30"><textPath href="#a3-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
-<path id="a3-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="27.69" font-weight="600" letter-spacing="2" fill="#0e1f30"><textPath href="#a3-bot1" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<path id="a3-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="21.54" font-weight="500" letter-spacing="2.5" fill="#0e1f30"><textPath href="#a3-bot2" startOffset="50%" text-anchor="middle">AÏN EL ASSEL · WILAYA D'EL TARF</textPath></text>
-<g fill="#0e1f30" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<path id="a3-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#0e1f30"><textPath href="#a3-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a3-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#0e1f30"><textPath href="#a3-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a3-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#0e1f30"><textPath href="#a3-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#0e1f30" fill-rule="evenodd" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 </svg>
 <!-- STAMP:concept-a-classic-navy.svg:END --></div>
       <div class="cap"><b>5.3 — Navy presentation (brand ink #0e1f30).</b> For identity documents and brand collateral only. <b>The physical stamp remains monochrome black</b> (standard ink pad; navy pads fade unevenly).</div>
@@ -383,10 +389,10 @@
 <circle cx="225" cy="225" r="152" fill="none" stroke="#000000" stroke-width="4"/>
 <circle cx="38" cy="225" r="5" fill="#000000"/>
 <circle cx="412" cy="225" r="5" fill="#000000"/>
-<path id="a5-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="43.08" font-weight="600" letter-spacing="5" fill="#000000"><textPath href="#a5-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
-<path id="a5-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="27.69" font-weight="600" letter-spacing="2" fill="#000000"><textPath href="#a5-bot1" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<path id="a5-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="21.54" font-weight="500" letter-spacing="2.5" fill="#000000"><textPath href="#a5-bot2" startOffset="50%" text-anchor="middle">AÏN EL ASSEL · WILAYA D'EL TARF</textPath></text>
-<g fill="#000000" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<path id="a5-top" d="M 49.71 194.10 A 178 178 0 0 1 400.29 194.10" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="40.00" font-weight="700" letter-spacing="4" fill="#000000"><textPath href="#a5-top" startOffset="50%" text-anchor="middle">SARL FEL DRONE</textPath></text>
+<path id="a5-bot1" d="M 14.25 262.15 A 214 214 0 0 0 435.75 262.15" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="23.08" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a5-bot1" startOffset="50%" text-anchor="middle">150 LOGEMENTS, COMMUNE AÏN EL ASSEL</textPath></text>
+<path id="a5-bot2" d="M 41.83 257.29 A 186 186 0 0 0 408.17 257.29" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="18.46" font-weight="500" letter-spacing="0.5" fill="#000000"><textPath href="#a5-bot2" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26 · WILAYA D'EL TARF</textPath></text>
+<g fill="#000000" fill-rule="evenodd" transform="translate(161.00 165.80) scale(0.8)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 <text x="225" y="300" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIF ··········</text>
 <text x="225" y="324" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="20.00" font-weight="500" letter-spacing="1.5" fill="#000000">NIS ··········</text></g>
 </svg>
@@ -400,9 +406,9 @@
 <!-- FEL DRONE cachet — Concept B Modern Corporate, 50 mm — DRAFT, human review required. Mark: approved V12 C2 STADIUM-D, unchanged. -->
 <defs><filter id="ink-b2" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="507" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.4"/></filter></defs><title>FEL DRONE cachet — Concept B Modern Corporate, 50 mm</title>
 <g filter="url(#ink-b2)" opacity="0.93"><circle cx="250" cy="250" r="240" fill="none" stroke="#000000" stroke-width="5"/>
-<path id="b2-top" d="M 60.92 216.67 A 192 192 0 0 1 439.08 216.67" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="61.54" font-weight="600" letter-spacing="10" fill="#000000"><textPath href="#b2-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
+<path id="b2-top" d="M 60.92 216.67 A 192 192 0 0 1 439.08 216.67" fill="none"/><text font-family="'Lexend','IBM Plex Sans','Segoe UI',Arial,sans-serif" font-size="57.14" font-weight="700" letter-spacing="10" fill="#000000"><textPath href="#b2-top" startOffset="50%" text-anchor="middle">FEL DRONE</textPath></text>
 <path id="b2-bot" d="M 27.44 289.23 A 226 226 0 0 0 472.56 289.23" fill="none"/><text font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="33.85" font-weight="600" letter-spacing="4" fill="#000000"><textPath href="#b2-bot" startOffset="50%" text-anchor="middle">RC 36/00-0683602B26</textPath></text>
-<g fill="#000000" transform="translate(181.20 186.36) scale(0.86)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
+<g fill="#000000" fill-rule="evenodd" transform="translate(181.20 186.36) scale(0.86)"><path d="M12 4H118A30 30 0 0 1 148 34V114A30 30 0 0 1 118 144H40L12 116ZM40 32H106A12 12 0 0 1 118 44V104A12 12 0 0 1 106 116H40ZM40 60H78A14 14 0 0 1 78 88H40Z"/></g>
 <text x="250" y="352" text-anchor="middle" font-family="'IBM Plex Sans','Lexend','Segoe UI',Arial,sans-serif" font-size="24.62" font-weight="500" letter-spacing="5" fill="#000000">EL TARF — ALGÉRIE</text></g>
 </svg>
 <!-- STAMP:concept-b-modern-inked.svg:END --></div>
@@ -476,8 +482,9 @@
     <tbody>
       <tr><td>Master files</td><td><span class="mono">public/brand-review/stamp/assets/*.svg</span> (vector, mono black, 10 viewBox units = 1 mm). Regenerate with <span class="mono">node scripts/identity-stamp.mjs</span>. MANIFEST.json carries SHA-256 of every file.</td></tr>
       <tr><td>Minimum stroke</td><td>≥ 0.4 mm (Concepts A/B/C all comply; C is designed at 30 mm so its 0.5 mm ring holds).</td></tr>
-      <tr><td>Minimum text</td><td>Cap height ≥ 1.4 mm (A's address — only at 45 mm). Never below 1.4 mm for any cut size.</td></tr>
-      <tr><td>Letter spacing</td><td>Baked into the vector (0.25–1.0 mm equivalent per concept); the cutter sets text as outlines, no kerning at cut time.</td></tr>
+      <tr><td>Typography</td><td>Company <b>name/wordmark in Lexend 700</b> (the approved FEL DRONE wordmark face — never IBM Plex for the name). Legal/data lines (address, RC, wilaya, city) in <b>IBM Plex Sans</b>, the approved body face.</td></tr>
+      <tr><td>Minimum text</td><td>Cap height ≥ 1.2 mm (A's RC·wilaya line — only at 45 mm); name/address lines 1.5–4.0 mm. Never below 1.2 mm for any cut size.</td></tr>
+      <tr><td>Letter spacing</td><td>Baked into the vector (0.05–1.0 mm equivalent per concept); the cutter sets text as outlines, no kerning at cut time.</td></tr>
       <tr><td>Negative space</td><td>Clearest gap in the family: A's ring-to-text ≥ 2 mm at 45 mm; no detail denser than the mark's own r12 counter.</td></tr>
       <tr><td>Ink spread</td><td>Simulated at ~0.15 mm (section 05). Keep ring ≥ 0.4 mm so a 0.2 mm spread never closes the ring-to-text gap.</td></tr>
       <tr><td>Photocopy / scan</td><td>All concepts use solid ≥ 0.4 mm ink at 100 % density → survive A4 photocopy and scanning at 300 dpi (verified by geometry: no element &lt; 0.4 mm).</td></tr>
