@@ -63,10 +63,12 @@ const ADDRESS_ARC_2 = WILAYA; // "WILAYA D'EL TARF"
 const STAMP_ADDRESS = `${STREET}, COMMUNE ${COMMUNE}, ${WILAYA}`;
 const CITY_ARC = `${C.city} — ALGÉRIE`.toUpperCase();
 const RC_LINE = `RC ${C.rc}`;
-/* Concept A top-arc text: "GRAN" — company-requested name text, human review
-   2026-09-18 (replaces the legal-name rendering in A's name-arc text area
-   only; B/C keep "FEL DRONE"; all other legal/data lines unchanged). */
-const NAME_ARC_A = "GRAN";
+/* Concept A top-arc text: "SARL FEL DRONE" — the real company name, set in
+   GRAS: Lexend 700 bold, professional letter spacing, same top arc (r178,
+   160°) and centering as before. ("gras" = bold weight — a typographic style
+   request, not text content; company clarification 2026-09-18.)
+   B/C keep "FEL DRONE"; all other legal/data lines unchanged. */
+const NAME_ARC_A = "SARL FEL DRONE";
 
 /* Missing by design — DATA REQUIRED FROM COMPANY (never fabricated):
    NIF (DGI), NIS (ONS), AI (inspection des impôts), Arabic company name.
@@ -132,13 +134,14 @@ ${group}
 };
 
 /* ── Concept A — Classic Corporate (45 mm master) ───────────────────────────
-   Double ring · company name GRAN top arc (Lexend 700 wordmark) ·
+   Double ring · company name SARL FEL DRONE top arc (Lexend 700, gras/bold) ·
    address (district + commune) outer bottom arc, RC + wilaya inner bottom
    arc (Plex Sans legal lines) · separator dots · C2 mark centred at 0.88
    (+10 % vs 0.80, review 2026-09-18; NIF/NIS lines shifted +8u down to
    keep ≥ 0.8 mm clearance under the larger mark) ·
    (reserved NIF/NIS lines in -rsvd).
-   Arc fits verified against real font advances: GRAN 27.2% of 160°,
+   Arc fits verified against real font advances: SARL FEL DRONE 82.0% of 160°
+   (cap 28, ls 4 — same size as before; B fills 78.1% of its r192 arc),
    address 84.6%, RC·wilaya 78.1% — all lines ≥ 1.2 mm cap.               */
 function conceptA(ink, filter, reserved, k) {
   const c = 225, s = 450;
@@ -256,7 +259,7 @@ const manifest = {
     rc: C.rc,
     city: C.city,
     address: STAMP_ADDRESS, // headquarters as shown on the stamp — approved by the company 2026-09-18 (Arabic: حي 150 مسكن، بلدية عين العسل، ولاية الطارف)
-    nameArcA: "GRAN", // Concept A top-arc name text — company-requested 2026-09-18 (B/C keep "FEL DRONE")
+    nameArcA: "SARL FEL DRONE", // Concept A top-arc name text — company name in Lexend 700 (gras/bold), clarification 2026-09-18 (B/C keep "FEL DRONE")
   },
   dataRequiredFromCompany: ["NIF (DGI)", "NIS (ONS)", "AI (inspection des impôts)", "Arabic company name (no verified transliteration in repo)"],
   files: {},

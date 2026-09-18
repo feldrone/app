@@ -18,7 +18,7 @@
     "rc": "36/00-0683602B26",
     "city": "El Tarf",
     "address": "150 LOGEMENTS, COMMUNE AÏN EL ASSEL, WILAYA D'EL TARF",
-    "nameArcA": "GRAN"
+    "nameArcA": "SARL FEL DRONE"
   },
   "dataRequiredFromCompany": [
     "NIF (DGI)",
@@ -28,19 +28,19 @@
   ],
   "files": {
     "concept-a-classic.svg": {
-      "sha256": "a35206f294aa924027df51c688ba2988fa2437373aedb37b1c319da56074c1ab"
+      "sha256": "334f65bc9d4d413973ad210443eb82d1b2feab9dd6b0127184cd7bb52eaa0582"
     },
     "concept-a-classic-inked.svg": {
-      "sha256": "6f523e55c4e2f6d88f5d073aca25928cdce1e297862b31a6c0e097b9c936cf5e"
+      "sha256": "b32f48581a728d82aad7b8730f6d5d49767aec099d30b2ceb47ccb43c73733a3"
     },
     "concept-a-classic-navy.svg": {
-      "sha256": "9814e0f0472977b97cbd17a507aa1947c8cd168cafe634426e38d81156e7cb91"
+      "sha256": "a7917cbe0372b40b87a4e08f34d0f3c116020b2b1110760d79ce47c578237451"
     },
     "concept-a-classic-rsvd.svg": {
-      "sha256": "42a4b8b8e492500e81048818ce7f56752a29fe654138307f5d1e180c45745269"
+      "sha256": "8251d687924ee4c02861c985a260230c958afb59df91af7ecf234976014f6e05"
     },
     "concept-a-classic-rsvd-inked.svg": {
-      "sha256": "5d1168ac1eefd2fe0dffa0528179fb8a1d9c4b4c38ebbbc1f49e4daed5c3d5e1"
+      "sha256": "fcd801f64de41aec39d7a86fcea9033acdec1c86c9109472551b7e292885669e"
     },
     "concept-b-modern.svg": {
       "sha256": "2172696d6a8637f8f2993fcb03360a4d4a8e39b0c2020ca5f0fe98657b54b9f4"
