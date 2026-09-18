@@ -48,6 +48,18 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
           const url = (req.url ?? "").split("?")[0];
+          // Isolated review branch entry: the preview pane opens the port
+          // root, which is the SPA. On THIS branch only (dev-only, never in
+          // build/preview/production), redirect the bare root to the stamp
+          // review page. A redirect (not a rewrite) so the page's relative
+          // asset paths keep resolving. All app routes remain internally
+          // reachable via their own paths.
+          if (url === "/" || url === "/index.html") {
+            res.statusCode = 302;
+            res.setHeader("Location", "/brand-review/stamp/");
+            res.end();
+            return;
+          }
           if (url === "/brand-review/stamp" || url === "/brand-review/stamp/") {
             res.statusCode = 200;
             res.setHeader("Content-Type", "text/html; charset=utf-8");
