@@ -63,6 +63,10 @@ const ADDRESS_ARC_2 = WILAYA; // "WILAYA D'EL TARF"
 const STAMP_ADDRESS = `${STREET}, COMMUNE ${COMMUNE}, ${WILAYA}`;
 const CITY_ARC = `${C.city} — ALGÉRIE`.toUpperCase();
 const RC_LINE = `RC ${C.rc}`;
+/* Concept A top-arc text: "GRAN" — company-requested name text, human review
+   2026-09-18 (replaces the legal-name rendering in A's name-arc text area
+   only; B/C keep "FEL DRONE"; all other legal/data lines unchanged). */
+const NAME_ARC_A = "GRAN";
 
 /* Missing by design — DATA REQUIRED FROM COMPANY (never fabricated):
    NIF (DGI), NIS (ONS), AI (inspection des impôts), Arabic company name.
@@ -128,11 +132,13 @@ ${group}
 };
 
 /* ── Concept A — Classic Corporate (45 mm master) ───────────────────────────
-   Double ring · full legal name top arc (Lexend 700 wordmark) ·
+   Double ring · company name GRAN top arc (Lexend 700 wordmark) ·
    address (district + commune) outer bottom arc, RC + wilaya inner bottom
-   arc (Plex Sans legal lines) · separator dots · C2 mark centred ·
+   arc (Plex Sans legal lines) · separator dots · C2 mark centred at 0.88
+   (+10 % vs 0.80, review 2026-09-18; NIF/NIS lines shifted +8u down to
+   keep ≥ 0.8 mm clearance under the larger mark) ·
    (reserved NIF/NIS lines in -rsvd).
-   Arc fits verified against real font advances: name 82.8% of 160°,
+   Arc fits verified against real font advances: GRAN 27.2% of 160°,
    address 84.6%, RC·wilaya 78.1% — all lines ≥ 1.2 mm cap.               */
 function conceptA(ink, filter, reserved, k) {
   const c = 225, s = 450;
@@ -141,14 +147,14 @@ function conceptA(ink, filter, reserved, k) {
     ring(c, 152, 4),
     dot(c - 187, c, 5),
     dot(c + 187, c, 5),
-    arcText(`${k}-top`, topArc(c, 178), C.legalName.toUpperCase(), fs(28, LEX_CAP), 700, 4, LEXEND),
+    arcText(`${k}-top`, topArc(c, 178), NAME_ARC_A, fs(28, LEX_CAP), 700, 4, LEXEND),
     arcText(`${k}-bot1`, bottomArc(c, 214), ADDRESS_ARC_1, fs(15), 500, 0.5),
     arcText(`${k}-bot2`, bottomArc(c, 186), `${RC_LINE} · ${ADDRESS_ARC_2}`, fs(12), 500, 0.5),
-    markAt(c, c, 0.8),
+    markAt(c, c, 0.88),
     ...(reserved
       ? [
-          lineText(c, 300, "NIF ··········", fs(13), 500, 1.5),
-          lineText(c, 324, "NIS ··········", fs(13), 500, 1.5),
+          lineText(c, 308, "NIF ··········", fs(13), 500, 1.5),
+          lineText(c, 332, "NIS ··········", fs(13), 500, 1.5),
         ]
       : []),
   ].join("\n");
@@ -165,7 +171,7 @@ function conceptB(ink, filter, k) {
     ring(c, 240, 5),
     arcText(`${k}-top`, topArc(c, 192), C.shortName.toUpperCase(), fs(40, LEX_CAP), 700, 10, LEXEND),
     arcText(`${k}-bot`, bottomArc(c, 226), RC_LINE, fs(22), 600, 4),
-    markAt(c, c, 0.86),
+    markAt(c, c, 0.95),
     lineText(c, 352, CITY_ARC, fs(16), 500, 5),
   ].join("\n");
   return svg(s, c, ink, filter, k, "FEL DRONE cachet — Concept B Modern Corporate, 50 mm", body);
@@ -180,7 +186,7 @@ function conceptC(ink, filter, k) {
     ring(c, 143, 5),
     arcText(`${k}-top`, topArc(c, 112), C.shortName.toUpperCase(), fs(26, LEX_CAP), 700, 4, LEXEND),
     arcText(`${k}-bot`, bottomArc(c, 131), RC_LINE, fs(16), 600, 1.5),
-    markAt(c, c, 0.42),
+    markAt(c, c, 0.47),
   ].join("\n");
   return svg(s, c, ink, filter, k, "FEL DRONE cachet — Concept C Compact Official, 30 mm", body);
 }
@@ -249,6 +255,7 @@ const manifest = {
     rc: C.rc,
     city: C.city,
     address: STAMP_ADDRESS, // headquarters as shown on the stamp — approved by the company 2026-09-18 (Arabic: حي 150 مسكن، بلدية عين العسل، ولاية الطارف)
+    nameArcA: "GRAN", // Concept A top-arc name text — company-requested 2026-09-18 (B/C keep "FEL DRONE")
   },
   dataRequiredFromCompany: ["NIF (DGI)", "NIS (ONS)", "AI (inspection des impôts)", "Arabic company name (no verified transliteration in repo)"],
   files: {},
