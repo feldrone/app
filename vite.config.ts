@@ -70,6 +70,16 @@ export default defineConfig({
               .pipe(res);
             return;
           }
+          if (url === "/brand-review/invoice" || url === "/brand-review/invoice/") {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            fs
+              .createReadStream(
+                path.resolve(__dirname, "public/brand-review/invoice/index.html"),
+              )
+              .pipe(res);
+            return;
+          }
           next();
         });
       },

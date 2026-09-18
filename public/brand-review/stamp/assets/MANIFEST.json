@@ -2,6 +2,11 @@
   "generatedBy": "scripts/identity-stamp.mjs",
   "status": "DRAFT — human review required",
   "mark": "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, geometry unchanged)",
+  "markScales": {
+    "conceptA": 0.93,
+    "conceptB": 1,
+    "conceptC": 0.5
+  },
   "markFillRule": "evenodd — required to preserve the C2 counters (same rule as the approved website rendering, src/components/Logo.tsx)",
   "typography": {
     "wordmark": "Lexend 700 — approved FEL DRONE wordmark face (brandmark.ts type.capRatio 0.7)",
@@ -23,34 +28,34 @@
   ],
   "files": {
     "concept-a-classic.svg": {
-      "sha256": "0481e53739b2bf38d3a984a3f1b1de7cf1a0922b69f4c1d42c1a58545889d649"
+      "sha256": "a35206f294aa924027df51c688ba2988fa2437373aedb37b1c319da56074c1ab"
     },
     "concept-a-classic-inked.svg": {
-      "sha256": "f01aed049bf15aa71febaf7c64e023caf8ddf43726a4ca2a82cafcc2c4aa6f83"
+      "sha256": "6f523e55c4e2f6d88f5d073aca25928cdce1e297862b31a6c0e097b9c936cf5e"
     },
     "concept-a-classic-navy.svg": {
-      "sha256": "3d2002b2898f75e89fcb91da169ffe517e8ba3bc0b5ce8a517053a65a8e688b0"
+      "sha256": "9814e0f0472977b97cbd17a507aa1947c8cd168cafe634426e38d81156e7cb91"
     },
     "concept-a-classic-rsvd.svg": {
-      "sha256": "5b7818943d70771b59cb9f75420821eddf715562311de80f442ca15cc985a1fc"
+      "sha256": "42a4b8b8e492500e81048818ce7f56752a29fe654138307f5d1e180c45745269"
     },
     "concept-a-classic-rsvd-inked.svg": {
-      "sha256": "ab0bca8f1f2f47c0fb93768c6b3a1c754dca85c8e3ee88265126bfffb5ba1e85"
+      "sha256": "5d1168ac1eefd2fe0dffa0528179fb8a1d9c4b4c38ebbbc1f49e4daed5c3d5e1"
     },
     "concept-b-modern.svg": {
-      "sha256": "754565fd7f5bcace559133480b12c09cccd28dc9f38655ff3943d3410eb32568"
+      "sha256": "2172696d6a8637f8f2993fcb03360a4d4a8e39b0c2020ca5f0fe98657b54b9f4"
     },
     "concept-b-modern-inked.svg": {
-      "sha256": "dc2fffb36d0f8a73b68ee2f4191a7ce2ecccefed5f9ab9039c4441725ebb19e7"
+      "sha256": "16116e39b4cbc5debf01676185a22a192a24aca016b6e0ed107272db0a813ace"
     },
     "concept-b-modern-navy.svg": {
-      "sha256": "cb0b792bf2ffae3ee7bddab5661ed5e65a841280f4645f44828ccfa296b11458"
+      "sha256": "d8582c393f3bdcfb6c792bc6f9102e1b3649769e75d506ba3de3a2df194d2204"
     },
     "concept-c-compact.svg": {
-      "sha256": "9e89b09078ba5b89817983acaed81201f0a3ca98868fd657b8e1b999a6e72dc0"
+      "sha256": "ca18d3bc05266e01052dc36da172e78f6a6dfa71a644ae7da846913aaee0c156"
     },
     "concept-c-compact-inked.svg": {
-      "sha256": "e4e4bb8e177837977093af15a9e5232373d8c29f5c65b7446ba36a06066cf048"
+      "sha256": "fe5f4ba869e759810b145980db20042942ccc3c4059cca7c3f78cef686efb42a"
     }
   }
 }

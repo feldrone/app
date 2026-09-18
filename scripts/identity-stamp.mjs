@@ -150,11 +150,11 @@ function conceptA(ink, filter, reserved, k) {
     arcText(`${k}-top`, topArc(c, 178), NAME_ARC_A, fs(28, LEX_CAP), 700, 4, LEXEND),
     arcText(`${k}-bot1`, bottomArc(c, 214), ADDRESS_ARC_1, fs(15), 500, 0.5),
     arcText(`${k}-bot2`, bottomArc(c, 186), `${RC_LINE} · ${ADDRESS_ARC_2}`, fs(12), 500, 0.5),
-    markAt(c, c, 0.88),
+    markAt(c, c, 0.93),
     ...(reserved
       ? [
-          lineText(c, 308, "NIF ··········", fs(13), 500, 1.5),
-          lineText(c, 332, "NIS ··········", fs(13), 500, 1.5),
+          lineText(c, 316, "NIF ··········", fs(13), 500, 1.5),
+          lineText(c, 340, "NIS ··········", fs(13), 500, 1.5),
         ]
       : []),
   ].join("\n");
@@ -171,7 +171,7 @@ function conceptB(ink, filter, k) {
     ring(c, 240, 5),
     arcText(`${k}-top`, topArc(c, 192), C.shortName.toUpperCase(), fs(40, LEX_CAP), 700, 10, LEXEND),
     arcText(`${k}-bot`, bottomArc(c, 226), RC_LINE, fs(22), 600, 4),
-    markAt(c, c, 0.95),
+    markAt(c, c, 1),
     lineText(c, 352, CITY_ARC, fs(16), 500, 5),
   ].join("\n");
   return svg(s, c, ink, filter, k, "FEL DRONE cachet — Concept B Modern Corporate, 50 mm", body);
@@ -186,7 +186,7 @@ function conceptC(ink, filter, k) {
     ring(c, 143, 5),
     arcText(`${k}-top`, topArc(c, 112), C.shortName.toUpperCase(), fs(26, LEX_CAP), 700, 4, LEXEND),
     arcText(`${k}-bot`, bottomArc(c, 131), RC_LINE, fs(16), 600, 1.5),
-    markAt(c, c, 0.47),
+    markAt(c, c, 0.5),
   ].join("\n");
   return svg(s, c, ink, filter, k, "FEL DRONE cachet — Concept C Compact Official, 30 mm", body);
 }
@@ -244,6 +244,7 @@ const manifest = {
   generatedBy: "scripts/identity-stamp.mjs",
   status: "DRAFT — human review required",
   mark: "approved V12 C2 STADIUM-D (src/brand/brandmark.ts, geometry unchanged)",
+  markScales: { conceptA: 0.93, conceptB: 1, conceptC: 0.5 }, // review 2026-09-18 (final micro-adjustment)
   markFillRule: "evenodd — required to preserve the C2 counters (same rule as the approved website rendering, src/components/Logo.tsx)",
   typography: {
     wordmark: "Lexend 700 — approved FEL DRONE wordmark face (brandmark.ts type.capRatio 0.7)",
