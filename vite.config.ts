@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
@@ -34,6 +35,31 @@ export default defineConfig({
           delete bundle[key];
           bundle["index.html"] = file;
         }
+      },
+    },
+    {
+      // Partner visual-identity Phase 1 review page (static, public/).
+      // Dev-only: Vite's SPA fallback rewrites the extensionless directory
+      // URL to the app shell, so serve the public file directly for the
+      // exact review routes. The production build serves
+      // dist/partner-brand-review/index.html natively — no build impact.
+      name: "serve-partner-brand-review",
+      apply: "serve",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = (req.url ?? "").split("?")[0];
+          if (url === "/partner-brand-review" || url === "/partner-brand-review/") {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            fs
+              .createReadStream(
+                path.resolve(__dirname, "public/partner-brand-review/index.html"),
+              )
+              .pipe(res);
+            return;
+          }
+          next();
+        });
       },
     },
   ],

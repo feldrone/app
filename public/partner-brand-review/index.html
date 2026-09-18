@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARTNER — Phase 1 · Existing Partner Logo · Visual Review</title>
+<style>
+  :root{
+    --paper:#fbfaf8; --ink:#101820; --line:#dcd9d2; --muted:#5c6670;
+    --amber:#8a5a17; --amber-bg:#fdf6ea; --navy:#0e1f30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+  h1{font-size:26px;margin:0 0 6px;font-weight:700}
+  .sub{color:var(--muted);margin:0;font-size:14px}
+  .badge{display:inline-block;margin-top:14px;padding:6px 12px;border:1px solid var(--amber);
+    background:var(--amber-bg);color:var(--amber);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;font-weight:600}
+  .verdict{border:1px solid var(--amber);background:var(--amber-bg);padding:18px 20px;margin:0 0 40px}
+  .verdict h2{margin:0 0 8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+  .verdict p{margin:6px 0;font-size:14px}
+  .verdict strong{font-weight:650}
+  section{margin:0 0 52px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);
+    padding-bottom:10px;margin-bottom:18px}
+  .sec-num{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:.02em}
+  .sec-head h2{font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin:0;font-weight:700}
+  .sec-head .tag{margin-left:auto;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  figure{margin:0}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g6{grid-template-columns:repeat(6,1fr)}
+  @media (max-width:820px){.g2,.g3,.g6{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.g2,.g3,.g6{grid-template-columns:1fr}}
+  .imgbox{background:#fff;border:1px solid var(--line);overflow:hidden}
+  .imgbox .frame{width:100%;display:block}
+  .cap{font-size:12px;color:var(--muted);padding:9px 12px;border-top:1px solid var(--line);background:#faf9f6}
+  .cap b{color:var(--ink);font-weight:650}
+  /* CSS crops — pure cropping of the preserved pixels; no redrawn geometry */
+  .full{background:url("assets/partner-logo-evidence-vente-9182739.jpg") center/100% auto no-repeat;
+    aspect-ratio:500/750}
+  .prod1610{background:url("assets/partner-logo-evidence-vente-9182739.jpg") center/100% auto no-repeat;
+    aspect-ratio:16/10}
+  .zoom25{background:url("assets/partner-logo-evidence-vente-9182739.jpg") 42% 27%/250% no-repeat;
+    aspect-ratio:4/3}
+  .zoom4{background:url("assets/partner-logo-evidence-vente-9182739.jpg") 42% 27%/400% no-repeat;
+    aspect-ratio:4/3}
+  .tile{display:flex;flex-direction:column;min-height:180px}
+  .tile .swatch{flex:1;display:flex;align-items:center;justify-content:center;
+    background-repeat:no-repeat;background-position:42% 27%;background-size:300%;
+    background-image:url("assets/partner-logo-evidence-vente-9182739.jpg")}
+  .tile .lbl{font-size:11px;padding:8px 10px;border-top:1px solid var(--line);background:#fff;
+    display:flex;justify-content:space-between;color:var(--muted)}
+  .tile .lbl b{color:var(--ink);font-weight:650}
+  .bg-white{background-color:#ffffff}.bg-paper{background-color:#fbfaf8}
+  .bg-neutral{background-color:#e8e6e1}.bg-navy{background-color:#0e1f30}
+  .bg-black{background-color:#000000}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#faf9f6;width:230px}
+  td code, .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+    word-break:break-all}
+  .note{font-size:13px;color:var(--muted);background:#fff;border:1px solid var(--line);
+    padding:12px 14px;margin-top:14px}
+  .note b{color:var(--ink)}
+  .warn{border-left:3px solid var(--amber)}
+  .sizes{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
+  .size-item{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .size-item .chip{background:#fff;border:1px solid var(--line);display:flex;
+    align-items:center;justify-content:center;overflow:hidden;
+    background-repeat:no-repeat;background-position:42% 27%}
+  .size-item .px{font-size:11px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+  footer{border-top:2px solid var(--ink);margin-top:60px;padding-top:16px;
+    font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">Partner Visual Identity · Phase 1 · Review Boundary</p>
+  <h1>Existing Partner Logo — Discovery &amp; Visual Review</h1>
+  <p class="sub">Branch <span class="mono">partner/visual-identity</span> · base <span class="mono">main 59fbd8f</span> · prepared 2026-09-18 · no production UI changed</p>
+  <span class="badge">Awaiting human visual review</span>
+</header>
+
+<div class="verdict">
+  <h2>Discovery verdict</h2>
+  <p><strong>The only third-party brand logo visibly rendered on the existing website is the DJI mark
+  printed on the drone body in the Vente ("Pôle 01 — Commerce") service photograph</strong> — Pexels
+  photo 9182739, referenced by <span class="mono">src/lib/images.ts</span> as <span class="mono">serviceImages.vente</span>.</p>
+  <p>An exhaustive search of the implementation (working tree, full git history, built single-file app,
+  all content/data, all image/SVG references, <span class="mono">public/</span>, config, sibling repos) found
+  <strong>no partner logo asset</strong> — not local, not code-generated, not a referenced remote logo URL.
+  Every <span class="mono">logo</span> reference in the codebase is the FEL DRONE brand, which was
+  <strong>not</strong> used here.</p>
+  <p>The mark therefore exists <strong>inside a licensed stock photograph</strong> — a small, tilted,
+  photo-graded raster. No vector master, colour spec or clear-space definition exists in the project.
+  <strong>DJI is a third-party registered trademark:</strong> this page documents presence only. A partner
+  identity system cannot be mechanically derived from this source without official asset files and rights
+  clearance. <strong>Confirmation required before Phase 2:</strong> is this mark the intended partner logo,
+  or does the approved logo exist elsewhere?</p>
+</div>
+
+<!-- 01 -->
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>Existing Partner Logo — render as currently used</h2><span class="tag">Vente service photo</span></div>
+  <div class="grid g3">
+    <figure class="imgbox"><div class="frame full"></div>
+      <figcaption class="cap"><b>Full asset (2:3 original).</b> DJI mark visible on the drone body, upper-center of frame (≈27 % of image height).</figcaption></figure>
+    <figure class="imgbox"><div class="frame zoom4"></div>
+      <figcaption class="cap"><b>4× crop of the mark zone.</b> Pure crop of the preserved pixels — no redrawn geometry, no retouching.</figcaption></figure>
+    <figure class="imgbox"><div class="frame prod1610"></div>
+      <figcaption class="cap"><b>Simulated production crop (16:10 center, <span class="mono">fit=crop</span>).</b> The mark sits at the top edge of the crop the live site actually serves — <b>possibly partially clipped in production</b>. Confirm visually.</figcaption></figure>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>Source</h2><span class="tag">type: remote</span></div>
+  <table>
+    <tr><th>Source type</th><td><b>Remote</b> — licensed stock photo referenced by the website; the logo mark is inside the photo pixels (not a logo file, not generated code)</td></tr>
+    <tr><th>Placement on site</th><td>Vente service — "Pôle 01 — Commerce", image <span class="mono">serviceImages.vente</span></td></tr>
+    <tr><th>In-repo reference</th><td><span class="mono">src/lib/images.ts</span> → <span class="mono">vente: photo({ id: 9182739, ratio: [16, 10], … })</span></td></tr>
+    <tr><th>Production URL (desktop)</th><td class="mono">https://images.pexels.com/photos/9182739/pexels-photo-9182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1600&amp;h=1000&amp;fit=crop</td></tr>
+    <tr><th>Production URL (mobile srcSet)</th><td class="mono">https://images.pexels.com/photos/9182739/pexels-photo-9182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800&amp;h=500&amp;fit=crop</td></tr>
+    <tr><th>Original asset</th><td>Pexels photo <b>9182739</b> — "Close-up of DJI Mavic drone and controller on a textured surface at sunset" — Erik Mclean — 3648×5472 (2:3)<br><a class="mono" href="https://www.pexels.com/photo/close-up-photo-of-a-dji-mavic-drone-9182739/">pexels.com/photo/close-up-photo-of-a-dji-mavic-drone-9182739/</a></td></tr>
+    <tr><th>License</th><td>Pexels License — free for commercial use, no attribution required, modification permitted (per <span class="mono">docs/IMAGES.md</span>)</td></tr>
+    <tr><th>Preserved local copy</th><td><span class="mono">partner/brand/source/partner-logo-evidence-vente-9182739.jpg</span> (serving mirror: <span class="mono">public/partner-brand-review/assets/…</span>)<br>SHA-256 <span class="mono">5fdd4da8cb393d2f04a61e45223af699ce40d93dd1b59d6c494eba3f34f224c9</span> (500×750, CDN <span class="mono">w=500</span> variant of the same asset)</td></tr>
+  </table>
+  <div class="note warn"><b>Provenance note:</b> the build sandbox blocks direct outbound downloads, so the
+  preserved copy is the exact Pexels CDN asset at <span class="mono">w=500</span> (same photo ID, same
+  parameter family). The production reference URLs above remain the source of record; nothing on the site
+  was substituted.</div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Master</h2><span class="tag">preserved source</span></div>
+  <div class="grid g2">
+    <figure class="imgbox"><div class="frame full"></div>
+      <figcaption class="cap"><b>Preserved evidence copy</b> — <span class="mono">partner/brand/source/partner-logo-evidence-vente-9182739.jpg</span>, SHA-256 recorded in <span class="mono">partner/brand/source/SOURCE-RECORD.md</span>.</figcaption></figure>
+    <div>
+      <div class="note"><b>Master status: NO vector/logo master exists in the project.</b> The authority is
+      the photographic mark itself — a raster element of the stock photo. There is no approved SVG, no
+      colour specification, no grid/clear-space definition anywhere in the repository (verified across the
+      full git history).</div>
+      <div class="note warn"><b>Consequence:</b> "preserve the approved geometry" cannot be satisfied
+      against a vector master because none exists. Any attempt to reproduce the mark as clean vector
+      geometry would be a <b>redraw</b> — explicitly forbidden by the partner mission. This page therefore
+      presents <b>pixel-identical crops only</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Derived Variants — mechanical only</h2><span class="tag">no redrawn geometry</span></div>
+  <div class="grid g3">
+    <figure class="imgbox"><div class="frame zoom25"></div>
+      <figcaption class="cap"><b>Variant A — as-is crop.</b> Mark zone, 2.5× crop, original photo pixels.</figcaption></figure>
+    <figure class="imgbox"><div class="frame zoom25" style="background-color:#fff"></div>
+      <figcaption class="cap"><b>Variant B — crop on white panel.</b> Identical pixels, neutral backdrop (contrast test only).</figcaption></figure>
+    <figure class="imgbox"><div class="frame zoom25" style="background-color:#0e1f30"></div>
+      <figcaption class="cap"><b>Variant C — crop on navy panel.</b> Identical pixels, dark backdrop (contrast test only).</figcaption></figure>
+  </div>
+  <div class="note warn"><b>Boundary of mechanical derivation:</b> true logo variants (mono, reversed,
+  lockups, weights) <b>cannot</b> be derived from this source without redrawing the mark — which the mission
+  forbids. Sections 05/06 therefore test the <b>crop itself</b> (recognisability of the mark as rendered),
+  not redesigned variants.</div>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Background Test — light / dark</h2><span class="tag">crop recognisability</span></div>
+  <div class="grid g6">
+    <div class="tile imgbox"><div class="swatch bg-white"></div><div class="lbl"><b>White</b><span>#ffffff</span></div></div>
+    <div class="tile imgbox"><div class="swatch bg-paper"></div><div class="lbl"><b>Paper</b><span>#fbfaf8</span></div></div>
+    <div class="tile imgbox"><div class="swatch bg-neutral"></div><div class="lbl"><b>Light neutral</b><span>#e8e6e1</span></div></div>
+    <div class="tile imgbox"><div class="swatch bg-navy"></div><div class="lbl"><b>Navy</b><span>#0e1f30</span></div></div>
+    <div class="tile imgbox"><div class="swatch bg-black"></div><div class="lbl"><b>Black</b><span>#000000</span></div></div>
+    <div class="tile imgbox"><div class="swatch" style="background-size:auto 100%;background-position:center"></div><div class="lbl"><b>In photo</b><span>original</span></div></div>
+  </div>
+  <div class="note"><b>Observation (pixel-level, this copy):</b> the mark is a light grey/white emblem on a
+  grey drone body, lit by warm raking light. On dark panels the cropped mark zone reads acceptably; on
+  light panels it competes with the photo's bright upper area. Recognisability is <b>intrinsic to the
+  photograph</b> — no recoloring was applied (that would be a modification of the mark).</div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2>Size Test</h2><span class="tag">mark zone crop, 16–256 px</span></div>
+  <div class="sizes" id="sizes">
+    <div class="size-item"><div class="chip" style="width:16px;height:16px"></div><span class="px">16</span></div>
+    <div class="size-item"><div class="chip" style="width:24px;height:24px"></div><span class="px">24</span></div>
+    <div class="size-item"><div class="chip" style="width:32px;height:32px"></div><span class="px">32</span></div>
+    <div class="size-item"><div class="chip" style="width:48px;height:48px"></div><span class="px">48</span></div>
+    <div class="size-item"><div class="chip" style="width:64px;height:64px"></div><span class="px">64</span></div>
+    <div class="size-item"><div class="chip" style="width:96px;height:96px"></div><span class="px">96</span></div>
+    <div class="size-item"><div class="chip" style="width:128px;height:128px"></div><span class="px">128</span></div>
+    <div class="size-item"><div class="chip" style="width:256px;height:256px"></div><span class="px">256</span></div>
+  </div>
+  <script>
+    // deterministic background sizing for the mark-zone chips (no external assets)
+    document.querySelectorAll('#sizes .chip').forEach(function(el){
+      var s = parseInt(el.style.width, 10);
+      el.style.backgroundSize = (s * 4) + 'px auto';
+      el.style.backgroundPosition = '42% 27%';
+    });
+  </script>
+  <div class="grid g3" style="margin-top:20px">
+    <figure class="imgbox"><div class="frame" style="height:200px;background:url('assets/partner-logo-evidence-vente-9182739.jpg') center/cover no-repeat"></div><figcaption class="cap"><b>Full photo, small.</b> Mark not resolvable — texture only.</figcaption></figure>
+    <figure class="imgbox"><div class="frame" style="height:200px;background:url('assets/partner-logo-evidence-vente-9182739.jpg') center/cover no-repeat"></div><figcaption class="cap"><b>Full photo, medium.</b> Mark zone visible, mark at the edge of legibility.</figcaption></figure>
+    <figure class="imgbox"><div class="frame zoom4" style="aspect-ratio:auto;height:200px"></div><figcaption class="cap"><b>Mark zone crop, medium.</b> Best case: the mark is readable at this crop scale.</figcaption></figure>
+  </div>
+  <div class="note"><b>Observation:</b> as a usable logo, the mark is legible only from the <b>256 px crop
+  down to roughly 96–128 px</b> of the mark zone; below ~64 px it dissolves into texture. No minimum size
+  is claimed — the values above are observations of this specific raster, pending your visual review.</div>
+</section>
+
+<footer>
+  <p><b>Not touched:</b> FEL DRONE logo, brand system, typography, colours, routes, content, API, security,
+  Vercel config — unchanged. This phase adds new files only (<span class="mono">partner/brand/source/…</span>,
+  <span class="mono">public/partner-brand-review/…</span>); no production asset was overwritten or deleted.</p>
+  <p>Review protocol: inspect 01–06 in PR / live preview → confirm or redirect the source of the approved
+  partner logo → only then does Phase 2 (geometry sheet) start. Full record: <span class="mono">partner/brand/source/SOURCE-RECORD.md</span>.</p>
+</footer>
+
+</div>
+</body>
+</html>
